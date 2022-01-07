@@ -60,17 +60,49 @@
 		8476A1BC278815870062440A /* MVPAppImplementation */ = {
 			isa = PBXGroup;
 			children = (
+				8476A1D627882F770062440A /* Application */,
+				8476A1D9278831150062440A /* Scenes */,
+				8476A1D727882FCC0062440A /* Resources */,
+			);
+			path = MVPAppImplementation;
+			sourceTree = "<group>";
+		};
+		8476A1D627882F770062440A /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				8476A1BD278815870062440A /* AppDelegate.swift */,
 				8476A1BF278815870062440A /* SceneDelegate.swift */,
-				8476A1C1278815870062440A /* TaskListViewController.swift */,
-				8476A1D2278817870062440A /* TaskListPresenter.swift */,
-				8476A1D427881D680062440A /* Assembly.swift */,
-				8476A1C3278815870062440A /* Main.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		8476A1D727882FCC0062440A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				8476A1C6278815880062440A /* Assets.xcassets */,
 				8476A1C8278815880062440A /* LaunchScreen.storyboard */,
 				8476A1CB278815880062440A /* Info.plist */,
 			);
-			path = MVPAppImplementation;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8476A1D8278830110062440A /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				8476A1C1278815870062440A /* TaskListViewController.swift */,
+				8476A1D2278817870062440A /* TaskListPresenter.swift */,
+				8476A1D427881D680062440A /* Assembly.swift */,
+				8476A1C3278815870062440A /* Main.storyboard */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		8476A1D9278831150062440A /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				8476A1D8278830110062440A /* TaskList */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
