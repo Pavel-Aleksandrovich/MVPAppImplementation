@@ -10,7 +10,6 @@
 		8476A1BE278815870062440A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1BD278815870062440A /* AppDelegate.swift */; };
 		8476A1C0278815870062440A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1BF278815870062440A /* SceneDelegate.swift */; };
 		8476A1C2278815870062440A /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1C1278815870062440A /* TaskListViewController.swift */; };
-		8476A1C5278815870062440A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8476A1C3278815870062440A /* Main.storyboard */; };
 		8476A1C7278815880062440A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8476A1C6278815880062440A /* Assets.xcassets */; };
 		8476A1CA278815880062440A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8476A1C8278815880062440A /* LaunchScreen.storyboard */; };
 		8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D2278817870062440A /* TaskListPresenter.swift */; };
@@ -22,7 +21,6 @@
 		8476A1BD278815870062440A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8476A1BF278815870062440A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8476A1C1278815870062440A /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		8476A1C4278815870062440A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8476A1C6278815880062440A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8476A1C9278815880062440A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8476A1CB278815880062440A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 				8476A1C1278815870062440A /* TaskListViewController.swift */,
 				8476A1D2278817870062440A /* TaskListPresenter.swift */,
 				8476A1D427881D680062440A /* Assembly.swift */,
-				8476A1C3278815870062440A /* Main.storyboard */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -164,7 +161,6 @@
 			files = (
 				8476A1CA278815880062440A /* LaunchScreen.storyboard in Resources */,
 				8476A1C7278815880062440A /* Assets.xcassets in Resources */,
-				8476A1C5278815870062440A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,14 +182,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8476A1C3278815870062440A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8476A1C4278815870062440A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8476A1C8278815880062440A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -328,7 +316,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PZRD3MXDYZ;
-				INFOPLIST_FILE = MVPAppImplementation/Info.plist;
+				INFOPLIST_FILE = MVPAppImplementation/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -347,7 +335,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PZRD3MXDYZ;
-				INFOPLIST_FILE = MVPAppImplementation/Info.plist;
+				INFOPLIST_FILE = MVPAppImplementation/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
