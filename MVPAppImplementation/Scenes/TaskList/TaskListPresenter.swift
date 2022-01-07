@@ -15,7 +15,11 @@ protocol TaskListView: AnyObject {
     func setTitle(title: String?)
 }
 
-class TaskListPresenterImplementation: TaskListPresenter {
+protocol TaskListCellView {
+    
+}
+
+final class TaskListPresenterImplementation: TaskListPresenter {
     
     weak var view: TaskListView?
     

@@ -14,6 +14,7 @@
 		8476A1CA278815880062440A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8476A1C8278815880062440A /* LaunchScreen.storyboard */; };
 		8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D2278817870062440A /* TaskListPresenter.swift */; };
 		8476A1D527881D680062440A /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D427881D680062440A /* Assembly.swift */; };
+		8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DA27883CFB0062440A /* TaskListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8476A1CB278815880062440A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8476A1D2278817870062440A /* TaskListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPresenter.swift; sourceTree = "<group>"; };
 		8476A1D427881D680062440A /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		8476A1DA27883CFB0062440A /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				8476A1C1278815870062440A /* TaskListViewController.swift */,
 				8476A1D2278817870062440A /* TaskListPresenter.swift */,
 				8476A1D427881D680062440A /* Assembly.swift */,
+				8476A1DA27883CFB0062440A /* TaskListCell.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				8476A1D527881D680062440A /* Assembly.swift in Sources */,
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,
+				8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
