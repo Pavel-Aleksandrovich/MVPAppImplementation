@@ -16,7 +16,7 @@ protocol addTaskView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
 }
-class AddTaskPresenterImplementation: AddTaskPresenter {
+final class AddTaskPresenterImplementation: AddTaskPresenter {
     weak var view: addTaskView?
     
     func setViewBackgrounColor() {
