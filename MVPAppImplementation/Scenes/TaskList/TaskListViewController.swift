@@ -46,7 +46,11 @@ class TaskListViewController: UIViewController {
     private func setButtonAttributes() {
         button.backgroundColor = .green
         button.layer.cornerRadius = view.bounds.width/10
-        
+        button.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+    }
+    
+    @objc private func addTask() {
+        print("addTask")
     }
     
 }
