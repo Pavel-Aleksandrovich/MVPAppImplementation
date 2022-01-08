@@ -10,26 +10,43 @@ import UIKit
 class TaskListViewController: UIViewController {
     
     var presenter: TaskListPresenter!
-    let tableView = UITableView()
-    let reuseIdentifierCell = "cell"
+    private let tableView = UITableView()
+    private let reuseIdentifierCell = "cell"
+    private let button = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupViews()
+        presenter.setTitle()
+        setButtonContstraints()
+        setButtonAttributes()
+    }
+    
+    private func setupViews() {
         tableView.dataSource = self
         view.addSubview(tableView)
+        tableView.addSubview(button)
         
-        presenter.setTitle()
-        registerTableView()
-        setTableViewConstraints()
-        
-    }
-    
-    private func setTableViewConstraints() {
         tableView.frame = view.bounds
+        tableView.register(TaskListCell.self, forCellReuseIdentifier: reuseIdentifierCell)
     }
     
-    private func registerTableView() {
-        tableView.register(TaskListCell.self, forCellReuseIdentifier: reuseIdentifierCell)
+    private func setButtonContstraints() {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: view.bounds.width/5),
+            button.heightAnchor.constraint(equalToConstant: view.bounds.width/5),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        ])
+    }
+    
+    private func setButtonAttributes() {
+        button.backgroundColor = .green
+        button.layer.cornerRadius = view.bounds.width/10
+        
     }
     
 }
