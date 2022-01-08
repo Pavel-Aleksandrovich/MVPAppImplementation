@@ -15,6 +15,8 @@
 		8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D2278817870062440A /* TaskListPresenter.swift */; };
 		8476A1D527881D680062440A /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D427881D680062440A /* Assembly.swift */; };
 		8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DA27883CFB0062440A /* TaskListCell.swift */; };
+		8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DD278949660062440A /* AddTaskViewController.swift */; };
+		8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DF278949A90062440A /* AddTaskPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		8476A1D2278817870062440A /* TaskListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPresenter.swift; sourceTree = "<group>"; };
 		8476A1D427881D680062440A /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		8476A1DA27883CFB0062440A /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
+		8476A1DD278949660062440A /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		8476A1DF278949A90062440A /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +104,19 @@
 		8476A1D9278831150062440A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				8476A1DC278949410062440A /* AddTask */,
 				8476A1D8278830110062440A /* TaskList */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		8476A1DC278949410062440A /* AddTask */ = {
+			isa = PBXGroup;
+			children = (
+				8476A1DD278949660062440A /* AddTaskViewController.swift */,
+				8476A1DF278949A90062440A /* AddTaskPresenter.swift */,
+			);
+			path = AddTask;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,7 +193,9 @@
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,
 				8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */,
+				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
+				8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
