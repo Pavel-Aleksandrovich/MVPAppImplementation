@@ -12,9 +12,19 @@ class AddTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.setViewBackgrounColor()
+        presenter.setViewTitle()
     }
 }
 
 extension AddTaskViewController: addTaskView {
+    func setViewBackgrounColor(color: UIColor?) {
+        view.backgroundColor = color
+    }
+    
+    func setViewTitle(title: String?) {
+        self.title = title
+    }
+    
     
 }
