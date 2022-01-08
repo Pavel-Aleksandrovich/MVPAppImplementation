@@ -11,9 +11,9 @@ protocol AddTaskPresenter {
     
 }
 
-protocol addTaskView {
+protocol addTaskView: AnyObject {
     
 }
 class AddTaskPresenterImplementation: AddTaskPresenter {
-    weak var view: AddTaskViewController?
+    weak var view: addTaskView?
 }

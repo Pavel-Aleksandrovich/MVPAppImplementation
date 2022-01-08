@@ -1,18 +1,16 @@
 //
-//  Assembly.swift
+//  AddTaskAssembly.swift
 //  MVPAppImplementation
 //
-//  Created by pavel mishanin on 07.01.2022.
+//  Created by pavel mishanin on 08.01.2022.
 //
 
 import UIKit
 
-class Assembly {
-    
+class AddTaskAssembly {
     static func assembler() -> UIViewController {
-        
-        let view = TaskListViewController()
-        let presenter = TaskListPresenterImplementation()
+        let view = AddTaskViewController()
+        let presenter = AddTaskPresenterImplementation()
         view.presenter = presenter
         presenter.view = view
         

@@ -50,7 +50,8 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func addTask() {
-        print("addTask")
+        let vc = AddTaskAssembly.assembler()
+        navigationController?.pushViewController(vc, animated: false)
     }
     
 }
