@@ -27,7 +27,7 @@ class TaskListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter.onViewAttachet(view: self)
+        presenter.onViewAttached(view: self)
         setupViews()
         presenter.setTitle()
         setButtonContstraints()
@@ -75,7 +75,6 @@ extension TaskListViewController: TaskListView {
     }
     
     func addTask() {
-        print("tap")
 //        let vc = AddTaskAssembly.assembler()
 //        navigationController?.pushViewController(vc, animated: false)
     }
@@ -91,10 +90,10 @@ extension TaskListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
-//        cell.textLabel?.text = presenter.taskTitle?[indexPath.row].title
+        
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.textLabel?.text = task.title
-//        presenter.configure(cell: cell, row: indexPath.row)
+        
         return cell
     }
     

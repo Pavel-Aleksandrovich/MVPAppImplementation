@@ -10,9 +10,8 @@ import UIKit
 protocol TaskListPresenter {
     func setTitle()
     func numberOfTasks() -> Int
-    func configure(cell: UITableViewCell, row: Int)
     func getTaskByIndex(index: Int) -> TaskEntity
-    func onViewAttachet(view: TaskListView)
+    func onViewAttached(view: TaskListView)
     func addTaskButtonTapped()
 }
 
@@ -30,17 +29,11 @@ final class TaskListPresenterImpl: TaskListPresenter {
     private weak var view: TaskListView?
     private var tasks = [TaskEntity]()
     
-    func onViewAttachet(view: TaskListView) {
+    func onViewAttached(view: TaskListView) {
         self.view = view
     }
     func setTitle() {
         view?.setTitle(title: "Tasks")
-    }
-    
-    func configure(cell: UITableViewCell, row: Int) {
-        let task = tasks[row]
-        cell.textLabel?.text = task.title
-        
     }
     
     func numberOfTasks() -> Int {

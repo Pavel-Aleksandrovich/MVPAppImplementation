@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskListAssembler {
+final class TaskListAssembler {
     
     static func assembly() -> UIViewController {
         
