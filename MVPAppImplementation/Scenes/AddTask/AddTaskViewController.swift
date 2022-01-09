@@ -20,6 +20,13 @@ class AddTaskViewController: UIViewController {
         textField.center = view.center
         textField.placeholder = "Enter the text"
         textField.backgroundColor = .green
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
+    }
+    
+    @objc private func saveButtonPressed() {
+        let addTask = TaskEntity(title: textField.text!)
+        presenter.addButtonPressed(parametrs: addTask)
     }
 }
 

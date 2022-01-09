@@ -8,15 +8,26 @@
 import UIKit
 
 class TaskListViewController: UIViewController {
-    
-    var presenter: TaskListPresenter!
+    private enum Constants {
+        static let IDENTIFIER_CELL = "TaskCell"
+    }
+    private var presenter: TaskListPresenter!
     private let tableView = UITableView()
-    private let reuseIdentifierCell = "cell"
-    private let button = UIButton()
+    private let addTaskButton = UIButton()
+    
+    init(presenter: TaskListPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter.onViewAttachet(view: self)
         setupViews()
         presenter.setTitle()
         setButtonContstraints()
@@ -26,32 +37,31 @@ class TaskListViewController: UIViewController {
     private func setupViews() {
         tableView.dataSource = self
         view.addSubview(tableView)
-        tableView.addSubview(button)
+        tableView.addSubview(addTaskButton)
         
         tableView.frame = view.bounds
-        tableView.register(TaskListCell.self, forCellReuseIdentifier: reuseIdentifierCell)
+        tableView.register(TaskListCell.self, forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
     }
     
     private func setButtonContstraints() {
-        button.translatesAutoresizingMaskIntoConstraints = false
+        addTaskButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: view.bounds.width/5),
-            button.heightAnchor.constraint(equalToConstant: view.bounds.width/5),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+            addTaskButton.widthAnchor.constraint(equalToConstant: view.bounds.width/5),
+            addTaskButton.heightAnchor.constraint(equalToConstant: view.bounds.width/5),
+            addTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
     }
     
     private func setButtonAttributes() {
-        button.backgroundColor = .green
-        button.layer.cornerRadius = view.bounds.width/10
-        button.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+        addTaskButton.backgroundColor = .green
+        addTaskButton.layer.cornerRadius = view.bounds.width/10
+        addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func addTask() {
-        let vc = AddTaskAssembly.assembler()
-        navigationController?.pushViewController(vc, animated: false)
+    @objc private func addTaskButtonTapped() {
+        presenter.addTaskButtonTapped()
     }
     
 }
@@ -64,18 +74,27 @@ extension TaskListViewController: TaskListView {
         self.title = title
     }
     
+    func addTask() {
+        print("tap")
+//        let vc = AddTaskAssembly.assembler()
+//        navigationController?.pushViewController(vc, animated: false)
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
 
 extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return presenter.numberOfTasks()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifierCell, for: indexPath) as! TaskListCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
+//        cell.textLabel?.text = presenter.taskTitle?[indexPath.row].title
+        let task = presenter.getTaskByIndex(index: indexPath.row)
+        cell.textLabel?.text = task.title
+//        presenter.configure(cell: cell, row: indexPath.row)
         return cell
     }
     

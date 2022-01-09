@@ -8,9 +8,15 @@
 import UIKit
 
 class AddTaskAssembly {
-    static func assembler() -> UIViewController {
+    var addTaskPresenterDelegatew: AddTaskPresenterDelegate?
+    
+    init(addTaskPresenterDelegate: AddTaskPresenterDelegate?) {
+        self.addTaskPresenterDelegatew = addTaskPresenterDelegate
+    }
+    
+    func assembler() -> UIViewController {
         let view = AddTaskViewController()
-        let presenter = AddTaskPresenterImplementation()
+        let presenter = AddTaskPresenterImplementation(delegate: addTaskPresenterDelegatew)
         view.presenter = presenter
         presenter.view = view
         
