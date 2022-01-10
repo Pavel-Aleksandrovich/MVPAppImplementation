@@ -31,7 +31,7 @@ class AddTaskViewController: UIViewController {
         textField.placeholder = "Enter the text"
         textField.backgroundColor = .green
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButtonPressed))
     }
     
     @objc private func saveButtonPressed() {
@@ -40,7 +40,7 @@ class AddTaskViewController: UIViewController {
     }
 }
 
-extension AddTaskViewController: addTaskView {
+extension AddTaskViewController: AddTaskView {
     func setViewBackgrounColor(color: UIColor?) {
         view.backgroundColor = color
     }

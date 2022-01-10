@@ -17,21 +17,27 @@ protocol TaskListPresenter {
 
 protocol TaskListView: AnyObject {
     func setTitle(title: String?)
-    func addTask()
+    func refreshTasksView()
 }
 
 protocol TaskListCellView {
     
 }
 
-final class TaskListPresenterImpl: TaskListPresenter {
+final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     
     private weak var view: TaskListView?
     private var tasks = [TaskEntity]()
+    var router: TaskViewRouter
+    
+    init(router: TaskViewRouter) {
+        self.router = router
+    }
     
     func onViewAttached(view: TaskListView) {
         self.view = view
     }
+    
     func setTitle() {
         view?.setTitle(title: "Tasks")
     }
@@ -40,12 +46,17 @@ final class TaskListPresenterImpl: TaskListPresenter {
         return tasks.count
     }
     
+    func addTaskPresenter(presenter: AddTaskPresenter, task: TaskEntity) {
+        tasks.append(task)
+        view?.refreshTasksView()
+    }
+    
     func getTaskByIndex(index: Int) -> TaskEntity {
         let task = tasks[index]
         return task
     }
     
     func addTaskButtonTapped() {
-        view?.addTask()
+        router.presentAddTask(addTaskPresenterDelegate: self)
     }
 }

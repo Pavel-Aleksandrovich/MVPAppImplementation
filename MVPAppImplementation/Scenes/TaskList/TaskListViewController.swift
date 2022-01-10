@@ -40,7 +40,8 @@ class TaskListViewController: UIViewController {
         tableView.addSubview(addTaskButton)
         
         tableView.frame = view.bounds
-        tableView.register(TaskListCell.self, forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
+        tableView.register(TaskListCell.self,
+                           forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
     }
     
     private func setButtonContstraints() {
@@ -63,22 +64,18 @@ class TaskListViewController: UIViewController {
     @objc private func addTaskButtonTapped() {
         presenter.addTaskButtonTapped()
     }
-    
 }
 
 // MARK: - TaskListView
 
 extension TaskListViewController: TaskListView {
+    func refreshTasksView() {
+        tableView.reloadData()
+    }
     
     func setTitle(title: String?) {
         self.title = title
     }
-    
-    func addTask() {
-//        let vc = AddTaskAssembly.assembler()
-//        navigationController?.pushViewController(vc, animated: false)
-    }
-    
 }
 
 // MARK: - UITableViewDataSource

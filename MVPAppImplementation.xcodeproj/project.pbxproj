@@ -19,6 +19,8 @@
 		8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DF278949A90062440A /* AddTaskPresenter.swift */; };
 		8476A1E2278963C00062440A /* AddTaskAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E1278963C00062440A /* AddTaskAssembler.swift */; };
 		8476A1E62789812F0062440A /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E52789812F0062440A /* TaskEntity.swift */; };
+		8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E7278BE9F20062440A /* TaskViewRouter.swift */; };
+		8476A1EA278BFA510062440A /* AddTaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E9278BFA510062440A /* AddTaskRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		8476A1DF278949A90062440A /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
 		8476A1E1278963C00062440A /* AddTaskAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskAssembler.swift; sourceTree = "<group>"; };
 		8476A1E52789812F0062440A /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
+		8476A1E7278BE9F20062440A /* TaskViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewRouter.swift; sourceTree = "<group>"; };
+		8476A1E9278BFA510062440A /* AddTaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 				8476A1D2278817870062440A /* TaskListPresenter.swift */,
 				8476A1D427881D680062440A /* TaskListAssembler.swift */,
 				8476A1DA27883CFB0062440A /* TaskListCell.swift */,
+				8476A1E7278BE9F20062440A /* TaskViewRouter.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 				8476A1DD278949660062440A /* AddTaskViewController.swift */,
 				8476A1DF278949A90062440A /* AddTaskPresenter.swift */,
 				8476A1E1278963C00062440A /* AddTaskAssembler.swift */,
+				8476A1E9278BFA510062440A /* AddTaskRouter.swift */,
 			);
 			path = AddTask;
 			sourceTree = "<group>";
@@ -205,8 +211,10 @@
 				8476A1C2278815870062440A /* TaskListViewController.swift in Sources */,
 				8476A1E2278963C00062440A /* AddTaskAssembler.swift in Sources */,
 				8476A1D527881D680062440A /* TaskListAssembler.swift in Sources */,
+				8476A1EA278BFA510062440A /* AddTaskRouter.swift in Sources */,
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
 				8476A1E62789812F0062440A /* TaskEntity.swift in Sources */,
+				8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,
 				8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */,
 				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,

@@ -15,23 +15,25 @@ protocol AddTaskPresenter {
     func setViewBackgrounColor()
     func setViewTitle()
     func addButtonPressed(parametrs: TaskEntity)
-    func onViewAttached(view: addTaskView)
+    func onViewAttached(view: AddTaskView)
 }
 
-protocol addTaskView: AnyObject {
+protocol AddTaskView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
 }
 
 final class AddTaskPresenterImpl: AddTaskPresenter {
-    private weak var view: addTaskView?
-    private weak var delegate: AddTaskPresenterDelegate?
+    private weak var view: AddTaskView?
+    private var delegate: AddTaskPresenterDelegate
+    private var router: AddTaskRouter
     
-    init(delegate: AddTaskPresenterDelegate?) {
+    init(router: AddTaskRouter, delegate: AddTaskPresenterDelegate) {
+        self.router = router
         self.delegate = delegate
     }
     
-    func onViewAttached(view: addTaskView) {
+    func onViewAttached(view: AddTaskView) {
         self.view = view
     }
     
@@ -44,6 +46,6 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
     }
     
     func addButtonPressed(parametrs: TaskEntity) {
-        delegate?.addTaskPresenter(presenter: self, task: parametrs)
+        delegate.addTaskPresenter(presenter: self, task: parametrs)
     }
 }

@@ -11,9 +11,10 @@ final class TaskListAssembler {
     
     static func assembly() -> UIViewController {
         
-        let presenter = TaskListPresenterImpl()
+        let router = TaskViewRouterImpl()
+        let presenter = TaskListPresenterImpl(router: router)
         let view = TaskListViewController(presenter: presenter)
-        
+        router.taskListViewController = view 
         return view
     }
 }
