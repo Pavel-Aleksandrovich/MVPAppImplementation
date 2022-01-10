@@ -16,6 +16,7 @@ class AddTaskViewController: UIViewController {
     
     private var presenter: AddTaskPresenter!
     private let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
+    private let buttonSave = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
     
     init(presenter: AddTaskPresenter) {
         self.presenter = presenter
@@ -31,13 +32,16 @@ class AddTaskViewController: UIViewController {
         presenter.onViewAttached(view: self)
         presenter.setViewBackgrounColor()
         presenter.setViewTitle()
-        
         view.addSubview(textField)
         textField.center = view.center
         textField.placeholder = Constants.PLACEHOLDER
         textField.backgroundColor = .green
+        textField.delegate = self
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
+        navigationItem.rightBarButtonItem = buttonSave
+        if textField.text!.isEmpty{
+                buttonSave.isEnabled = false
+            }
     }
     
     @objc private func saveButtonPressed() {
@@ -54,6 +58,17 @@ extension AddTaskViewController: AddTaskView {
     func setViewTitle(title: String?) {
         self.title = title
     }
-    
-    
+}
+
+extension AddTaskViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        if !text.isEmpty{
+            buttonSave.isEnabled = true
+        } else {
+            buttonSave.isEnabled = false
+        }
+        return true
+    }
 }
