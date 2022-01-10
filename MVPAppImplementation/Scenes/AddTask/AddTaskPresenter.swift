@@ -16,11 +16,13 @@ protocol AddTaskPresenter {
     func setViewTitle()
     func addButtonPressed(parametrs: TaskEntity)
     func onViewAttached(view: AddTaskView)
+    func isEnabledSaveButton(textField: String) -> Bool
 }
 
 protocol AddTaskView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
+    func isEnabled()
 }
 
 final class AddTaskPresenterImpl: AddTaskPresenter {
@@ -31,6 +33,14 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
     init(router: AddTaskRouter, delegate: AddTaskPresenterDelegate) {
         self.router = router
         self.delegate = delegate
+    }
+    
+    func isEnabledSaveButton(textField: String) -> Bool {
+        if textField.isEmpty{
+            return false
+        } else {
+            return true
+        }
     }
     
     func onViewAttached(view: AddTaskView) {

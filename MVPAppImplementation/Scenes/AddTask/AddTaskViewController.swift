@@ -37,11 +37,8 @@ class AddTaskViewController: UIViewController {
         textField.placeholder = Constants.PLACEHOLDER
         textField.backgroundColor = .green
         textField.delegate = self
-        
+        isEnabled()
         navigationItem.rightBarButtonItem = buttonSave
-        if textField.text!.isEmpty{
-                buttonSave.isEnabled = false
-            }
     }
     
     @objc private func saveButtonPressed() {
@@ -50,7 +47,14 @@ class AddTaskViewController: UIViewController {
     }
 }
 
+// MARK: - AddTaskView
+
 extension AddTaskViewController: AddTaskView {
+    
+    func isEnabled() {
+        buttonSave.isEnabled = presenter.isEnabledSaveButton(textField: textField.text!)
+    }
+    
     func setViewBackgrounColor(color: UIColor?) {
         view.backgroundColor = color
     }
@@ -60,15 +64,14 @@ extension AddTaskViewController: AddTaskView {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
 extension AddTaskViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
-        if !text.isEmpty{
-            buttonSave.isEnabled = true
-        } else {
-            buttonSave.isEnabled = false
-        }
+        buttonSave.isEnabled = presenter.isEnabledSaveButton(textField: text)
+        
         return true
     }
 }
