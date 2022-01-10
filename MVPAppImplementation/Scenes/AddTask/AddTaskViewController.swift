@@ -8,6 +8,12 @@
 import UIKit
 
 class AddTaskViewController: UIViewController {
+    
+    private enum Constants {
+        static let PLACEHOLDER = "Enter the text"
+        static let SAVE_BUTTON = "Save"
+    }
+    
     private var presenter: AddTaskPresenter!
     private let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
     
@@ -28,10 +34,10 @@ class AddTaskViewController: UIViewController {
         
         view.addSubview(textField)
         textField.center = view.center
-        textField.placeholder = "Enter the text"
+        textField.placeholder = Constants.PLACEHOLDER
         textField.backgroundColor = .green
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
     }
     
     @objc private func saveButtonPressed() {
