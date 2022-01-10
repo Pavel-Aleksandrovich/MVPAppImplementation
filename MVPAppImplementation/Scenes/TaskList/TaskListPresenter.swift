@@ -13,6 +13,8 @@ protocol TaskListPresenter {
     func getTaskByIndex(index: Int) -> TaskEntity
     func onViewAttached(view: TaskListView)
     func addTaskButtonTapped()
+    func presentTaskDetail(indexPath: IndexPath)
+
 }
 
 protocol TaskListView: AnyObject {
@@ -58,5 +60,10 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     
     func addTaskButtonTapped() {
         router.presentAddTask(addTaskPresenterDelegate: self)
+    }
+    
+    func presentTaskDetail(indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        router.presentTaskDetail(task: task)
     }
 }

@@ -36,6 +36,7 @@ class TaskListViewController: UIViewController {
     
     private func setupViews() {
         tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
         tableView.addSubview(addTaskButton)
         
@@ -96,3 +97,8 @@ extension TaskListViewController: UITableViewDataSource {
     
 }
 
+extension TaskListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.presentTaskDetail(indexPath: indexPath)
+    }
+}

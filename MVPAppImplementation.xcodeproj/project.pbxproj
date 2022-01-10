@@ -21,6 +21,10 @@
 		8476A1E62789812F0062440A /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E52789812F0062440A /* TaskEntity.swift */; };
 		8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E7278BE9F20062440A /* TaskViewRouter.swift */; };
 		8476A1EA278BFA510062440A /* AddTaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E9278BFA510062440A /* AddTaskRouter.swift */; };
+		8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1EC278C3F210062440A /* TaskDetailViewController.swift */; };
+		8476A1EF278C3FF80062440A /* TaskDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1EE278C3FF80062440A /* TaskDetailsPresenter.swift */; };
+		8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F0278C41EA0062440A /* TaskDetailAssembler.swift */; };
+		8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F2278C425C0062440A /* TaskDetailRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		8476A1E52789812F0062440A /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
 		8476A1E7278BE9F20062440A /* TaskViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewRouter.swift; sourceTree = "<group>"; };
 		8476A1E9278BFA510062440A /* AddTaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskRouter.swift; sourceTree = "<group>"; };
+		8476A1EC278C3F210062440A /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		8476A1EE278C3FF80062440A /* TaskDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPresenter.swift; sourceTree = "<group>"; };
+		8476A1F0278C41EA0062440A /* TaskDetailAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailAssembler.swift; sourceTree = "<group>"; };
+		8476A1F2278C425C0062440A /* TaskDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +122,7 @@
 		8476A1D9278831150062440A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				8476A1EB278C3EF60062440A /* TaskDetails */,
 				8476A1DC278949410062440A /* AddTask */,
 				8476A1D8278830110062440A /* TaskList */,
 			);
@@ -137,6 +146,17 @@
 				8476A1E52789812F0062440A /* TaskEntity.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		8476A1EB278C3EF60062440A /* TaskDetails */ = {
+			isa = PBXGroup;
+			children = (
+				8476A1EC278C3F210062440A /* TaskDetailViewController.swift */,
+				8476A1EE278C3FF80062440A /* TaskDetailsPresenter.swift */,
+				8476A1F0278C41EA0062440A /* TaskDetailAssembler.swift */,
+				8476A1F2278C425C0062440A /* TaskDetailRouter.swift */,
+			);
+			path = TaskDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,9 +236,13 @@
 				8476A1E62789812F0062440A /* TaskEntity.swift in Sources */,
 				8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,
+				8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */,
 				8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */,
+				8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */,
+				8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */,
 				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
+				8476A1EF278C3FF80062440A /* TaskDetailsPresenter.swift in Sources */,
 				8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
