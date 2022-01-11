@@ -17,6 +17,7 @@ protocol AddTaskPresenter {
     func addButtonPressed(parametrs: TaskEntity)
     func onViewAttached(view: AddTaskView)
     func isEnabledSaveButton(textField: String) -> Bool
+    func popViewController()
 }
 
 protocol AddTaskView: AnyObject {
@@ -57,5 +58,9 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
     
     func addButtonPressed(parametrs: TaskEntity) {
         delegate.addTaskPresenter(presenter: self, task: parametrs)
+    }
+    
+    func popViewController() {
+        router.popViewController(animated: false)
     }
 }

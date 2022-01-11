@@ -39,11 +39,13 @@ class AddTaskViewController: UIViewController {
         textField.delegate = self
         isEnabled()
         navigationItem.rightBarButtonItem = buttonSave
+        
     }
     
     @objc private func saveButtonPressed() {
         let addTask = TaskEntity(title: textField.text!)
         presenter.addButtonPressed(parametrs: addTask)
+        presenter.popViewController()
     }
 }
 
