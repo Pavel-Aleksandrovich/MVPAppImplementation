@@ -13,6 +13,7 @@ protocol TaskDetailView: AnyObject {
 
 protocol TaskDetailsPresenter {
     func onViewAttached(view: TaskDetailView)
+    func setTitle()
 }
 
 class TaskDetailsPresenterImpl: TaskDetailsPresenter {

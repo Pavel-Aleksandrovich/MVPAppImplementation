@@ -28,6 +28,7 @@ class TaskDetailViewController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.text = "d"
         titleLabel.center = view.center
+        presenter.setTitle()
     }
 }
 extension TaskDetailViewController: TaskDetailView {
