@@ -8,24 +8,25 @@
 import UIKit
 
 protocol TaskViewRouter {
-    func presentAddTask(addTaskPresenterDelegate: AddTaskPresenterDelegate)
-    func presentTaskDetail(task: TaskEntity)
+    func presentAddTask(view: TaskListViewController,
+                        addTaskPresenterDelegate: AddTaskPresenterDelegate)
+    func presentTaskDetail(view: TaskListViewController, task: TaskEntity)
 }
 
 class TaskViewRouterImpl: TaskViewRouter {
-    var taskListViewController: TaskListViewController?
-    var addTaskPresenterDelegate: AddTaskPresenterDelegate?
-    var tasks: TaskEntity!
     
-    func presentAddTask(addTaskPresenterDelegate: AddTaskPresenterDelegate) {
+    var addTaskPresenterDelegate: AddTaskPresenterDelegate?
+    
+    func presentAddTask(view: TaskListViewController,
+                        addTaskPresenterDelegate: AddTaskPresenterDelegate) {
         
         self.addTaskPresenterDelegate = addTaskPresenterDelegate
         let vc = AddTaskAssembler.assembly(addTaskPresenterDelegate: addTaskPresenterDelegate)
-        taskListViewController?.navigationController?.pushViewController(vc, animated: false)
+        view.navigationController?.pushViewController(vc, animated: false)
     }
     
-    func presentTaskDetail(task: TaskEntity) {
+    func presentTaskDetail(view: TaskListViewController, task: TaskEntity) {
         let vc = TaskDetailAssembler.assembly(task: task)
-        taskListViewController?.navigationController?.pushViewController(vc, animated: false)
+        view.navigationController?.pushViewController(vc, animated: false)
     }
 }

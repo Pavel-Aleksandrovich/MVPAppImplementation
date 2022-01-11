@@ -10,7 +10,9 @@ import UIKit
 class TaskDetailAssembler {
     
     static func assembly(task: TaskEntity) -> UIViewController {
-        let presenter = TaskDetailsPresenterImpl(task: task)
+        
+        let router = TaskDetailRouterImpl()
+        let presenter = TaskDetailsPresenterImpl(task: task, router: router)
         let view = TaskDetailViewController(presenter: presenter)
         
         return view

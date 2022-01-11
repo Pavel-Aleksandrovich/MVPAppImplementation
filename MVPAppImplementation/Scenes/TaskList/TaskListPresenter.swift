@@ -12,8 +12,8 @@ protocol TaskListPresenter {
     func numberOfTasks() -> Int
     func getTaskByIndex(index: Int) -> TaskEntity
     func onViewAttached(view: TaskListView)
-    func addTaskButtonTapped()
-    func presentTaskDetail(indexPath: IndexPath)
+    func addTaskButtonTapped(view: TaskListViewController)
+    func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskAtByIndex(index: Int)
 }
@@ -32,7 +32,7 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     
     private weak var view: TaskListView?
     private var tasks = [TaskEntity]()
-    var router: TaskViewRouter
+    private var router: TaskViewRouter
     
     init(router: TaskViewRouter) {
         self.router = router
@@ -60,13 +60,13 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
         return task
     }
     
-    func addTaskButtonTapped() {
-        router.presentAddTask(addTaskPresenterDelegate: self)
+    func addTaskButtonTapped(view: TaskListViewController) {
+        router.presentAddTask(view: view, addTaskPresenterDelegate: self)
     }
     
-    func presentTaskDetail(indexPath: IndexPath) {
+    func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath) {
         let task = tasks[indexPath.row]
-        router.presentTaskDetail(task: task)
+        router.presentTaskDetail(view: view, task: task)
     }
     
     func deselectRow(indexPath: IndexPath) {

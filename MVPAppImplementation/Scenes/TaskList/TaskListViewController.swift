@@ -14,7 +14,7 @@ class TaskListViewController: UIViewController {
     private var presenter: TaskListPresenter!
     private let tableView = UITableView()
     private let addTaskButton = UIButton()
-    var addTask: TaskEntity?
+    private var addTask: TaskEntity?
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -63,7 +63,7 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func addTaskButtonTapped() {
-        presenter.addTaskButtonTapped()
+        presenter.addTaskButtonTapped(view: self)
     }
 }
 
@@ -118,7 +118,7 @@ extension TaskListViewController: UITableViewDataSource {
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.deselectRow(indexPath: indexPath)
-        presenter.presentTaskDetail(indexPath: indexPath)
+        presenter.presentTaskDetail(view: self, indexPath: indexPath)
     }
     
 }

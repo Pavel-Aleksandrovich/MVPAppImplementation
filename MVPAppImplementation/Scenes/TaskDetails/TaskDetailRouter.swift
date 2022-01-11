@@ -7,6 +7,13 @@
 
 import UIKit
 
-class TaskDetailRouter {
+protocol TaskDetailRouter {
+    func popViewController(view: TaskDetailViewController, animated: Bool)
+}
+
+class TaskDetailRouterImpl: TaskDetailRouter {
     
+    func popViewController(view: TaskDetailViewController, animated: Bool) {
+        view.navigationController?.popViewController(animated: animated)
+    }
 }

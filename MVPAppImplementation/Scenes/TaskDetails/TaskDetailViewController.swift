@@ -26,10 +26,19 @@ class TaskDetailViewController: UIViewController {
         presenter.onViewAttached(view: self)
         view.backgroundColor = .white
         view.addSubview(titleLabel)
-        titleLabel.text = "d"
+        
         titleLabel.center = view.center
         presenter.setTitle()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeButtonDidPressed))
+        
     }
+    
+    @objc func removeButtonDidPressed() {
+        presenter.popViewController(view: self)
+        print("removeButtonDidPressed")
+    }
+    
 }
 extension TaskDetailViewController: TaskDetailView {
     func setTitle(title: String?) {

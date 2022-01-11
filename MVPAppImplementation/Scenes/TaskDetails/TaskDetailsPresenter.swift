@@ -14,22 +14,27 @@ protocol TaskDetailView: AnyObject {
 protocol TaskDetailsPresenter {
     func onViewAttached(view: TaskDetailView)
     func setTitle()
+    func popViewController(view: TaskDetailViewController)
 }
 
 class TaskDetailsPresenterImpl: TaskDetailsPresenter {
-     
-    var task: TaskEntity
+    private var task: TaskEntity
     private weak var view: TaskDetailView?
+    private var router: TaskDetailRouter
     
-    init(task: TaskEntity) {
+    init(task: TaskEntity, router: TaskDetailRouter) {
         self.task = task
+        self.router = router
     }
     
     func onViewAttached(view: TaskDetailView) {
         self.view = view
     }
     func setTitle() {
-        view?.setTitle(title: task.title)
+        view?.setTitle(title: task.taskTitle)
     }
     
+    func popViewController(view: TaskDetailViewController) {
+        router.popViewController(view: view, animated: false)
+    }
 }

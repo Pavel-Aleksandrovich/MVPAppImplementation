@@ -8,15 +8,12 @@
 import UIKit
 
 protocol AddTaskRouter {
-    func popViewController(animated: Bool)
+    func popViewController(view: AddTaskViewController, animated: Bool)
 }
 
 class AddTaskRouterImpl: AddTaskRouter {
     
-    var addTaskView: AddTaskViewController?
-    var presenter: AddTaskPresenter?
-    
-    func popViewController(animated: Bool) {
-        addTaskView?.navigationController?.popViewController(animated: animated)
+    func popViewController(view: AddTaskViewController, animated: Bool) {
+        view.navigationController?.popViewController(animated: animated)
     }
 }
