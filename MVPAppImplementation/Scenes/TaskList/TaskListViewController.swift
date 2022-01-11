@@ -77,6 +77,10 @@ extension TaskListViewController: TaskListView {
     func setTitle(title: String?) {
         self.title = title
     }
+    
+    func deselectRow(indexPath: IndexPath, animated: Bool) {
+        tableView.deselectRow(at: indexPath, animated: animated)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -99,6 +103,8 @@ extension TaskListViewController: UITableViewDataSource {
 
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: false)
+        presenter.deselectRow(indexPath: indexPath)
         presenter.presentTaskDetail(indexPath: indexPath)
     }
 }

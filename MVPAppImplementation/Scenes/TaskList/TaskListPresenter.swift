@@ -14,12 +14,13 @@ protocol TaskListPresenter {
     func onViewAttached(view: TaskListView)
     func addTaskButtonTapped()
     func presentTaskDetail(indexPath: IndexPath)
-
+    func deselectRow(indexPath: IndexPath)
 }
 
 protocol TaskListView: AnyObject {
     func setTitle(title: String?)
     func refreshTasksView()
+    func deselectRow(indexPath: IndexPath, animated: Bool)
 }
 
 protocol TaskListCellView {
@@ -65,5 +66,9 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     func presentTaskDetail(indexPath: IndexPath) {
         let task = tasks[indexPath.row]
         router.presentTaskDetail(task: task)
+    }
+    
+    func deselectRow(indexPath: IndexPath) {
+        view?.deselectRow(indexPath: indexPath, animated: false)
     }
 }
