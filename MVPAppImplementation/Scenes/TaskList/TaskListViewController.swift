@@ -14,7 +14,7 @@ class TaskListViewController: UIViewController {
     private var presenter: TaskListPresenter!
     private let tableView = UITableView()
     private let addTaskButton = UIButton()
-    
+    var addTask: TaskEntity?
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -26,7 +26,7 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addTask?.taskTitle = TaskSettings.taskTitle
         presenter.onViewAttached(view: self)
         setupViews()
         presenter.setTitle()
@@ -94,17 +94,31 @@ extension TaskListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
-        cell.textLabel?.text = task.title
+        cell.textLabel?.text = task.taskTitle
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            presenter.deleteTaskAtByIndex(index: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
 }
+
+// MARK: - UITableViewDelegate
 
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: false)
         presenter.deselectRow(indexPath: indexPath)
         presenter.presentTaskDetail(indexPath: indexPath)
     }
+    
 }
