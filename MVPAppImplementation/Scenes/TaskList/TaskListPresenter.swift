@@ -61,12 +61,12 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func addTaskButtonTapped(view: TaskListViewController) {
-        router.presentAddTask(view: view, addTaskPresenterDelegate: self)
+        router.presentAddTask(view: view, animated: false, addTaskPresenterDelegate: self)
     }
     
     func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath) {
         let task = tasks[indexPath.row]
-        router.presentTaskDetail(view: view, task: task) { [ weak self ] task in
+        router.presentTaskDetail(view: view, task: task, animated: false) { [ weak self ] task in
             self?.tasks.remove(at: indexPath.row)
             self?.view?.refreshTasksView()
         }
