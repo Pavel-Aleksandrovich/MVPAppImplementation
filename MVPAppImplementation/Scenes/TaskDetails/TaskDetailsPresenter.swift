@@ -21,10 +21,13 @@ class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private var task: TaskEntity
     private weak var view: TaskDetailView?
     private var router: TaskDetailRouter
+    private var deleteComplition: (TaskEntity) -> ()
     
-    init(task: TaskEntity, router: TaskDetailRouter) {
+    init(task: TaskEntity, router: TaskDetailRouter,
+         deleteComplition: @escaping (TaskEntity) -> ()) {
         self.task = task
         self.router = router
+        self.deleteComplition = deleteComplition
     }
     
     func onViewAttached(view: TaskDetailView) {
@@ -36,5 +39,6 @@ class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     
     func popViewController(view: TaskDetailViewController) {
         router.popViewController(view: view, animated: false)
+        deleteComplition(task)
     }
 }

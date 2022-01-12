@@ -66,7 +66,10 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     
     func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath) {
         let task = tasks[indexPath.row]
-        router.presentTaskDetail(view: view, task: task)
+        router.presentTaskDetail(view: view, task: task) { task in
+            self.tasks.remove(at: indexPath.row)
+            self.view?.refreshTasksView()
+        }
     }
     
     func deselectRow(indexPath: IndexPath) {

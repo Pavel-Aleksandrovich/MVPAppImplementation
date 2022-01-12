@@ -10,7 +10,8 @@ import UIKit
 protocol TaskViewRouter {
     func presentAddTask(view: TaskListViewController,
                         addTaskPresenterDelegate: AddTaskPresenterDelegate)
-    func presentTaskDetail(view: TaskListViewController, task: TaskEntity)
+    func presentTaskDetail(view: TaskListViewController, task: TaskEntity,
+                           deleteComplition: @escaping (TaskEntity) -> ())
 }
 
 class TaskViewRouterImpl: TaskViewRouter {
@@ -25,8 +26,9 @@ class TaskViewRouterImpl: TaskViewRouter {
         view.navigationController?.pushViewController(vc, animated: false)
     }
     
-    func presentTaskDetail(view: TaskListViewController, task: TaskEntity) {
-        let vc = TaskDetailAssembler.assembly(task: task)
+    func presentTaskDetail(view: TaskListViewController, task: TaskEntity,
+                           deleteComplition: @escaping (TaskEntity) -> ()) {
+        let vc = TaskDetailAssembler.assembly(task: task, deleteComplition: deleteComplition)
         view.navigationController?.pushViewController(vc, animated: false)
     }
 }
