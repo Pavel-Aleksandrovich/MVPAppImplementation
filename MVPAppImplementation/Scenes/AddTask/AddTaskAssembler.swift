@@ -13,7 +13,6 @@ final class AddTaskAssembler {
         let router = AddTaskRouterImpl()
         let presenter = AddTaskPresenterImpl(router: router, delegate: addTaskPresenterDelegate)
         let view = AddTaskViewController(presenter: presenter)
-        router.addTaskView = view
         
         return view
     }

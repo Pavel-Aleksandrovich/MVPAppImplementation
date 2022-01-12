@@ -31,7 +31,7 @@ protocol TaskListCellView {
 final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     
     private weak var view: TaskListView?
-    private var tasks = [TaskEntity]()
+//    private var tasks = [TaskEntity]()
     private var router: TaskViewRouter
     
     init(router: TaskViewRouter) {
@@ -47,16 +47,19 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func numberOfTasks() -> Int {
-        return tasks.count
+//        return tasks.count
+        return TaskSettings.shared.tasks.count
     }
     
     func addTaskPresenter(presenter: AddTaskPresenter, task: TaskEntity) {
-        tasks.append(task)
-        view?.refreshTasksView()
+//        tasks.append(task)
+//        view?.refreshTasksView()
+        TaskSettings.shared.saveTask(title: task.taskTitle)
     }
     
     func getTaskByIndex(index: Int) -> TaskEntity {
-        let task = tasks[index]
+//        let task = tasks[index]
+        let task = TaskSettings.shared.tasks[index]
         return task
     }
     
@@ -65,10 +68,11 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath) {
-        let task = tasks[indexPath.row]
-        router.presentTaskDetail(view: view, task: task, animated: false) { [ weak self ] task in
-            self?.tasks.remove(at: indexPath.row)
-            self?.view?.refreshTasksView()
+        let task = TaskSettings.shared.tasks[indexPath.row]
+        router.presentTaskDetail(view: view, task: task, animated: false) { task in
+//            self?.tasks.remove(at: indexPath.row)
+            TaskSettings.shared.tasks.remove(at: indexPath.row)
+//            self?.view?.refreshTasksView()
         }
     }
     
@@ -77,6 +81,6 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func deleteTaskAtByIndex(index: Int) {
-        tasks.remove(at: index)
+        TaskSettings.shared.tasks.remove(at: index)
     }
 }

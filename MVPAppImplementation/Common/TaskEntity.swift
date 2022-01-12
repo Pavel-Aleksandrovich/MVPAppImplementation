@@ -7,6 +7,11 @@
 
 import Foundation
 
-struct TaskEntity {
-    var title: String
+class TaskEntity: NSObject, Codable{
+    
+    var taskTitle: String
+    
+    init(title: String) {
+        self.taskTitle = title
+    }
 }

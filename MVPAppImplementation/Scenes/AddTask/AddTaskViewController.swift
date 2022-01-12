@@ -28,6 +28,7 @@ class AddTaskViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+//        hideKeyboardWhenTappedAround()
         super.viewDidLoad()
         presenter.onViewAttached(view: self)
         presenter.setViewBackgrounColor()
@@ -45,7 +46,7 @@ class AddTaskViewController: UIViewController {
     @objc private func saveButtonPressed() {
         let addTask = TaskEntity(title: textField.text!)
         presenter.addButtonPressed(parametrs: addTask)
-        presenter.popViewController()
+        presenter.popViewController(view: self)
     }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 
 class TaskDetailViewController: UIViewController {
     
-    private var titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+    private var titleLabel = UITextField(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
     private var presenter: TaskDetailsPresenter!
     
     init(presenter: TaskDetailsPresenter) {
@@ -36,7 +36,6 @@ class TaskDetailViewController: UIViewController {
     
     @objc func removeButtonDidPressed() {
         presenter.popViewController(view: self)
-        print("removeButtonDidPressed")
     }
     
 }

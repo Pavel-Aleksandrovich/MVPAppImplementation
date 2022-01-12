@@ -26,12 +26,17 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTask?.taskTitle = TaskSettings.taskTitle
+//        addTask?.taskTitle = TaskSettings.taskTitle
         presenter.onViewAttached(view: self)
         setupViews()
         presenter.setTitle()
         setButtonContstraints()
         setButtonAttributes()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     private func setupViews() {
