@@ -92,3 +92,14 @@ extension AddTaskViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension UIViewController {
+    
+    func showAlert(style: UIAlertController.Style, title: String?, message: String?, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        for action in actions {
+            alert.addAction(action)
+        }
+        present(alert, animated: false)
+    }
+}
