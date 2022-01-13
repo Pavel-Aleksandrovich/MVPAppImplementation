@@ -60,7 +60,7 @@ class AddTaskViewController: UIViewController {
     }
     
     @objc private func imageButtonTapped() {
-        print("imageButtonTapped")
+        showChooseSourceTypeAlertController()
     }
 }
 
@@ -91,6 +91,42 @@ extension AddTaskViewController: UITextFieldDelegate {
         
         return true
     }
+}
+
+extension AddTaskViewController:
+    UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func showChooseSourceTypeAlertController() {
+        let photoLibraryAction = UIAlertAction(title: "Library", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        showAlert(style: .actionSheet, title: "Pick Image From?", message: nil, actions: [photoLibraryAction, cameraAction, cancelAction])
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.imageView.image = editedImage.withRenderingMode(.alwaysOriginal)
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.imageView.image = originalImage.withRenderingMode(.alwaysOriginal)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+
 }
 
 extension UIViewController {
