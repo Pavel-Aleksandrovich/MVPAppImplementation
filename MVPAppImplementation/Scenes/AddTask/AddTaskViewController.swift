@@ -17,7 +17,8 @@ class AddTaskViewController: UIViewController {
     private var presenter: AddTaskPresenter!
     private let textField = UITextField()
     private var imageView = UIImageView()
-    private let buttonSave = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
+    private var imageButton = UIButton()
+    private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
     
     init(presenter: AddTaskPresenter) {
         self.presenter = presenter
@@ -39,18 +40,27 @@ class AddTaskViewController: UIViewController {
         textField.placeholder = Constants.PLACEHOLDER
         textField.delegate = self
         isEnabled()
-        navigationItem.rightBarButtonItem = buttonSave
+        navigationItem.rightBarButtonItem = saveButton
         
         imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
         view.addSubview(imageView)
         imageView.center = view.center
         imageView.backgroundColor = .black.withAlphaComponent(0.3)
+        
+        imageButton.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        view.addSubview(imageButton)
+        imageButton.center = view.center
+        imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
     }
     
     @objc private func saveButtonPressed() {
         let addTask = TaskEntity(title: textField.text!)
         presenter.addButtonPressed(parametrs: addTask)
         presenter.popViewController(view: self)
+    }
+    
+    @objc private func imageButtonTapped() {
+        print("imageButtonTapped")
     }
 }
 
@@ -59,7 +69,7 @@ class AddTaskViewController: UIViewController {
 extension AddTaskViewController: AddTaskView {
     
     func isEnabled() {
-        buttonSave.isEnabled = presenter.isEnabledSaveButton(textField: textField.text!)
+        saveButton.isEnabled = presenter.isEnabledSaveButton(textField: textField.text!)
     }
     
     func setViewBackgrounColor(color: UIColor?) {
@@ -77,7 +87,7 @@ extension AddTaskViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
-        buttonSave.isEnabled = presenter.isEnabledSaveButton(textField: text)
+        saveButton.isEnabled = presenter.isEnabledSaveButton(textField: text)
         
         return true
     }
