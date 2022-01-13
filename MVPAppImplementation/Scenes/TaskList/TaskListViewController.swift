@@ -11,10 +11,12 @@ class TaskListViewController: UIViewController {
     private enum Constants {
         static let IDENTIFIER_CELL = "TaskCell"
     }
+    
     private var presenter: TaskListPresenter!
     private let tableView = UITableView()
     private let addTaskButton = UIButton()
     private var addTask: TaskEntity?
+    
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)

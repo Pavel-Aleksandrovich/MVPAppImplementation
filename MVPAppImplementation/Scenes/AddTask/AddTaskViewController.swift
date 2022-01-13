@@ -15,7 +15,8 @@ class AddTaskViewController: UIViewController {
     }
     
     private var presenter: AddTaskPresenter!
-    private let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
+    private let textField = UITextField()
+    private var imageView = UIImageView()
     private let buttonSave = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
     
     init(presenter: AddTaskPresenter) {
@@ -33,14 +34,17 @@ class AddTaskViewController: UIViewController {
         presenter.onViewAttached(view: self)
         presenter.setViewBackgrounColor()
         presenter.setViewTitle()
+        textField.frame = CGRect(x: 25, y: 150, width: 200, height: 20)
         view.addSubview(textField)
-        textField.center = view.center
         textField.placeholder = Constants.PLACEHOLDER
-        textField.backgroundColor = .green
         textField.delegate = self
         isEnabled()
         navigationItem.rightBarButtonItem = buttonSave
         
+        imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        view.addSubview(imageView)
+        imageView.center = view.center
+        imageView.backgroundColor = .black.withAlphaComponent(0.3)
     }
     
     @objc private func saveButtonPressed() {
