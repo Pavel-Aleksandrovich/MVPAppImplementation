@@ -50,7 +50,7 @@ class AddTaskViewController: UIViewController {
         imageButton.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
         view.addSubview(imageButton)
         imageButton.center = view.center
-        imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
+        imageButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
     }
     
     @objc private func saveButtonPressed() {
@@ -59,7 +59,7 @@ class AddTaskViewController: UIViewController {
         presenter.popViewController(view: self)
     }
     
-    @objc private func imageButtonTapped() {
+    @objc private func pickImage() {
         showChooseSourceTypeAlertController()
     }
 }
@@ -79,6 +79,26 @@ extension AddTaskViewController: AddTaskView {
     func setViewTitle(title: String?) {
         self.title = title
     }
+    
+    func showChooseSourceTypeAlertController() {
+        let photoLibraryAction = UIAlertAction(title: "Library", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        showAlert(style: .actionSheet, title: "Pick Image From?", message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], animated: false)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -93,28 +113,10 @@ extension AddTaskViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
 extension AddTaskViewController:
     UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
-    func showChooseSourceTypeAlertController() {
-        let photoLibraryAction = UIAlertAction(title: "Library", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .photoLibrary)
-        }
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .camera)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        showAlert(style: .actionSheet, title: "Pick Image From?", message: nil, actions: [photoLibraryAction, cameraAction, cancelAction])
-    }
-    
-    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        imagePickerController.sourceType = sourceType
-        present(imagePickerController, animated: true)
-    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -125,17 +127,6 @@ extension AddTaskViewController:
         }
         dismiss(animated: true, completion: nil)
     }
-    
-
 }
 
-extension UIViewController {
-    
-    func showAlert(style: UIAlertController.Style, title: String?, message: String?, actions: [UIAlertAction]) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-        for action in actions {
-            alert.addAction(action)
-        }
-        present(alert, animated: false)
-    }
-}
+

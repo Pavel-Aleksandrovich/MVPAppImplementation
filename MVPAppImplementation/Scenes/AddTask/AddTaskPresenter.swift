@@ -24,6 +24,8 @@ protocol AddTaskView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
     func isEnabled()
+    func showChooseSourceTypeAlertController()
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType)
 }
 
 final class AddTaskPresenterImpl: AddTaskPresenter {
