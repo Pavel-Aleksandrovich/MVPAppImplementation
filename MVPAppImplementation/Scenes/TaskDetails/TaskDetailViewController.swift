@@ -9,7 +9,8 @@ import UIKit
 
 class TaskDetailViewController: UIViewController {
     
-    private var titleLabel = UITextField(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+    private var titleTextField = UITextField()
+    private var imageView = UIImageView()
     private var presenter: TaskDetailsPresenter!
     
     init(presenter: TaskDetailsPresenter) {
@@ -25,10 +26,15 @@ class TaskDetailViewController: UIViewController {
         super.viewDidLoad()
         presenter.onViewAttached(view: self)
         view.backgroundColor = .white
-        view.addSubview(titleLabel)
+        view.addSubview(titleTextField)
         
-        titleLabel.center = view.center
-        presenter.setTitle()
+        titleTextField.frame = CGRect(x: 25, y: 150, width: 200, height: 20)
+        presenter.setData()
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        view.addSubview(imageView)
+        imageView.center = view.center
+        imageView.backgroundColor = .black.withAlphaComponent(0.3)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeButtonDidPressed))
         
@@ -40,7 +46,8 @@ class TaskDetailViewController: UIViewController {
     
 }
 extension TaskDetailViewController: TaskDetailView {
-    func setTitle(title: String?) {
-        titleLabel.text = title
+    func setData(title: String?, image: UIImage?) {
+        titleTextField.text = title
+        imageView.image = image
     }
 }

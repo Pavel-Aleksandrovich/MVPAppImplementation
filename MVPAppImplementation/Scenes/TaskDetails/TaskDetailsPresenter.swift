@@ -5,15 +5,15 @@
 //  Created by pavel mishanin on 10.01.2022.
 //
 
-import Foundation
+import UIKit
 
 protocol TaskDetailView: AnyObject {
-    func setTitle(title: String?)
+    func setData(title: String?, image: UIImage?)
 }
 
 protocol TaskDetailsPresenter {
     func onViewAttached(view: TaskDetailView)
-    func setTitle()
+    func setData()
     func popViewController(view: TaskDetailViewController)
 }
 
@@ -33,8 +33,8 @@ class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     func onViewAttached(view: TaskDetailView) {
         self.view = view
     }
-    func setTitle() {
-        view?.setTitle(title: task.taskTitle)
+    func setData() {
+        view?.setData(title: task.taskTitle, image: task.image )
     }
     
     func popViewController(view: TaskDetailViewController) {

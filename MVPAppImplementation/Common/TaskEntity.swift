@@ -5,13 +5,38 @@
 //  Created by pavel mishanin on 08.01.2022.
 //
 
-import Foundation
+import UIKit
 
-class TaskEntity: NSObject, Codable{
+class TaskEntity: NSObject, NSCoding{
     
-    var taskTitle: String
+    var taskTitle: String = "e"
+    var image: UIImage?
     
-    init(title: String) {
-        self.taskTitle = title
+    fileprivate enum UserSettings {
+        static let taskTitle = "taskTitle"
+        static let image = "image"
     }
+    
+    init(title: String, image: UIImage?) {
+        self.taskTitle = title
+        self.image = image
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(taskTitle, forKey: UserSettings.taskTitle)
+        coder.encode(image, forKey: UserSettings.image)
+    }
+    
+    required init?(coder: NSCoder) {
+        taskTitle = coder.decodeObject(forKey: UserSettings.taskTitle) as? String ?? ""
+        image = coder.decodeObject(forKey: UserSettings.image) as? UIImage ?? #imageLiteral(resourceName: "imagePlaceholder")
+    }
+    
+    
+    //
+    //    required init?(coder: NSCoder) {
+//        taskTitle = coder.decodeObject(forKey: "taskTitle") as? String ?? ""
+//        image = coder.decodeObject(forKey: "image") as? NSData
+//
+//    }
 }

@@ -33,9 +33,11 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     private weak var view: TaskListView?
 //    private var tasks = [TaskEntity]()
     private var router: TaskViewRouter
+    private var taskSettings: TaskSettings
     
-    init(router: TaskViewRouter) {
+    init(router: TaskViewRouter, taskSettings: TaskSettings) {
         self.router = router
+        self.taskSettings = taskSettings
     }
     
     func onViewAttached(view: TaskListView) {
@@ -47,19 +49,22 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func numberOfTasks() -> Int {
-//        return tasks.count
-        return TaskSettings.shared.tasks.count
+        return taskSettings.tasks.count
+//        return TaskSettings.shared.tasks?.count ?? 3
     }
     
     func addTaskPresenter(presenter: AddTaskPresenter, task: TaskEntity) {
 //        tasks.append(task)
 //        view?.refreshTasksView()
-        TaskSettings.shared.saveTask(title: task.taskTitle)
+//        TaskSettings.shared.saveTask(title: task.taskTitle)
+//        TaskSettings.shared.saveTask(title: task.taskTitle, image: task.image ?? #imageLiteral(resourceName: "DefaultProfileImage.png"))
+        taskSettings.tasks.insert(task, at: 0)
     }
     
     func getTaskByIndex(index: Int) -> TaskEntity {
 //        let task = tasks[index]
-        let task = TaskSettings.shared.tasks[index]
+//        let task = TaskSettings.shared.tasks?[index]
+        let task = taskSettings.tasks[index] 
         return task
     }
     
@@ -68,10 +73,11 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath) {
-        let task = TaskSettings.shared.tasks[indexPath.row]
-        router.presentTaskDetail(view: view, task: task, animated: false) { task in
+//        let task = TaskSettings.shared.tasks[indexPath.row]
+        let task = taskSettings.tasks[indexPath.row]
+        router.presentTaskDetail(view: view, task: task, animated: false) { [weak self] task in
 //            self?.tasks.remove(at: indexPath.row)
-            TaskSettings.shared.tasks.remove(at: indexPath.row)
+            self?.taskSettings.tasks.remove(at: indexPath.row)
 //            self?.view?.refreshTasksView()
         }
     }
@@ -81,6 +87,7 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func deleteTaskAtByIndex(index: Int) {
-        TaskSettings.shared.tasks.remove(at: index)
+//        TaskSettings.shared.tasks.remove(at: index)
+        taskSettings.tasks.remove(at: index)
     }
 }
