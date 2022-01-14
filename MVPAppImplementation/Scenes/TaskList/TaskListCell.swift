@@ -9,6 +9,9 @@ import UIKit
 
 class TaskListCell: UITableViewCell, TaskListCellView {
     
+    private let titleLabel = UILabel()
+//    private let imageView = UIImageView()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     }

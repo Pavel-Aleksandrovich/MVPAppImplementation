@@ -17,7 +17,7 @@ class AddTaskViewController: UIViewController {
     private var presenter: AddTaskPresenter!
     private let textField = UITextField()
     private var imageView = UIImageView()
-    private var imageButton = UIButton()
+    private let imageButton = UIButton()
     private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
     
     init(presenter: AddTaskPresenter) {
