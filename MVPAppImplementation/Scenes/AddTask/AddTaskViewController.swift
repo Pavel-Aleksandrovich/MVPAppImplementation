@@ -54,7 +54,6 @@ class AddTaskViewController: UIViewController {
     }
     
     @objc private func saveButtonPressed() {
-//        let addTask = TaskEntity(title: textField.text!)
         let addTask = TaskEntity(title: textField.text!, image: imageView.image)
         presenter.addButtonPressed(parametrs: addTask)
         presenter.popViewController(view: self)

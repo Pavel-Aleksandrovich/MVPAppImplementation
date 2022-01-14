@@ -10,6 +10,7 @@ import UIKit
 protocol TaskViewRouter {
     func presentAddTask(view: TaskListViewController, animated: Bool,
                         addTaskPresenterDelegate: AddTaskPresenterDelegate)
+    
     func presentTaskDetail(view: TaskListViewController, task: TaskEntity, animated: Bool,
                            deleteComplition: @escaping (TaskEntity) -> ())
 }

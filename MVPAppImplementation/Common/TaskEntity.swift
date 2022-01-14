@@ -7,12 +7,12 @@
 
 import UIKit
 
-class TaskEntity: NSObject, NSCoding{
+class TaskEntity: NSObject, NSCoding {
     
-    var taskTitle: String = "e"
+    var taskTitle: String = "taskTitle"
     var image: UIImage?
     
-    fileprivate enum UserSettings {
+    private enum UserSettings {
         static let taskTitle = "taskTitle"
         static let image = "image"
     }
@@ -31,12 +31,4 @@ class TaskEntity: NSObject, NSCoding{
         taskTitle = coder.decodeObject(forKey: UserSettings.taskTitle) as? String ?? ""
         image = coder.decodeObject(forKey: UserSettings.image) as? UIImage ?? #imageLiteral(resourceName: "imagePlaceholder")
     }
-    
-    
-    //
-    //    required init?(coder: NSCoder) {
-//        taskTitle = coder.decodeObject(forKey: "taskTitle") as? String ?? ""
-//        image = coder.decodeObject(forKey: "image") as? NSData
-//
-//    }
 }

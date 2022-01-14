@@ -8,32 +8,10 @@
 import UIKit
 
 final class TaskSettings {
-//    static let shared = TaskSettings()
     
     private enum SettingsKey {
         static let taskTitle = "taskTitle"
-//        case taskEntity
     }
-    
-    //    var tasks: [TaskEntity] {
-    //        get {
-    //            let defaults = UserDefaults.standard
-    //            let key = SettingsKey.taskTitle.rawValue
-    //            if let data = defaults.value(forKey: key) as? Data {
-    //                return try! PropertyListDecoder().decode([TaskEntity].self, from: data)
-    //            } else {
-    //                return [TaskEntity]()
-    //            }
-    //        } set {
-    //            let defaults = UserDefaults.standard
-    //            let key = SettingsKey.taskTitle.rawValue
-    //            if let data = try? PropertyListEncoder().encode(newValue) {
-    //                defaults.set(data, forKey: key)
-    //            } else {
-    //                defaults.removeObject(forKey: key)
-    //            }
-    //        }
-    //    }
     
     var tasks: [TaskEntity]! {
         get {
@@ -50,10 +28,6 @@ final class TaskSettings {
             }
         }
     }
-//    func saveTask(title: String) {
-//        let task = TaskEntity(title: title)
-//        tasks.append(task)
-//    }
 }
 
 
