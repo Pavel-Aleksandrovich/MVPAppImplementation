@@ -7,9 +7,9 @@
 
 import UIKit
 
-class TaskDetailAssembler {
+final class TaskDetailAssembler {
     
-    static func assembly(task: TaskEntity,
+    class func assembly(task: TaskEntity,
                          deleteComplition: @escaping (TaskEntity) -> ()) -> UIViewController {
         
         let router = TaskDetailRouterImpl()

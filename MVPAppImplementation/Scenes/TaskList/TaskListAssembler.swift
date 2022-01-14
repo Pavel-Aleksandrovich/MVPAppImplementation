@@ -9,7 +9,7 @@ import UIKit
 
 final class TaskListAssembler {
     
-    static func assembly() -> UIViewController {
+    class func assembly() -> UIViewController {
         
         let router = TaskViewRouterImpl()
         let taskSettings = TaskSettingsImpl()

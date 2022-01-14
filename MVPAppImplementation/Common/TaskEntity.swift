@@ -9,10 +9,10 @@ import UIKit
 
 class TaskEntity: NSObject, NSCoding {
     
-    var taskTitle: String = "taskTitle"
+    var taskTitle: String
     var image: UIImage?
     
-    private enum UserSettings {
+    private enum SettingsKey {
         static let taskTitle = "taskTitle"
         static let image = "image"
     }
@@ -23,12 +23,12 @@ class TaskEntity: NSObject, NSCoding {
     }
     
     func encode(with coder: NSCoder) {
-        coder.encode(taskTitle, forKey: UserSettings.taskTitle)
-        coder.encode(image, forKey: UserSettings.image)
+        coder.encode(taskTitle, forKey: SettingsKey.taskTitle)
+        coder.encode(image, forKey: SettingsKey.image)
     }
     
     required init?(coder: NSCoder) {
-        taskTitle = coder.decodeObject(forKey: UserSettings.taskTitle) as? String ?? ""
-        image = coder.decodeObject(forKey: UserSettings.image) as? UIImage ?? #imageLiteral(resourceName: "DefaultProfileImage")
+        taskTitle = coder.decodeObject(forKey: SettingsKey.taskTitle) as? String ?? "nil"
+        image = coder.decodeObject(forKey: SettingsKey.image) as? UIImage ?? #imageLiteral(resourceName: "DefaultProfileImage")
     }
 }

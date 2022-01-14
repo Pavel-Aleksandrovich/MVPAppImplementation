@@ -17,12 +17,9 @@ protocol TaskViewRouter {
 
 class TaskViewRouterImpl: TaskViewRouter {
     
-    var addTaskPresenterDelegate: AddTaskPresenterDelegate?
-    
     func presentAddTask(view: TaskListViewController, animated: Bool,
                         addTaskPresenterDelegate: AddTaskPresenterDelegate) {
         
-        self.addTaskPresenterDelegate = addTaskPresenterDelegate
         let vc = AddTaskAssembler.assembly(addTaskPresenterDelegate: addTaskPresenterDelegate)
         view.navigationController?.pushViewController(vc, animated: animated)
     }
@@ -31,6 +28,7 @@ class TaskViewRouterImpl: TaskViewRouter {
                            task: TaskEntity,
                            animated: Bool,
                            deleteComplition: @escaping (TaskEntity) -> ()) {
+        
         let vc = TaskDetailAssembler.assembly(task: task, deleteComplition: deleteComplition)
         view.navigationController?.pushViewController(vc, animated: animated)
     }

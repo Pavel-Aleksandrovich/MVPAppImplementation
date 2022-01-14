@@ -52,5 +52,6 @@ extension TaskDetailViewController: TaskDetailView {
     func setData(title: String?, image: UIImage?) {
         titleTextField.text = title
         imageView.image = image
+        self.title = title
     }
 }
