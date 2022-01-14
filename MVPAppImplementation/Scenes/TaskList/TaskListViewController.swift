@@ -15,7 +15,6 @@ class TaskListViewController: UIViewController {
     private var presenter: TaskListPresenter!
     private let tableView = UITableView()
     private let addTaskButton = UIButton()
-    private var addTask: TaskEntity?
     
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
@@ -28,7 +27,6 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        addTask?.taskTitle = TaskSettings.taskTitle
         presenter.onViewAttached(view: self)
         setupViews()
         presenter.setTitle()
@@ -77,9 +75,6 @@ class TaskListViewController: UIViewController {
 // MARK: - TaskListView
 
 extension TaskListViewController: TaskListView {
-    func refreshTasksView() {
-        tableView.reloadData()
-    }
     
     func setTitle(title: String?) {
         self.title = title

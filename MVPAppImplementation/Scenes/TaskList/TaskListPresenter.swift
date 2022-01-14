@@ -20,7 +20,6 @@ protocol TaskListPresenter {
 
 protocol TaskListView: AnyObject {
     func setTitle(title: String?)
-    func refreshTasksView()
     func deselectRow(indexPath: IndexPath, animated: Bool)
 }
 

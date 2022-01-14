@@ -29,6 +29,6 @@ class TaskEntity: NSObject, NSCoding {
     
     required init?(coder: NSCoder) {
         taskTitle = coder.decodeObject(forKey: UserSettings.taskTitle) as? String ?? ""
-        image = coder.decodeObject(forKey: UserSettings.image) as? UIImage ?? #imageLiteral(resourceName: "imagePlaceholder")
+        image = coder.decodeObject(forKey: UserSettings.image) as? UIImage ?? #imageLiteral(resourceName: "DefaultProfileImage")
     }
 }

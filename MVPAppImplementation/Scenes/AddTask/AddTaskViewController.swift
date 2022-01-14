@@ -30,8 +30,8 @@ class AddTaskViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-//        hideKeyboardWhenTappedAround()
         super.viewDidLoad()
+        //        hideKeyboardWhenTappedAround()
         presenter.onViewAttached(view: self)
         presenter.setViewBackgrounColor()
         presenter.setViewTitle()
@@ -45,7 +45,7 @@ class AddTaskViewController: UIViewController {
         imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
         view.addSubview(imageView)
         imageView.center = view.center
-        imageView.backgroundColor = .black.withAlphaComponent(0.3)
+        imageView.image = #imageLiteral(resourceName: "DefaultProfileImage.png")
         
         imageButton.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
         view.addSubview(imageButton)
