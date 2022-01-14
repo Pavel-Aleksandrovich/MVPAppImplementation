@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class TaskSettings {
+protocol TaskSettings {
+    var tasks: [TaskEntity]! { get set }
+}
+
+final class TaskSettingsImpl: TaskSettings {
     
     private enum SettingsKey {
         static let taskTitle = "taskTitle"
