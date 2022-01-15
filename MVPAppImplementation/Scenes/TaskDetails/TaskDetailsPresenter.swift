@@ -8,20 +8,19 @@
 import UIKit
 
 protocol TaskDetailView: AnyObject {
-    func setData(title: String?, image: UIImage?)
+    func setTask(task: TaskEntity)
 }
 
 protocol TaskDetailsPresenter {
-    func onViewAttached(view: TaskDetailView)
-    func setData()
-    func popViewController(view: TaskDetailViewController)
+    func onViewAttached(view: TaskDetailView, navigationController: UINavigationController?)
+    func removeButtonDidPressed()
 }
 
 class TaskDetailsPresenterImpl: TaskDetailsPresenter {
-    private var task: TaskEntity
+    private let task: TaskEntity
     private weak var view: TaskDetailView?
-    private var router: TaskDetailRouter
-    private var deleteComplition: (TaskEntity) -> ()
+    private let router: TaskDetailRouter
+    private let deleteComplition: (TaskEntity) -> ()
     
     init(task: TaskEntity, router: TaskDetailRouter,
          deleteComplition: @escaping (TaskEntity) -> ()) {
@@ -30,15 +29,14 @@ class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         self.deleteComplition = deleteComplition
     }
     
-    func onViewAttached(view: TaskDetailView) {
+    func onViewAttached(view: TaskDetailView, navigationController: UINavigationController?) {
         self.view = view
-    }
-    func setData() {
-        view?.setData(title: task.taskTitle, image: task.image )
+        view.setTask(task: task)
+        router.set(navigationController: navigationController)
     }
     
-    func popViewController(view: TaskDetailViewController) {
-        router.popViewController(view: view, animated: false)
+    func removeButtonDidPressed() {
+        router.popViewController(animated: false)
         deleteComplition(task)
     }
 }

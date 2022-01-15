@@ -9,9 +9,9 @@ import UIKit
 
 class TaskDetailViewController: UIViewController {
     
-    private var titleTextField = UITextField()
-    private var imageView = UIImageView()
-    private var presenter: TaskDetailsPresenter!
+    private let titleTextField = UITextField()
+    private let avatarImageView = UIImageView()
+    private let presenter: TaskDetailsPresenter!
     
     init(presenter: TaskDetailsPresenter) {
         self.presenter = presenter
@@ -24,24 +24,23 @@ class TaskDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.onViewAttached(view: self)
+        presenter.onViewAttached(view: self, navigationController: self.navigationController)
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         
         titleTextField.frame = CGRect(x: 25, y: 150, width: 200, height: 20)
-        presenter.setData()
         
-        imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
-        view.addSubview(imageView)
-        imageView.center = view.center
-        imageView.backgroundColor = .black.withAlphaComponent(0.3)
+        avatarImageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        view.addSubview(avatarImageView)
+        avatarImageView.center = view.center
+        avatarImageView.backgroundColor = .black.withAlphaComponent(0.3)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeButtonDidPressed))
         
     }
     
     @objc func removeButtonDidPressed() {
-        presenter.popViewController(view: self)
+        presenter.removeButtonDidPressed()
     }
     
 }
@@ -49,9 +48,10 @@ class TaskDetailViewController: UIViewController {
 // MARK: - TaskDetailView
 
 extension TaskDetailViewController: TaskDetailView {
-    func setData(title: String?, image: UIImage?) {
-        titleTextField.text = title
-        imageView.image = image
-        self.title = title
+    
+    func setTask(task: TaskEntity) {
+        titleTextField.text = task.taskTitle
+        avatarImageView.image = task.image
+        self.title = task.taskTitle
     }
 }
