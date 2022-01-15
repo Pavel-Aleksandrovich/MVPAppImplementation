@@ -17,7 +17,7 @@ protocol AddTaskPresenter {
     func addButtonPressed(parametrs: TaskEntity)
     func onViewAttached(view: AddTaskView)
     func isEnabledSaveButton(textField: String) -> Bool
-    func popViewController(view: AddTaskViewController)
+    func popViewController(navigationController: UINavigationController?)
 }
 
 protocol AddTaskView: AnyObject {
@@ -62,7 +62,7 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
         delegate.addTaskPresenter(presenter: self, task: parametrs)
     }
     
-    func popViewController(view: AddTaskViewController) {
-        router.popViewController(view: view, animated: false)
+    func popViewController(navigationController: UINavigationController?) {
+        router.popViewController(navigationController: navigationController, animated: false)
     }
 }

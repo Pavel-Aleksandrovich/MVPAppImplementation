@@ -12,8 +12,8 @@ protocol TaskListPresenter {
     func numberOfTasks() -> Int
     func getTaskByIndex(index: Int) -> TaskEntity
     func onViewAttached(view: TaskListView)
-    func addTaskButtonTapped(view: TaskListViewController)
-    func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath)
+    func addTaskButtonTapped(navigationController: UINavigationController?)
+    func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskAtByIndex(index: Int)
 }
@@ -59,14 +59,15 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
         return task
     }
     
-    func addTaskButtonTapped(view: TaskListViewController) {
-        router.presentAddTask(view: view, animated: false, addTaskPresenterDelegate: self)
+    func addTaskButtonTapped(navigationController: UINavigationController?) {
+        router.presentAddTask(navigationController: navigationController, animated: false, addTaskPresenterDelegate: self)
     }
     
-    func presentTaskDetail(view: TaskListViewController, indexPath: IndexPath) {
+    func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath) {
         let task = taskSettings.tasks[indexPath.row]
         
-        router.presentTaskDetail(view: view, task: task, animated: false) { [weak self] task in
+        router.presentTaskDetail(navigationController: navigationController,
+                                 task: task, animated: false) { [weak self] task in
             self?.taskSettings.tasks.remove(at: indexPath.row)
         }
     }

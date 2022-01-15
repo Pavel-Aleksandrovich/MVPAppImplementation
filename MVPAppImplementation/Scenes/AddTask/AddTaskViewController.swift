@@ -56,7 +56,7 @@ class AddTaskViewController: UIViewController {
     @objc private func saveButtonPressed() {
         let addTask = TaskEntity(title: textField.text!, image: imageView.image)
         presenter.addButtonPressed(parametrs: addTask)
-        presenter.popViewController(view: self)
+        presenter.popViewController(navigationController: self.navigationController)
     }
     
     @objc private func pickImage() {

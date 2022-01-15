@@ -68,7 +68,7 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func addTaskButtonTapped() {
-        presenter.addTaskButtonTapped(view: self)
+        presenter.addTaskButtonTapped(navigationController: self.navigationController)
     }
 }
 
@@ -121,7 +121,7 @@ extension TaskListViewController: UITableViewDataSource {
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.deselectRow(indexPath: indexPath)
-        presenter.presentTaskDetail(view: self, indexPath: indexPath)
+        presenter.presentTaskDetail(navigationController: self.navigationController, indexPath: indexPath)
     }
     
 }
