@@ -8,19 +8,11 @@
 import UIKit
 
 protocol TaskDetailRouter {
-    func popViewController(animated: Bool)
-    func set(navigationController: UINavigationController?)
+    func popViewController(animated: Bool, navigationController: UINavigationController?)
 }
 
 final class TaskDetailRouterImpl: TaskDetailRouter {
-    
-    private var navigationController: UINavigationController?
-    
-    func set(navigationController: UINavigationController?) {
-        self.navigationController = navigationController
-    }
-    
-    func popViewController(animated: Bool) {
+    func popViewController(animated: Bool, navigationController: UINavigationController?) {
         navigationController?.popViewController(animated: animated)
     }
 }

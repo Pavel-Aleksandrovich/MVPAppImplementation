@@ -24,7 +24,7 @@ class TaskDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.onViewAttached(view: self, navigationController: self.navigationController)
+        presenter.onViewAttached(view: self)
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         
@@ -40,7 +40,7 @@ class TaskDetailViewController: UIViewController {
     }
     
     @objc func removeButtonDidPressed() {
-        presenter.removeButtonDidPressed()
+        presenter.removeButtonDidPressed(navigationController: self.navigationController)
     }
     
 }

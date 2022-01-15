@@ -12,8 +12,8 @@ protocol TaskDetailView: AnyObject {
 }
 
 protocol TaskDetailsPresenter {
-    func onViewAttached(view: TaskDetailView, navigationController: UINavigationController?)
-    func removeButtonDidPressed()
+    func onViewAttached(view: TaskDetailView)
+    func removeButtonDidPressed(navigationController: UINavigationController?)
 }
 
 class TaskDetailsPresenterImpl: TaskDetailsPresenter {
@@ -29,14 +29,13 @@ class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         self.deleteComplition = deleteComplition
     }
     
-    func onViewAttached(view: TaskDetailView, navigationController: UINavigationController?) {
+    func onViewAttached(view: TaskDetailView) {
         self.view = view
         view.setTask(task: task)
-        router.set(navigationController: navigationController)
     }
     
-    func removeButtonDidPressed() {
-        router.popViewController(animated: false)
+    func removeButtonDidPressed(navigationController: UINavigationController?) {
+        router.popViewController(animated: false, navigationController: navigationController)
         deleteComplition(task)
     }
 }
