@@ -97,6 +97,7 @@ extension TaskListViewController: UITableViewDataSource {
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.textLabel?.text = task.taskTitle
+        cell.detailTextLabel?.text = task.currentDate
         cell.imageView?.image = task.image
         
         return cell

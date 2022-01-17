@@ -59,7 +59,16 @@ class AddTaskViewController: UIViewController {
         if saveButton.tintColor == .gray.withAlphaComponent(0.6) {
             showShakeAnimation(textField: textField)
         } else {
-            let addTask = TaskEntity(title: textField.text, image: imageView.image)
+            
+            // MARK: - Date
+            
+            let currentDate = Date()
+            let formatter = DateFormatter()
+//            formatter.timeStyle = .short
+            formatter.dateStyle = .medium
+            let dateTimeString = formatter.string(from: currentDate)
+            
+            let addTask = TaskEntity(title: textField.text, image: imageView.image, currentDate: dateTimeString)
             presenter.addButtonPressed(parametrs: addTask)
             presenter.popViewController(navigationController: self.navigationController)
         }
