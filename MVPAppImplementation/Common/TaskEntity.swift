@@ -9,7 +9,7 @@ import UIKit
 
 class TaskEntity: NSObject, NSCoding {
     
-    var taskTitle: String
+    var taskTitle: String?
     var image: UIImage?
     
     private enum SettingsKey {
@@ -17,7 +17,7 @@ class TaskEntity: NSObject, NSCoding {
         static let image = "image"
     }
     
-    init(title: String, image: UIImage?) {
+    init(title: String?, image: UIImage?) {
         self.taskTitle = title
         self.image = image
     }

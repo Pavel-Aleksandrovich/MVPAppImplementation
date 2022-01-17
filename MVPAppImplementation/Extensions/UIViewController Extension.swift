@@ -26,4 +26,14 @@ extension UIViewController {
         present(alert, animated: animated)
     }
     
+    func showShakeAnimation(textField: UITextField) {
+//        keyPath: "position.x"
+//        keyPath: "position.y"
+        let shakeAnimation = CAKeyframeAnimation(keyPath: "position.x")
+        shakeAnimation.values = [0, -15, 15, -15, 15, 0]
+        shakeAnimation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
+        shakeAnimation.duration = 0.4
+        shakeAnimation.isAdditive = true
+        textField.layer.add(shakeAnimation, forKey: nil)
+    }
 }

@@ -33,13 +33,14 @@ class AddTaskViewController: UIViewController {
         super.viewDidLoad()
         //        hideKeyboardWhenTappedAround()
         presenter.onViewAttached(view: self)
-        presenter.setViewBackgrounColor()
-        presenter.setViewTitle()
+        
         textField.frame = CGRect(x: 25, y: 150, width: 200, height: 20)
         view.addSubview(textField)
         textField.placeholder = Constants.PLACEHOLDER
         textField.delegate = self
-        isEnabled()
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = CGFloat(3)
+        
         navigationItem.rightBarButtonItem = saveButton
         
         imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
@@ -54,9 +55,14 @@ class AddTaskViewController: UIViewController {
     }
     
     @objc private func saveButtonPressed() {
-        let addTask = TaskEntity(title: textField.text!, image: imageView.image)
-        presenter.addButtonPressed(parametrs: addTask)
-        presenter.popViewController(navigationController: self.navigationController)
+        
+        if saveButton.tintColor == .gray.withAlphaComponent(0.6) {
+            showShakeAnimation(textField: textField)
+        } else {
+            let addTask = TaskEntity(title: textField.text, image: imageView.image)
+            presenter.addButtonPressed(parametrs: addTask)
+            presenter.popViewController(navigationController: self.navigationController)
+        }
     }
     
     @objc private func pickImage() {
@@ -68,8 +74,8 @@ class AddTaskViewController: UIViewController {
 
 extension AddTaskViewController: AddTaskView {
     
-    func isEnabled() {
-        saveButton.isEnabled = presenter.isEnabledSaveButton(textField: textField.text!)
+    func setSaveButtonColor(color: UIColor) {
+        saveButton.tintColor = color
     }
     
     func setViewBackgrounColor(color: UIColor?) {
@@ -107,7 +113,7 @@ extension AddTaskViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
-        saveButton.isEnabled = presenter.isEnabledSaveButton(textField: text)
+        saveButton.tintColor = presenter.isEnabledSaveButton(text: text)
         
         return true
     }

@@ -12,18 +12,16 @@ protocol AddTaskPresenterDelegate: AnyObject {
 }
 
 protocol AddTaskPresenter {
-    func setViewBackgrounColor()
-    func setViewTitle()
     func addButtonPressed(parametrs: TaskEntity)
     func onViewAttached(view: AddTaskView)
-    func isEnabledSaveButton(textField: String) -> Bool
+    func isEnabledSaveButton(text: String) -> UIColor
     func popViewController(navigationController: UINavigationController?)
 }
 
 protocol AddTaskView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
-    func isEnabled()
+    func setSaveButtonColor(color: UIColor)
     func showChooseSourceTypeAlertController()
     func showImagePickerController(sourceType: UIImagePickerController.SourceType)
 }
@@ -38,24 +36,20 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
         self.delegate = delegate
     }
     
-    func isEnabledSaveButton(textField: String) -> Bool {
-        if textField.isEmpty{
-            return false
+    func isEnabledSaveButton(text: String) -> UIColor {
+        
+        if text.isEmpty {
+            return .gray.withAlphaComponent(0.6)
         } else {
-            return true
+            return .red
         }
     }
     
     func onViewAttached(view: AddTaskView) {
+        view.setViewTitle(title: "Add Task")
+        view.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
+        view.setSaveButtonColor(color: .gray.withAlphaComponent(0.6))
         self.view = view
-    }
-    
-    func setViewBackgrounColor() {
-        view?.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
-    }
-    
-    func setViewTitle() {
-        view?.setViewTitle(title: "Add Task")
     }
     
     func addButtonPressed(parametrs: TaskEntity) {
