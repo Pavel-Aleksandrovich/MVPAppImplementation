@@ -10,6 +10,7 @@ import UIKit
 class TaskDetailViewController: UIViewController {
     
     private let titleTextField = UITextField()
+    private let descriptionTextView = UITextView()
     private let avatarImageView = UIImageView()
     private let presenter: TaskDetailsPresenter!
     
@@ -28,11 +29,17 @@ class TaskDetailViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         
-        titleTextField.frame = CGRect(x: 25, y: 150, width: 200, height: 20)
+        titleTextField.frame = CGRect(x: 15, y: 110, width: view.bounds.width - 30, height: 30)
         
-        avatarImageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        descriptionTextView.frame = CGRect(x: 15, y: 150, width: view.bounds.width - 30, height: 200)
+        view.addSubview(descriptionTextView)
+        descriptionTextView.backgroundColor = .none
+        descriptionTextView.layer.borderColor = UIColor.black.cgColor
+        descriptionTextView.layer.borderWidth = CGFloat(1)
+        
+        avatarImageView.frame = CGRect(x: 15, y: view.bounds.width, width: view.bounds.width - 30, height: view.bounds.width - 30)
         view.addSubview(avatarImageView)
-        avatarImageView.center = view.center
+//        avatarImageView.center = view.center
         avatarImageView.backgroundColor = .black.withAlphaComponent(0.3)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeButtonDidPressed))
@@ -50,8 +57,9 @@ class TaskDetailViewController: UIViewController {
 extension TaskDetailViewController: TaskDetailView {
     
     func setTask(task: TaskEntity) {
-        titleTextField.text = task.taskTitle
+        titleTextField.text = task.titleText
         avatarImageView.image = task.image
-        self.title = task.taskTitle
+        descriptionTextView.text = task.descriptionText
+        self.title = task.titleText
     }
 }

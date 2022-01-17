@@ -96,7 +96,7 @@ extension TaskListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
-        cell.textLabel?.text = task.taskTitle
+        cell.textLabel?.text = task.titleText
         cell.detailTextLabel?.text = task.currentDate
         cell.imageView?.image = task.image
         

@@ -20,7 +20,7 @@ final class TaskSettingsImpl: TaskSettings {
     var tasks: [TaskEntity]! {
         get {
             guard let data = UserDefaults.standard.object(forKey: SettingsKey.taskEntity) as? Data,
-                  let decodeModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [TaskEntity] else { return [TaskEntity(title: "nil", image: nil, currentDate: nil)] }
+                  let decodeModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [TaskEntity] else { return [TaskEntity(title: "nil", image: nil, currentDate: nil, descriptionText: nil)] }
             return decodeModel
         } set {
             if let model = newValue {

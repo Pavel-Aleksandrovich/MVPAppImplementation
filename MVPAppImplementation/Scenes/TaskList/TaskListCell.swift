@@ -19,4 +19,11 @@ class TaskListCell: UITableViewCell, TaskListCellView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setConstraints() {
+        
+        
+        
+        
+    }
 }

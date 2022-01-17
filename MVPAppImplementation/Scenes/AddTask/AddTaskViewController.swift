@@ -15,7 +15,8 @@ class AddTaskViewController: UIViewController {
     }
     
     private var presenter: AddTaskPresenter!
-    private let textField = UITextField()
+    private let titleTextField = UITextField()
+    private let descriptionTextView = UITextView()
     private var imageView = UIImageView()
     private let imageButton = UIButton()
     private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
@@ -34,30 +35,37 @@ class AddTaskViewController: UIViewController {
         //        hideKeyboardWhenTappedAround()
         presenter.onViewAttached(view: self)
         
-        textField.frame = CGRect(x: 25, y: 150, width: 200, height: 20)
-        view.addSubview(textField)
-        textField.placeholder = Constants.PLACEHOLDER
-        textField.delegate = self
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.borderWidth = CGFloat(3)
+        titleTextField.frame = CGRect(x: 15, y: 110, width: view.bounds.width - 30, height: 30)
+        view.addSubview(titleTextField)
+        titleTextField.placeholder = Constants.PLACEHOLDER
+        titleTextField.delegate = self
+        titleTextField.layer.borderColor = UIColor.black.cgColor
+        titleTextField.layer.borderWidth = CGFloat(1)
+        
+        descriptionTextView.frame = CGRect(x: 15, y: 150, width: view.bounds.width - 30, height: 200)
+        view.addSubview(descriptionTextView)
+        descriptionTextView.backgroundColor = .none
+        descriptionTextView.layer.borderColor = UIColor.black.cgColor
+        descriptionTextView.layer.borderWidth = CGFloat(1)
         
         navigationItem.rightBarButtonItem = saveButton
         
-        imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        imageView.frame = CGRect(x: 15, y: view.bounds.width, width: view.bounds.width - 30, height: view.bounds.width - 30)
         view.addSubview(imageView)
-        imageView.center = view.center
+//        imageView.center = view.center
         imageView.image = #imageLiteral(resourceName: "DefaultProfileImage.png")
         
-        imageButton.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 50, height: view.bounds.width - 50)
+        imageButton.frame = CGRect(x: 15, y: view.bounds.width, width: view.bounds.width - 30, height: view.bounds.width - 30)
         view.addSubview(imageButton)
-        imageButton.center = view.center
+        imageButton.layer.borderWidth = CGFloat(1)
+//        imageButton.center = view.center
         imageButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
     }
     
     @objc private func saveButtonPressed() {
         
         if saveButton.tintColor == .gray.withAlphaComponent(0.6) {
-            showShakeAnimation(textField: textField)
+            showShakeAnimation(textField: titleTextField)
         } else {
             
             // MARK: - Date
@@ -68,7 +76,7 @@ class AddTaskViewController: UIViewController {
             formatter.dateStyle = .medium
             let dateTimeString = formatter.string(from: currentDate)
             
-            let addTask = TaskEntity(title: textField.text, image: imageView.image, currentDate: dateTimeString)
+            let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text)
             presenter.addButtonPressed(parametrs: addTask)
             presenter.popViewController(navigationController: self.navigationController)
         }
