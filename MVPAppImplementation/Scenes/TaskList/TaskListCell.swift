@@ -9,11 +9,12 @@ import UIKit
 
 class TaskListCell: UITableViewCell, TaskListCellView {
     
-    private let titleLabel = UILabel()
-//    private let imageView = UIImageView()
+    let titleLabel = UILabel()
+    let taskImageView = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -21,8 +22,17 @@ class TaskListCell: UITableViewCell, TaskListCellView {
     }
     
     func setConstraints() {
+        self.addSubview(taskImageView)
+        taskImageView.translatesAutoresizingMaskIntoConstraints = false
+        taskImageView.layer.cornerRadius = (self.bounds.height - 4)/2
+        taskImageView.clipsToBounds = true
         
-        
+        NSLayoutConstraint.activate([
+            taskImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            taskImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            taskImageView.heightAnchor.constraint(equalToConstant: self.bounds.height - 4),
+            taskImageView.widthAnchor.constraint(equalToConstant: self.bounds.height - 4)
+        ])
         
         
     }

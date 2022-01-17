@@ -42,6 +42,7 @@ class TaskListViewController: UIViewController {
     private func setupViews() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
         tableView.addSubview(addTaskButton)
         
@@ -98,7 +99,8 @@ extension TaskListViewController: UITableViewDataSource {
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.textLabel?.text = task.titleText
         cell.detailTextLabel?.text = task.currentDate
-        cell.imageView?.image = task.image
+//        cell.imageView?.image = task.image
+        cell.taskImageView.image = task.image
         
         return cell
     }
@@ -115,6 +117,10 @@ extension TaskListViewController: UITableViewDataSource {
             tableView.endUpdates()
         }
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 80
+//    }
 }
 
 // MARK: - UITableViewDelegate
