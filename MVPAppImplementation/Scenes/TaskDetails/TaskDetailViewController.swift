@@ -26,6 +26,8 @@ class TaskDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.onViewAttached(view: self)
+        
+        navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         

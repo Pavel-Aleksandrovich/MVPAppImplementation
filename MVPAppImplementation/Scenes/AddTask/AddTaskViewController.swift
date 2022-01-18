@@ -32,6 +32,8 @@ class AddTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .never
+        
         //        hideKeyboardWhenTappedAround()
         presenter.onViewAttached(view: self)
         

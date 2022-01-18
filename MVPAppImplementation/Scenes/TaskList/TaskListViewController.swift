@@ -49,6 +49,10 @@ class TaskListViewController: UIViewController {
         tableView.frame = view.bounds
         tableView.register(TaskListCell.self,
                            forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        
     }
     
     private func setButtonContstraints() {
@@ -97,10 +101,7 @@ extension TaskListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
-        cell.textLabel?.text = task.titleText
-        cell.detailTextLabel?.text = task.currentDate
-//        cell.imageView?.image = task.image
-        cell.taskImageView.image = task.image
+        cell.configure(task: task)
         
         return cell
     }
@@ -118,9 +119,9 @@ extension TaskListViewController: UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 80
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
+    }
 }
 
 // MARK: - UITableViewDelegate
