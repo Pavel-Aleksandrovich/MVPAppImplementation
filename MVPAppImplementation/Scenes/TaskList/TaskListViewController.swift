@@ -52,7 +52,10 @@ class TaskListViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPressed))
         
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
+        tableView.addGestureRecognizer(longPressGesture)
     }
     
     private func setButtonContstraints() {
@@ -74,6 +77,25 @@ class TaskListViewController: UIViewController {
     
     @objc private func addTaskButtonTapped() {
         presenter.addTaskButtonTapped(navigationController: self.navigationController)
+    }
+    
+    @objc private func longTapPressed(press: UILongPressGestureRecognizer) {
+        if press.state == .began {
+            tableView.isEditing = true
+//            if tableView.isEditing {
+//                 tableView.isEditing = false
+//             } else {
+//                 tableView.isEditing = true
+//             }
+        }
+    }
+    
+    @objc private func editPressed() {
+       if tableView.isEditing {
+            tableView.isEditing = false
+        } else {
+            tableView.isEditing = true
+        }
     }
 }
 
@@ -131,5 +153,14 @@ extension TaskListViewController: UITableViewDelegate {
         presenter.deselectRow(indexPath: indexPath)
         presenter.presentTaskDetail(navigationController: self.navigationController, indexPath: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        presenter.moveCell(sourceIndexPath: sourceIndexPath.row, destinationIndexPath: destinationIndexPath.row)
+    }
+    
     
 }

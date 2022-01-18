@@ -16,7 +16,8 @@ protocol TaskListPresenter {
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskAtByIndex(index: Int)
-}
+    func  moveCell(sourceIndexPath: Int, destinationIndexPath: Int)
+    }
 
 protocol TaskListView: AnyObject {
     func setTitle(title: String?)
@@ -40,6 +41,10 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     
     func onViewAttached(view: TaskListView) {
         self.view = view
+    }
+    
+    func  moveCell(sourceIndexPath: Int, destinationIndexPath: Int) {
+        taskSettings.tasks.swapAt(sourceIndexPath, destinationIndexPath)
     }
     
     func setTitle() {
