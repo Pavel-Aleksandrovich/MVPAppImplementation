@@ -54,8 +54,8 @@ class TaskListViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPressed))
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
-        tableView.addGestureRecognizer(longPressGesture)
+//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
+//        tableView.addGestureRecognizer(longPressGesture)
     }
     
     private func setButtonContstraints() {
@@ -80,22 +80,23 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func longTapPressed(press: UILongPressGestureRecognizer) {
+        
         if press.state == .began {
-            tableView.isEditing = true
-//            if tableView.isEditing {
-//                 tableView.isEditing = false
-//             } else {
-//                 tableView.isEditing = true
-//             }
+            if tableView.isEditing {
+                 tableView.isEditing = false
+             } else {
+                 tableView.isEditing = true
+             }
         }
     }
     
     @objc private func editPressed() {
-       if tableView.isEditing {
-            tableView.isEditing = false
-        } else {
-            tableView.isEditing = true
-        }
+        
+//       if tableView.isEditing {
+//            tableView.isEditing = false
+//        } else {
+//            tableView.isEditing = true
+//        }
     }
 }
 
@@ -124,7 +125,7 @@ extension TaskListViewController: UITableViewDataSource {
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.configure(task: task)
-        
+        cell.selectionStyle = .none
         return cell
     }
     

@@ -13,7 +13,10 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
     private let titleLabel = UILabel()
     private let taskImageView = UIImageView()
     private let taskDataLabel = UILabel()
-    private let taskCheckMarkButton = UIButton()
+    
+    var taskCheckMarkButton = UIView()
+    //    private let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,11 +28,17 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
     }
     
     func setConstraints() {
+        
+        
         self.addSubview(cellView)
         cellView.addSubview(taskImageView)
         cellView.addSubview(titleLabel)
         cellView.addSubview(taskDataLabel)
         cellView.addSubview(taskCheckMarkButton)
+        
+//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
+//        self.addGestureRecognizer(longPressGesture)
+//        taskCheckMarkButton.addGestureRecognizer(longPressGesture)
         
         cellView.backgroundColor = .gray.withAlphaComponent(0.1)
         cellView.layer.cornerRadius = 20
@@ -41,7 +50,6 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         }
         
         taskCheckMarkButton.backgroundColor = .red
-        taskCheckMarkButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
         taskDataLabel.font = .systemFont(ofSize: 15, weight: .light)
         taskDataLabel.textAlignment = .right
@@ -85,12 +93,16 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         taskImageView.image = task.image
     }
     
-    @objc private func buttonPressed() {
-        print("buttonPressed")
-        print("buttonPressed")
-        print("buttonPressed")
-        print("buttonPressed")
-        print("buttonPressed")
-        print("buttonPressed")
+    @objc private func longTapPressed(press: UILongPressGestureRecognizer) {
+        print("\(String(describing: titleLabel.text))")
+        print("\(String(describing: titleLabel.text))")
+        print("\(String(describing: titleLabel.text))")
+        if press.state == .began {
+            
+            taskCheckMarkButton.backgroundColor = .green
+        } else {
+            return
+        }
+        
     }
 }
