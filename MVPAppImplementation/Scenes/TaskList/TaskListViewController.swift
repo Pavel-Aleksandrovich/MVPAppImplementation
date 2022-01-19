@@ -125,6 +125,7 @@ extension TaskListViewController: UITableViewDataSource {
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.configure(task: task)
+        
         cell.selectionStyle = .none
         return cell
     }

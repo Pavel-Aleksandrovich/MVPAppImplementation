@@ -27,6 +27,7 @@
 		8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F2278C425C0062440A /* TaskDetailRouter.swift */; };
 		8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F5278D39AD0062440A /* TaskSettings.swift */; };
 		8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F8278D51E30062440A /* UIViewController Extension.swift */; };
+		8476A1FC2798065B0062440A /* PopoverColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FB2798065A0062440A /* PopoverColorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		8476A1F2278C425C0062440A /* TaskDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailRouter.swift; sourceTree = "<group>"; };
 		8476A1F5278D39AD0062440A /* TaskSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettings.swift; sourceTree = "<group>"; };
 		8476A1F8278D51E30062440A /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
+		8476A1FB2798065A0062440A /* PopoverColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverColorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				8476A1DD278949660062440A /* AddTaskViewController.swift */,
+				8476A1FB2798065A0062440A /* PopoverColorViewController.swift */,
 				8476A1DF278949A90062440A /* AddTaskPresenter.swift */,
 				8476A1E1278963C00062440A /* AddTaskAssembler.swift */,
 				8476A1E9278BFA510062440A /* AddTaskRouter.swift */,
@@ -265,6 +268,7 @@
 				8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */,
 				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
+				8476A1FC2798065B0062440A /* PopoverColorViewController.swift in Sources */,
 				8476A1EF278C3FF80062440A /* TaskDetailsPresenter.swift in Sources */,
 				8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */,
 				8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */,

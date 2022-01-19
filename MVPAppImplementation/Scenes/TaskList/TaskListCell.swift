@@ -40,9 +40,12 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
 //        self.addGestureRecognizer(longPressGesture)
 //        taskCheckMarkButton.addGestureRecognizer(longPressGesture)
         
-        cellView.backgroundColor = .gray.withAlphaComponent(0.1)
+        titleLabel.textColor = .orange
+        
+        cellView.backgroundColor = .systemPink.withAlphaComponent(0.1)
         cellView.layer.cornerRadius = 20
         cellView.layer.borderWidth = CGFloat(0.1)
+        cellView.layer.borderColor = UIColor.red.cgColor
         cellView.clipsToBounds = true
         
         [cellView, titleLabel, taskImageView, taskDataLabel, taskCheckMarkButton].forEach {

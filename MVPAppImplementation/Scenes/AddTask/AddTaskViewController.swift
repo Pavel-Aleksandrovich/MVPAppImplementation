@@ -7,19 +7,20 @@
 
 import UIKit
 
-class AddTaskViewController: UIViewController {
+class AddTaskViewController: UIViewController, PopoverColorDelegate {
     
     private enum Constants {
         static let PLACEHOLDER = "Enter the text"
         static let SAVE_BUTTON = "Save"
     }
-    
+    let popoverViewController = PopoverColorViewController()
     private var presenter: AddTaskPresenter!
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
-    private var imageView = UIImageView()
+    private let imageView = UIImageView()
     private let imageButton = UIButton()
     private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
+    private let colorPopoverButton = UIButton()
     
     init(presenter: AddTaskPresenter) {
         self.presenter = presenter
@@ -33,9 +34,12 @@ class AddTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = saveButton
         
         //        hideKeyboardWhenTappedAround()
         presenter.onViewAttached(view: self)
+        
+        // titleTextField
         
         titleTextField.frame = CGRect(x: 15, y: 110, width: view.bounds.width - 30, height: 30)
         view.addSubview(titleTextField)
@@ -44,25 +48,40 @@ class AddTaskViewController: UIViewController {
         titleTextField.layer.borderColor = UIColor.black.cgColor
         titleTextField.layer.borderWidth = CGFloat(1)
         
+        // descriptionTextView
+         
         descriptionTextView.frame = CGRect(x: 15, y: 150, width: view.bounds.width - 30, height: 200)
         view.addSubview(descriptionTextView)
         descriptionTextView.backgroundColor = .none
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.borderWidth = CGFloat(1)
         
-        navigationItem.rightBarButtonItem = saveButton
-        
         imageView.frame = CGRect(x: 15, y: view.bounds.width, width: view.bounds.width - 30, height: view.bounds.width - 30)
         view.addSubview(imageView)
-//        imageView.center = view.center
+        //        imageView.center = view.center
         imageView.image = #imageLiteral(resourceName: "DefaultProfileImage.png")
         
         imageButton.frame = CGRect(x: 15, y: view.bounds.width, width: view.bounds.width - 30, height: view.bounds.width - 30)
         view.addSubview(imageButton)
         imageButton.layer.borderWidth = CGFloat(1)
-//        imageButton.center = view.center
-        imageButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
+        //        imageButton.center = view.center
+        imageButton.addTarget(self, action: #selector(showPickImageAlert), for: .touchUpInside)
+        
+        // colorPopoverButton
+        
+        view.addSubview(colorPopoverButton)
+        colorPopoverButton.backgroundColor = .magenta
+        colorPopoverButton.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.width - 30, width: 150, height: 30)
+        colorPopoverButton.addTarget(self, action: #selector(showColorPopover), for: .touchUpInside)
+        
+        popoverViewController.delegate = self
     }
+    
+    @objc private func showPickImageAlert() {
+        showChooseSourceTypeAlertController()
+    }
+    
+    // MARK: - Save Button Pressed
     
     @objc private func saveButtonPressed() {
         
@@ -74,7 +93,7 @@ class AddTaskViewController: UIViewController {
             
             let currentDate = Date()
             let formatter = DateFormatter()
-//            formatter.timeStyle = .short
+            //            formatter.timeStyle = .short
             formatter.dateStyle = .medium
             let dateTimeString = formatter.string(from: currentDate)
             
@@ -83,10 +102,38 @@ class AddTaskViewController: UIViewController {
             presenter.popViewController(navigationController: self.navigationController)
         }
     }
-    
-    @objc private func pickImage() {
-        showChooseSourceTypeAlertController()
+    @objc func showColorPopover() {
+        
+        
+        popoverViewController.modalPresentationStyle = .popover
+        popoverViewController.popoverPresentationController?.delegate = self
+        
+        let popov = popoverViewController.popoverPresentationController
+        popov?.permittedArrowDirections = .any
+        popov?.sourceView = colorPopoverButton
+        popov?.sourceRect = colorPopoverButton.bounds
+        
+        popoverViewController.preferredContentSize = CGSize(width: 300, height: 200)
+        
+        present(popoverViewController, animated: true, completion: nil)
+        
+        
     }
+    
+    func colorPressed(color: UIColor?) {
+        colorPopoverButton.tintColor = color
+    }
+}
+
+// MARK: - Pick Color Popover
+
+extension AddTaskViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+   
 }
 
 // MARK: - AddTaskView
