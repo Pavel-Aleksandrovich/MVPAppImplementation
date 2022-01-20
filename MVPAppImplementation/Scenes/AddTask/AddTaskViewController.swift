@@ -13,7 +13,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         static let PLACEHOLDER = "Enter the text"
         static let SAVE_BUTTON = "Save"
     }
-    let popoverViewController = PopoverColorViewController()
+    
     private var presenter: AddTaskPresenter!
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
@@ -21,6 +21,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     private let imageButton = UIButton()
     private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
     private let colorPopoverButton = UIButton()
+    private let fontPickerButton = UIButton()
     
     init(presenter: AddTaskPresenter) {
         self.presenter = presenter
@@ -55,6 +56,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         descriptionTextView.backgroundColor = .none
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.borderWidth = CGFloat(1)
+        descriptionTextView.font = .systemFont(ofSize: 15, weight: .light)
         
         imageView.frame = CGRect(x: 15, y: view.bounds.width, width: view.bounds.width - 30, height: view.bounds.width - 30)
         view.addSubview(imageView)
@@ -72,7 +74,12 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         view.addSubview(colorPopoverButton)
         colorPopoverButton.backgroundColor = .magenta
         colorPopoverButton.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.width - 30, width: 150, height: 30)
-        colorPopoverButton.addTarget(self, action: #selector(showColorPopover), for: .touchUpInside)
+        colorPopoverButton.addTarget(self, action: #selector(showColorPickerPopover), for: .touchUpInside)
+        
+        view.addSubview(fontPickerButton)
+        fontPickerButton.backgroundColor = .red
+        fontPickerButton.frame = CGRect(x: 10, y: view.bounds.width - 30, width: 100, height: 30)
+        fontPickerButton.addTarget(self, action: #selector(showFontPickerPopover), for: .touchUpInside)
         
     }
     
@@ -100,10 +107,29 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
             
             presenter.addButtonPressed(parametrs: addTask)
             presenter.popViewController(navigationController: self.navigationController)
+            
+            
         }
     }
-    @objc func showColorPopover() {
+    
+    @objc func showFontPickerPopover() {
+        let fontPickerPopoverViewController = FontPickerPopoverViewController()
+        fontPickerPopoverViewController.delegate = self
+        fontPickerPopoverViewController.modalPresentationStyle = .popover
+        fontPickerPopoverViewController.popoverPresentationController?.delegate = self
         
+        let fontPicker = fontPickerPopoverViewController.popoverPresentationController
+        fontPicker?.permittedArrowDirections = .down
+        fontPicker?.sourceView = fontPickerButton
+        fontPicker?.sourceRect = fontPickerButton.bounds
+        
+        fontPickerPopoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
+        
+        present(fontPickerPopoverViewController, animated: true, completion: nil)
+    }
+    
+    @objc func showColorPickerPopover() {
+        let popoverViewController = PopoverColorViewController()
         popoverViewController.delegate = self
         popoverViewController.modalPresentationStyle = .popover
         popoverViewController.popoverPresentationController?.delegate = self
@@ -124,15 +150,21 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     }
 }
 
-// MARK: - Pick Color Popover
+// MARK: - Font Picker Popover Delegate
+
+extension AddTaskViewController: FontPickerPopoverDelegate {
+    func setFont(font: String) {
+        titleTextField.font = UIFont.init(name: font, size: 25)
+    }
+}
+
+// MARK: - Color Picker Popover Delegate
 
 extension AddTaskViewController: UIPopoverPresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-    
-   
 }
 
 // MARK: - AddTaskView

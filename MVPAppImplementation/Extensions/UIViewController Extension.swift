@@ -8,6 +8,9 @@
 import UIKit
 
 extension UIViewController {
+    
+    // MARK: - Hide Keyboard When Tapped Around
+    
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -18,6 +21,8 @@ extension UIViewController {
         view.endEditing(true)
     }
     
+    // MARK: - Alert for pick photo from gallery or camera
+    
     func showAlert(style: UIAlertController.Style, title: String?, message: String?, actions: [UIAlertAction], animated: Bool) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         for action in actions {
@@ -25,6 +30,8 @@ extension UIViewController {
         }
         present(alert, animated: animated)
     }
+    
+    // MARK: - Shake animation for title text field
     
     func showShakeAnimation(textField: UITextField) {
 //        keyPath: "position.x"

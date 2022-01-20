@@ -49,7 +49,7 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         taskDataLabel.textAlignment = .right
         
         titleLabel.font = .systemFont(ofSize: 25, weight: .bold)
-        titleLabel.textColor = .orange
+        titleLabel.textColor = .black
         
         taskImageView.layer.cornerRadius = (self.bounds.height)/2
         taskImageView.clipsToBounds = true
