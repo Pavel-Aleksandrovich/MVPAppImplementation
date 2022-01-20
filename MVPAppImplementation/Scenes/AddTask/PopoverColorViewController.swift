@@ -28,7 +28,7 @@ class PopoverColorViewController: UIViewController, UICollectionViewDelegate, UI
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         
-        layout.itemSize = CGSize(width: (collectionView.frame.width - 10)/6, height: (collectionView.frame.width - 10)/6)
+        layout.itemSize = CGSize(width: (collectionView.frame.width - 12)/6, height: (collectionView.frame.width - 12)/6)
         layout.minimumLineSpacing = 2
         layout.minimumInteritemSpacing = 2
         
@@ -43,7 +43,7 @@ class PopoverColorViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: (collectionView.frame.width - 10)/6, height: (collectionView.frame.width - 10)/6)
+        return CGSize.init(width: (collectionView.frame.width - 12)/6, height: (collectionView.frame.width - 12)/6)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

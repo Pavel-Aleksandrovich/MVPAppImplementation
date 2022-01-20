@@ -124,7 +124,7 @@ extension TaskListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
-        cell.configure(task: task)
+        cell.configureCell(task: task)
         
         cell.selectionStyle = .none
         return cell

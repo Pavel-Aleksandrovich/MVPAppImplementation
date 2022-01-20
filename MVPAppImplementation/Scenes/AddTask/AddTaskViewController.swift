@@ -74,7 +74,6 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         colorPopoverButton.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.width - 30, width: 150, height: 30)
         colorPopoverButton.addTarget(self, action: #selector(showColorPopover), for: .touchUpInside)
         
-        popoverViewController.delegate = self
     }
     
     @objc private func showPickImageAlert() {
@@ -97,14 +96,15 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
             formatter.dateStyle = .medium
             let dateTimeString = formatter.string(from: currentDate)
             
-            let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text)
+            let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text, color: colorPopoverButton.backgroundColor)
+            
             presenter.addButtonPressed(parametrs: addTask)
             presenter.popViewController(navigationController: self.navigationController)
         }
     }
     @objc func showColorPopover() {
         
-        
+        popoverViewController.delegate = self
         popoverViewController.modalPresentationStyle = .popover
         popoverViewController.popoverPresentationController?.delegate = self
         
@@ -116,7 +116,6 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         popoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
         
         present(popoverViewController, animated: true, completion: nil)
-        
         
     }
     

@@ -13,13 +13,11 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
     private let titleLabel = UILabel()
     private let taskImageView = UIImageView()
     private let taskDataLabel = UILabel()
-    
-    var taskCheckMarkButton = UIView()
-    //    private let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
-    
+    private let taskCheckMarkButton = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupCell()
         setConstraints()
     }
     
@@ -27,8 +25,7 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setConstraints() {
-        
+    private func setupCell() {
         
         self.addSubview(cellView)
         cellView.addSubview(taskImageView)
@@ -36,16 +33,10 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         cellView.addSubview(taskDataLabel)
         cellView.addSubview(taskCheckMarkButton)
         
-//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
-//        self.addGestureRecognizer(longPressGesture)
-//        taskCheckMarkButton.addGestureRecognizer(longPressGesture)
-        
-        titleLabel.textColor = .orange
-        
-        cellView.backgroundColor = .systemPink.withAlphaComponent(0.1)
+        cellView.backgroundColor = .white
         cellView.layer.cornerRadius = 20
-        cellView.layer.borderWidth = CGFloat(0.1)
-        cellView.layer.borderColor = UIColor.red.cgColor
+        cellView.layer.borderWidth = CGFloat(0.05)
+        cellView.layer.borderColor = UIColor.black.cgColor
         cellView.clipsToBounds = true
         
         [cellView, titleLabel, taskImageView, taskDataLabel, taskCheckMarkButton].forEach {
@@ -58,10 +49,23 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         taskDataLabel.textAlignment = .right
         
         titleLabel.font = .systemFont(ofSize: 25, weight: .bold)
+        titleLabel.textColor = .orange
         
         taskImageView.layer.cornerRadius = (self.bounds.height)/2
         taskImageView.clipsToBounds = true
         
+    }
+    
+    func configureCell(task: TaskEntity) {
+        taskDataLabel.text = task.currentDate
+        titleLabel.text = task.titleText
+        taskImageView.image = task.image
+        cellView.backgroundColor = task.color
+    }
+}
+
+extension TaskListCell {
+   private func setConstraints() {
         NSLayoutConstraint.activate([
             cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
@@ -88,24 +92,5 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
             taskCheckMarkButton.heightAnchor.constraint(equalToConstant: self.bounds.height/2),
             taskCheckMarkButton.widthAnchor.constraint(equalToConstant: self.bounds.height/2)
         ])
-    }
-    
-    func configure(task: TaskEntity) {
-        taskDataLabel.text = task.currentDate
-        titleLabel.text = task.titleText
-        taskImageView.image = task.image
-    }
-    
-    @objc private func longTapPressed(press: UILongPressGestureRecognizer) {
-        print("\(String(describing: titleLabel.text))")
-        print("\(String(describing: titleLabel.text))")
-        print("\(String(describing: titleLabel.text))")
-        if press.state == .began {
-            
-            taskCheckMarkButton.backgroundColor = .green
-        } else {
-            return
-        }
-        
     }
 }

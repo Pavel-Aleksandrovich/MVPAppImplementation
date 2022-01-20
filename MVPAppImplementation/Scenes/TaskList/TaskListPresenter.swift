@@ -25,7 +25,7 @@ protocol TaskListView: AnyObject {
 }
 
 protocol TaskListCellView {
-    func configure(task: TaskEntity)
+    func configureCell(task: TaskEntity)
 }
 
 final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {

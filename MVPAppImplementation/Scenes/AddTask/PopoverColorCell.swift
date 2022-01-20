@@ -16,7 +16,7 @@ class PopoverColorCell: UICollectionViewCell {
         
         contentView.addSubview(cellView)
         cellView.center = contentView.center
-        cellView.layer.cornerRadius = 18
+        cellView.layer.cornerRadius = 19
         cellView.clipsToBounds = true
         cellView.translatesAutoresizingMaskIntoConstraints = false
         
