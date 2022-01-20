@@ -113,7 +113,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         popov?.sourceView = colorPopoverButton
         popov?.sourceRect = colorPopoverButton.bounds
         
-        popoverViewController.preferredContentSize = CGSize(width: 300, height: 200)
+        popoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
         
         present(popoverViewController, animated: true, completion: nil)
         
@@ -121,7 +121,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     }
     
     func colorPressed(color: UIColor?) {
-        colorPopoverButton.tintColor = color
+        colorPopoverButton.backgroundColor = color
     }
 }
 

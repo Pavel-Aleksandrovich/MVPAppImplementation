@@ -11,29 +11,57 @@ protocol PopoverColorDelegate: AnyObject {
     func colorPressed(color: UIColor?)
 }
 
-class PopoverColorViewController: UIViewController {
+class PopoverColorViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    private enum Constants {
+        static let cellIdentifier = "cell"
+    }
     
     weak var delegate: PopoverColorDelegate?
     let popoverView = UIView()
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    var collectionView: UICollectionView?
+    let colorArray: [UIColor] = [ .black, .blue, .brown, .cyan, .darkGray, .gray, .green, .lightGray, .link, .magenta, .orange, .purple, .red, .systemIndigo, .white, .yellow, .systemTeal, .systemPink]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
         
-        view.addSubview(popoverView)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         
-        popoverView.backgroundColor = .white
-        popoverView.center = view.center
-        popoverView.layer.cornerRadius = 10
-        popoverView.frame = CGRect(x: 10, y: 10, width: 280, height: 180)
-        
-        popoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorPressed)))
+        layout.itemSize = CGSize(width: (collectionView.frame.width - 10)/6, height: (collectionView.frame.width - 10)/6)
+        layout.minimumLineSpacing = 2
+        layout.minimumInteritemSpacing = 2
         
         
+        collectionView.register(PopoverColorCell.self, forCellWithReuseIdentifier: Constants.cellIdentifier)
+        view.addSubview(collectionView)
+        collectionView.center = view.center
+        collectionView.frame = CGRect(x: 10, y: 10, width: 240, height: 120)
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
-    @objc private func colorPressed(_ press: UITapGestureRecognizer) {
-        print("tap")
-        delegate?.colorPressed(color: press.view?.backgroundColor)
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize.init(width: (collectionView.frame.width - 10)/6, height: (collectionView.frame.width - 10)/6)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colorArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier, for: indexPath) as! PopoverColorCell
+        
+        cell.cellView.backgroundColor = colorArray[indexPath.item]
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath)! as! PopoverColorCell
+        delegate?.colorPressed(color: cell.cellView.backgroundColor)
     }
     
 }
