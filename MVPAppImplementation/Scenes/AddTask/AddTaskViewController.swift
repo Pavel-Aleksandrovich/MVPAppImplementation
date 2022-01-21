@@ -20,8 +20,11 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     private let imageView = UIImageView()
     private let imageButton = UIButton()
     private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
-    private let colorPopoverButton = UIButton()
+    private let colorPickerButton = UIButton()
     private let fontPickerButton = UIButton()
+    private let datePickerButton = UIButton()
+    private let datePicker = UIDatePicker()
+    private let dateFormatter = DateFormatter()
     
     init(presenter: AddTaskPresenter) {
         self.presenter = presenter
@@ -37,7 +40,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = saveButton
         
-        //        hideKeyboardWhenTappedAround()
+//                hideKeyboardWhenTappedAround()
         presenter.onViewAttached(view: self)
         
         // titleTextField
@@ -67,23 +70,37 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         view.addSubview(imageButton)
         imageButton.layer.borderWidth = CGFloat(1)
         //        imageButton.center = view.center
-        imageButton.addTarget(self, action: #selector(showPickImageAlert), for: .touchUpInside)
+        imageButton.addTarget(self, action: #selector(showPickImageFromGallery), for: .touchUpInside)
         
         // colorPopoverButton
         
-        view.addSubview(colorPopoverButton)
-        colorPopoverButton.backgroundColor = .magenta
-        colorPopoverButton.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.width - 30, width: 150, height: 30)
-        colorPopoverButton.addTarget(self, action: #selector(showColorPickerPopover), for: .touchUpInside)
+        view.addSubview(colorPickerButton)
+        colorPickerButton.backgroundColor = .magenta
+        colorPickerButton.frame = CGRect(x: view.bounds.width - 100, y: view.bounds.width - 25, width: 80, height: 25)
+        colorPickerButton.addTarget(self, action: #selector(showColorPickerPopover), for: .touchUpInside)
+        
+        // fontPickerButton
         
         view.addSubview(fontPickerButton)
         fontPickerButton.backgroundColor = .red
-        fontPickerButton.frame = CGRect(x: 10, y: view.bounds.width - 30, width: 100, height: 30)
+        fontPickerButton.frame = CGRect(x: 10, y: view.bounds.width - 25, width: 80, height: 25)
         fontPickerButton.addTarget(self, action: #selector(showFontPickerPopover), for: .touchUpInside)
         
+        // datePickerButton
+        
+        view.addSubview(datePickerButton)
+        datePickerButton.backgroundColor = .link
+        datePickerButton.frame = CGRect(x: 100, y: view.bounds.width - 25, width: 80, height: 25)
+        
+        view.addSubview(datePicker)
+        datePicker.center = view.center
+        dateFormatter.dateFormat = "MMM d, yyyy, h:mm a"
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.sizeToFit()
     }
     
-    @objc private func showPickImageAlert() {
+    
+    @objc private func showPickImageFromGallery() {
         showChooseSourceTypeAlertController()
     }
     
@@ -99,17 +116,31 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
             
             let currentDate = Date()
             let formatter = DateFormatter()
-            //            formatter.timeStyle = .short
             formatter.dateStyle = .medium
             let dateTimeString = formatter.string(from: currentDate)
             
-            let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text, color: colorPopoverButton.backgroundColor)
+            let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text, color: colorPickerButton.backgroundColor, date: dateFormatter.string(from: datePicker.date))
             
             presenter.addButtonPressed(parametrs: addTask)
             presenter.popViewController(navigationController: self.navigationController)
             
-            
         }
+    }
+    
+    @objc func showDatePickerPopover() {
+        let datePickerPopoverViewController = DatePickerPopoverViewController()
+        datePickerPopoverViewController.delegate = self
+        datePickerPopoverViewController.modalPresentationStyle = .popover
+        datePickerPopoverViewController.popoverPresentationController?.delegate = self
+        
+        let datePicker = datePickerPopoverViewController.popoverPresentationController
+        datePicker?.permittedArrowDirections = .down
+        datePicker?.sourceView = datePickerButton
+        datePicker?.sourceRect = datePickerButton.bounds
+        
+        datePickerPopoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
+        
+        present(datePickerPopoverViewController, animated: true, completion: nil)
     }
     
     @objc func showFontPickerPopover() {
@@ -135,9 +166,9 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         popoverViewController.popoverPresentationController?.delegate = self
         
         let popov = popoverViewController.popoverPresentationController
-        popov?.permittedArrowDirections = .any
-        popov?.sourceView = colorPopoverButton
-        popov?.sourceRect = colorPopoverButton.bounds
+        popov?.permittedArrowDirections = .down
+        popov?.sourceView = colorPickerButton
+        popov?.sourceRect = colorPickerButton.bounds
         
         popoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
         
@@ -146,8 +177,13 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     }
     
     func colorPressed(color: UIColor?) {
-        colorPopoverButton.backgroundColor = color
+        colorPickerButton.backgroundColor = color
     }
+}
+
+// MARK: - Date Picker Popover Delegate
+
+extension AddTaskViewController: DatePickerPopoverDelegate {
 }
 
 // MARK: - Font Picker Popover Delegate

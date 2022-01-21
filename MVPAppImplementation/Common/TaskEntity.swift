@@ -14,6 +14,7 @@ class TaskEntity: NSObject, NSCoding {
     var image: UIImage?
     var currentDate: String?
     var color: UIColor?
+    var date: String?
     
     private enum SettingsKey {
         static let taskTitle = "taskTitle"
@@ -21,14 +22,16 @@ class TaskEntity: NSObject, NSCoding {
         static let currentDate = "currentDate"
         static let descriptionText = "descriptionText"
         static let color = "color"
+        static let date = "date"
     }
     
-    init(title: String?, image: UIImage?, currentDate: String?, descriptionText: String?, color: UIColor?) {
+    init(title: String?, image: UIImage?, currentDate: String?, descriptionText: String?, color: UIColor?, date: String?) {
         self.titleText = title
         self.image = image
         self.currentDate = currentDate
         self.descriptionText = descriptionText
         self.color = color
+        self.date = date
     }
     
     func encode(with coder: NSCoder) {
@@ -37,6 +40,7 @@ class TaskEntity: NSObject, NSCoding {
         coder.encode(currentDate, forKey: SettingsKey.currentDate)
         coder.encode(descriptionText, forKey: SettingsKey.descriptionText)
         coder.encode(color, forKey: SettingsKey.color)
+        coder.encode(date, forKey: SettingsKey.date)
     }
     
     required init?(coder: NSCoder) {
@@ -45,5 +49,6 @@ class TaskEntity: NSObject, NSCoding {
         currentDate = coder.decodeObject(forKey: SettingsKey.currentDate) as? String ?? "nil"
         descriptionText = coder.decodeObject(forKey: SettingsKey.descriptionText) as? String ?? "nil"
         color = coder.decodeObject(forKey: SettingsKey.color) as? UIColor ?? .white
+        date = coder.decodeObject(forKey: SettingsKey.date) as? String ?? "nil"
     }
 }

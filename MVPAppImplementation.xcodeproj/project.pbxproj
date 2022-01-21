@@ -30,6 +30,7 @@
 		8476A1FC2798065B0062440A /* PopoverColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FB2798065A0062440A /* PopoverColorViewController.swift */; };
 		8476A1FE279930170062440A /* PopoverColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FD279930170062440A /* PopoverColorCell.swift */; };
 		8476A2012799602A0062440A /* FontPickerPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A2002799602A0062440A /* FontPickerPopoverViewController.swift */; };
+		8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A203279A60A60062440A /* DatePickerPopoverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		8476A1FB2798065A0062440A /* PopoverColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverColorViewController.swift; sourceTree = "<group>"; };
 		8476A1FD279930170062440A /* PopoverColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverColorCell.swift; sourceTree = "<group>"; };
 		8476A2002799602A0062440A /* FontPickerPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerPopoverViewController.swift; sourceTree = "<group>"; };
+		8476A203279A60A60062440A /* DatePickerPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopoverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				8476A1DD278949660062440A /* AddTaskViewController.swift */,
+				8476A203279A60A60062440A /* DatePickerPopoverViewController.swift */,
 				8476A20227997E890062440A /* FontPickerPopover */,
 				8476A1FF27995AE90062440A /* Popover Color */,
 				8476A1DF278949A90062440A /* AddTaskPresenter.swift */,
@@ -289,6 +292,7 @@
 				8476A1DB27883CFB0062440A /* TaskListCell.swift in Sources */,
 				8476A1FE279930170062440A /* PopoverColorCell.swift in Sources */,
 				8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */,
+				8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */,
 				8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */,
 				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
