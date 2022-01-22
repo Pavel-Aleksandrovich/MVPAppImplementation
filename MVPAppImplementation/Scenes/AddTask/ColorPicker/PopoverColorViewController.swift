@@ -11,17 +11,17 @@ protocol PopoverColorDelegate: AnyObject {
     func colorPressed(color: UIColor?)
 }
 
-class PopoverColorViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class PopoverColorViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private enum Constants {
         static let cellIdentifier = "cell"
     }
     
     weak var delegate: PopoverColorDelegate?
-    let popoverView = UIView()
-    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    var collectionView: UICollectionView?
-    let colorArray: [UIColor] = [ .black, .blue, .brown, .cyan, .darkGray, .gray, .green, .lightGray, .link, .magenta, .orange, .purple, .red, .systemIndigo, .white, .yellow, .systemTeal, .systemPink]
+    private let popoverView = UIView()
+    private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    private var collectionView: UICollectionView?
+    private let colorArray: [UIColor] = [ .black, .blue, .brown, .cyan, .darkGray, .gray, .green, .lightGray, .link, .magenta, .orange, .purple, .red, .systemIndigo, .white, .yellow, .systemTeal, .systemPink]
     
     override func viewDidLoad() {
         super.viewDidLoad()

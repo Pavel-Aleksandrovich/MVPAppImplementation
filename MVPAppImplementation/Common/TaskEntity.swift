@@ -9,12 +9,12 @@ import UIKit
 
 class TaskEntity: NSObject, NSCoding {
     
-    var titleText: String?
-    var descriptionText: String?
-    var image: UIImage?
-    var currentDate: String?
-    var color: UIColor?
-    var date: String?
+    let titleText: String?
+    let descriptionText: String?
+    let image: UIImage?
+    let currentDate: String?
+    let color: UIColor?
+    let date: String?
     
     private enum SettingsKey {
         static let taskTitle = "taskTitle"

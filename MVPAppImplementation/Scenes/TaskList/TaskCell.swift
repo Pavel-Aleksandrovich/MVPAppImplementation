@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class TaskListCell: UITableViewCell, TaskListCellView {
+final class TaskCell: UITableViewCell, TaskListCellView {
     
     private let cellView = UIView()
     private let titleLabel = UILabel()
-    private let taskImageView = UIImageView()
+    private let illustrationImageView = UIImageView()
     private let taskCurrentDataLabel = UILabel()
     private let taskCheckMarkButton = UIView()
     private let taskDataLabel = UILabel()
@@ -29,7 +29,7 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
     private func setupCell() {
         
         self.addSubview(cellView)
-        cellView.addSubview(taskImageView)
+        cellView.addSubview(illustrationImageView)
         cellView.addSubview(titleLabel)
         cellView.addSubview(taskCurrentDataLabel)
         cellView.addSubview(taskCheckMarkButton)
@@ -41,7 +41,7 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         cellView.layer.borderColor = UIColor.black.cgColor
         cellView.clipsToBounds = true
         
-        [cellView, titleLabel, taskImageView, taskCurrentDataLabel, taskCheckMarkButton, taskDataLabel].forEach {
+        [cellView, titleLabel, illustrationImageView, taskCurrentDataLabel, taskCheckMarkButton, taskDataLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -53,24 +53,25 @@ final class TaskListCell: UITableViewCell, TaskListCellView {
         titleLabel.font = .systemFont(ofSize: 25, weight: .bold)
         titleLabel.textColor = .black
         
-        taskImageView.layer.cornerRadius = (self.bounds.height)/2
-        taskImageView.clipsToBounds = true
+        illustrationImageView.layer.cornerRadius = (self.bounds.height)/2
+        illustrationImageView.clipsToBounds = true
         
         taskDataLabel.font = .systemFont(ofSize: 15, weight: .light)
         taskDataLabel.textAlignment = .left
+        
         
     }
     
     func configureCell(task: TaskEntity) {
         taskCurrentDataLabel.text = task.currentDate
         titleLabel.text = task.titleText
-        taskImageView.image = task.image
+        illustrationImageView.image = task.image
         cellView.backgroundColor = task.color
         taskDataLabel.text = task.date
     }
 }
 
-extension TaskListCell {
+extension TaskCell {
     
    private func setConstraints() {
     
@@ -80,10 +81,10 @@ extension TaskListCell {
             cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
             
-            taskImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            taskImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 30),
-            taskImageView.heightAnchor.constraint(equalToConstant: self.bounds.height),
-            taskImageView.widthAnchor.constraint(equalToConstant: self.bounds.height),
+            illustrationImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            illustrationImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 30),
+            illustrationImageView.heightAnchor.constraint(equalToConstant: self.bounds.height),
+            illustrationImageView.widthAnchor.constraint(equalToConstant: self.bounds.height),
             
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -40),

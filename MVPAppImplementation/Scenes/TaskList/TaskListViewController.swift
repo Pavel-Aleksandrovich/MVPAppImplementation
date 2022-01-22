@@ -32,12 +32,26 @@ class TaskListViewController: UIViewController {
         presenter.setTitle()
         setButtonContstraints()
         setButtonAttributes()
+        
+        let longPressGecture = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        view.addGestureRecognizer(longPressGecture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
+    
+    @objc func longPress(_ press: UIGestureRecognizer) {
+        let popup = TaskDetailsPopupViewController()
+        present(popup, animated: false) {
+        }
+        let location: CGPoint = press.location(in: tableView)
+        
+        let indexPath: IndexPath = tableView.indexPathForRow(at: location)!
+        print(indexPath.row)
+    }
+    
     
     private func setupViews() {
         tableView.dataSource = self
@@ -47,15 +61,12 @@ class TaskListViewController: UIViewController {
         tableView.addSubview(addTaskButton)
         
         tableView.frame = view.bounds
-        tableView.register(TaskListCell.self,
+        tableView.register(TaskCell.self,
                            forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPressed))
         
-//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapPressed(press:)))
-//        tableView.addGestureRecognizer(longPressGesture)
     }
     
     private func setButtonContstraints() {
@@ -79,25 +90,6 @@ class TaskListViewController: UIViewController {
         presenter.addTaskButtonTapped(navigationController: self.navigationController)
     }
     
-    @objc private func longTapPressed(press: UILongPressGestureRecognizer) {
-        
-        if press.state == .began {
-            if tableView.isEditing {
-                 tableView.isEditing = false
-             } else {
-                 tableView.isEditing = true
-             }
-        }
-    }
-    
-    @objc private func editPressed() {
-        
-//       if tableView.isEditing {
-//            tableView.isEditing = false
-//        } else {
-//            tableView.isEditing = true
-//        }
-    }
 }
 
 // MARK: - TaskListView
@@ -121,7 +113,7 @@ extension TaskListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.configureCell(task: task)
@@ -137,7 +129,7 @@ extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            presenter.deleteTaskAtByIndex(index: indexPath.row)
+            presenter.deleteTaskByIndex(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
         }

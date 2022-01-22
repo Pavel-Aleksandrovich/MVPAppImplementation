@@ -15,7 +15,7 @@ protocol TaskListPresenter {
     func addTaskButtonTapped(navigationController: UINavigationController?)
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
-    func deleteTaskAtByIndex(index: Int)
+    func deleteTaskByIndex(index: Int)
     func  moveCell(sourceIndexPath: Int, destinationIndexPath: Int)
     }
 
@@ -81,7 +81,7 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
         view?.deselectRow(indexPath: indexPath, animated: false)
     }
     
-    func deleteTaskAtByIndex(index: Int) {
+    func deleteTaskByIndex(index: Int) {
         taskSettings.tasks.remove(at: index)
     }
 }

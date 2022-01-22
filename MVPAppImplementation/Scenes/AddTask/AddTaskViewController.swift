@@ -91,6 +91,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         view.addSubview(datePickerButton)
         datePickerButton.backgroundColor = .link
         datePickerButton.frame = CGRect(x: 100, y: view.bounds.width - 25, width: 80, height: 25)
+//        datePickerButton.addTarget(self, action: #selector(popUp), for: .touchUpInside)
         
         view.addSubview(datePicker)
         datePicker.center = view.center
@@ -98,7 +99,6 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.sizeToFit()
     }
-    
     
     @objc private func showPickImageFromGallery() {
         showChooseSourceTypeAlertController()
@@ -191,6 +191,7 @@ extension AddTaskViewController: DatePickerPopoverDelegate {
 extension AddTaskViewController: FontPickerPopoverDelegate {
     func setFont(font: String) {
         titleTextField.font = UIFont.init(name: font, size: 25)
+        fontPickerButton.setTitle(font, for: .normal)
     }
 }
 

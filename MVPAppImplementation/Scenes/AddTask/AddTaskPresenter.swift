@@ -28,8 +28,8 @@ protocol AddTaskView: AnyObject {
 
 final class AddTaskPresenterImpl: AddTaskPresenter {
     private weak var view: AddTaskView?
-    private var delegate: AddTaskPresenterDelegate
-    private var router: AddTaskRouter
+    private let delegate: AddTaskPresenterDelegate
+    private let router: AddTaskRouter
     
     init(router: AddTaskRouter, delegate: AddTaskPresenterDelegate) {
         self.router = router

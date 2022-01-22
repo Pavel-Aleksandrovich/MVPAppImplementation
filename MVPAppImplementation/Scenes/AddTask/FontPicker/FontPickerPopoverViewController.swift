@@ -15,7 +15,7 @@ class FontPickerPopoverViewController: UIViewController {
     
     weak var delegate: FontPickerPopoverDelegate?
     private let fontPicker = UIPickerView()
-    private let fonts: [String] = [ "Kailasa", "Marker Felt", "Snell Roundhand "]
+    private let fonts: [String] = ["Kailasa", "Marker Felt", "Snell Roundhand"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
