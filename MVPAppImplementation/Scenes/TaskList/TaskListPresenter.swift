@@ -28,10 +28,10 @@ protocol TaskListCellView {
     func configureCell(task: TaskEntity)
 }
 
-final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
+final class TaskListPresenterImpl: TaskListPresenter {
     
     private weak var view: TaskListView?
-    private var router: TaskViewRouter
+    private let router: TaskViewRouter
     private var taskSettings: TaskSettings
     
     init(router: TaskViewRouter, taskSettings: TaskSettings) {
@@ -55,16 +55,16 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
         return taskSettings.numberOfTasks()
     }
     
-    func addTaskAndSave(task: TaskEntity) {
-        taskSettings.saveTask(task: task)
-    }
+//    func addTaskAndSave(task: TaskEntity) {
+//        taskSettings.saveTask(task: task)
+//    }
     
     func getTaskByIndex(index: Int) -> TaskEntity {
         return taskSettings.getTaskByIndex(index: index)
     }
     
     func addTaskButtonTapped(navigationController: UINavigationController?) {
-        router.presentAddTask(navigationController: navigationController, animated: false, addTaskPresenterDelegate: self)
+        router.presentAddTask(navigationController: navigationController, animated: false)
     }
     
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath) {

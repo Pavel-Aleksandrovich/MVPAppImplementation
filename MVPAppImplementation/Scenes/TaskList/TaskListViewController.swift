@@ -12,7 +12,7 @@ class TaskListViewController: UIViewController {
         static let IDENTIFIER_CELL = "TaskCell"
     }
     
-    private var presenter: TaskListPresenter!
+    private let presenter: TaskListPresenter!
     private let tableView = UITableView()
     private let addTaskButton = UIButton()
     
