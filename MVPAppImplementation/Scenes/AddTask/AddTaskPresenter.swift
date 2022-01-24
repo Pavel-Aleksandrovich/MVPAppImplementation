@@ -8,11 +8,11 @@
 import UIKit
 
 protocol AddTaskPresenterDelegate: AnyObject {
-    func addTaskPresenter(presenter: AddTaskPresenter, task: TaskEntity)
+    func addTaskAndSave(task: TaskEntity)
 }
 
 protocol AddTaskPresenter {
-    func addButtonPressed(parametrs: TaskEntity)
+    func addTaskButtonPressed(task: TaskEntity)
     func onViewAttached(view: AddTaskView)
     func isEnabledSaveButton(text: String) -> UIColor
     func popViewController(navigationController: UINavigationController?)
@@ -56,8 +56,8 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
         self.view = view
     }
     
-    func addButtonPressed(parametrs: TaskEntity) {
-        delegate.addTaskPresenter(presenter: self, task: parametrs)
+    func addTaskButtonPressed(task: TaskEntity) {
+        delegate.addTaskAndSave(task: task)
     }
     
     func popViewController(navigationController: UINavigationController?) {

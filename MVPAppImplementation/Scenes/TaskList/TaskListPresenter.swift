@@ -16,7 +16,7 @@ protocol TaskListPresenter {
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskByIndex(index: Int)
-    func  moveCell(sourceIndexPath: Int, destinationIndexPath: Int)
+    func moveCell(sourceIndexPath: Int, destinationIndexPath: Int)
     }
 
 protocol TaskListView: AnyObject {
@@ -52,16 +52,15 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func numberOfTasks() -> Int {
-        return taskSettings.tasks.count
+        return taskSettings.numberOfTasks()
     }
     
-    func addTaskPresenter(presenter: AddTaskPresenter, task: TaskEntity) {
-        taskSettings.tasks.insert(task, at: 0)
+    func addTaskAndSave(task: TaskEntity) {
+        taskSettings.saveTask(task: task)
     }
     
     func getTaskByIndex(index: Int) -> TaskEntity {
-        let task = taskSettings.tasks[index] 
-        return task
+        return taskSettings.getTaskByIndex(index: index)
     }
     
     func addTaskButtonTapped(navigationController: UINavigationController?) {
@@ -69,11 +68,11 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath) {
-        let task = taskSettings.tasks[indexPath.row]
+        let task = taskSettings.getTaskByIndex(index: indexPath.row)
         
         router.presentTaskDetail(navigationController: navigationController,
-                                 task: task, animated: false) { [weak self] task in
-            self?.taskSettings.tasks.remove(at: indexPath.row)
+                                 task: task, animated: false) { [ weak self ] task in
+            self?.taskSettings.removeTask(index: indexPath.row)
         }
     }
     
@@ -82,6 +81,6 @@ final class TaskListPresenterImpl: TaskListPresenter, AddTaskPresenterDelegate {
     }
     
     func deleteTaskByIndex(index: Int) {
-        taskSettings.tasks.remove(at: index)
+        taskSettings.removeTask(index: index)
     }
 }

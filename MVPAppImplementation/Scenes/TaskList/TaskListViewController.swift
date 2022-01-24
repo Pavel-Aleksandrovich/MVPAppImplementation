@@ -43,15 +43,16 @@ class TaskListViewController: UIViewController {
     }
     
     @objc func longPress(_ press: UIGestureRecognizer) {
-        let popup = TaskDetailsPopupViewController()
-        present(popup, animated: false) {
-        }
+        
         let location: CGPoint = press.location(in: tableView)
         
-        let indexPath: IndexPath = tableView.indexPathForRow(at: location)!
-        print(indexPath.row)
+        if let indexPath: IndexPath = tableView.indexPathForRow(at: location) {
+            let popup = TaskDetailsPopupViewController()
+            present(popup, animated: false)
+            print(indexPath.row)
+        } else {return print("error")}
+        
     }
-    
     
     private func setupViews() {
         tableView.dataSource = self

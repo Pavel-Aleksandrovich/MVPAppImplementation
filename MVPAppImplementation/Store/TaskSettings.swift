@@ -9,6 +9,10 @@ import Foundation
 
 protocol TaskSettings {
     var tasks: [TaskEntity]! { get set }
+    func saveTask(task: TaskEntity)
+    func removeTask(index: Int)
+    func numberOfTasks() -> Int
+    func getTaskByIndex(index: Int) -> TaskEntity
 }
 
 final class TaskSettingsImpl: TaskSettings {
@@ -29,6 +33,22 @@ final class TaskSettingsImpl: TaskSettings {
                 }
             }
         }
+    }
+    
+    func saveTask(task: TaskEntity) {
+        tasks.insert(task, at: 0)
+    }
+    
+    func removeTask(index: Int) {
+        tasks.remove(at: index)
+    }
+    
+    func numberOfTasks() -> Int {
+        return tasks.count
+    }
+    
+    func getTaskByIndex(index: Int) -> TaskEntity {
+        return tasks[index]
     }
 }
 

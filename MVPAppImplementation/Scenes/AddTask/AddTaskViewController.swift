@@ -121,7 +121,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
             
             let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text, color: colorPickerButton.backgroundColor, date: dateFormatter.string(from: datePicker.date))
             
-            presenter.addButtonPressed(parametrs: addTask)
+            presenter.addTaskButtonPressed(task: addTask)
             presenter.popViewController(navigationController: self.navigationController)
             
         }
