@@ -101,7 +101,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     }
     
     @objc private func showPickImageFromGallery() {
-        showChooseSourceTypeAlertController()
+        presenter.setDataForAlertPhotoPicker()
     }
     
     // MARK: - Save Button Pressed
@@ -179,6 +179,8 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     func colorPressed(color: UIColor?) {
         colorPickerButton.backgroundColor = color
     }
+    
+    
 }
 
 // MARK: - Date Picker Popover Delegate
@@ -220,16 +222,14 @@ extension AddTaskViewController: AddTaskView {
         self.title = title
     }
     
-    func showChooseSourceTypeAlertController() {
-        let photoLibraryAction = UIAlertAction(title: "Library", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .photoLibrary)
-        }
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .camera)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+    func showChooseSourceTypeAlertController(style: UIAlertController.Style,
+                                             title: String?,
+                                             message: String?,
+                                             animated: Bool) {
         
-        showAlert(style: .actionSheet, title: "Pick Image From?", message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], animated: false)
+        showAlertPhotoPicker(style: style, title: title, message: message, animated: animated) { [ weak self ] (sourceType) in
+            self?.showImagePickerController(sourceType: sourceType)
+        }
     }
     
     func showImagePickerController(sourceType: UIImagePickerController.SourceType) {

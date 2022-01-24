@@ -16,13 +16,17 @@ protocol AddTaskPresenter {
     func onViewAttached(view: AddTaskView)
     func isEnabledSaveButton(text: String) -> UIColor
     func popViewController(navigationController: UINavigationController?)
+    func setDataForAlertPhotoPicker()
 }
 
 protocol AddTaskView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
     func setSaveButtonColor(color: UIColor)
-    func showChooseSourceTypeAlertController()
+    func showChooseSourceTypeAlertController(style: UIAlertController.Style,
+                                             title: String?,
+                                             message: String?,
+                                             animated: Bool)
     func showImagePickerController(sourceType: UIImagePickerController.SourceType)
 }
 
@@ -58,5 +62,9 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
     
     func popViewController(navigationController: UINavigationController?) {
         router.popViewController(navigationController: navigationController, animated: false)
+    }
+    
+    func setDataForAlertPhotoPicker() {
+        view?.showChooseSourceTypeAlertController(style: .actionSheet, title: "Shoose Image", message: nil, animated: false)
     }
 }
