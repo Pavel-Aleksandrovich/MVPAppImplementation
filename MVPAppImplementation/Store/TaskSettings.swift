@@ -24,7 +24,7 @@ final class TaskSettingsImpl: TaskSettings {
     var tasks: [TaskEntity]! {
         get {
             guard let data = UserDefaults.standard.object(forKey: SettingsKey.taskEntity) as? Data,
-                  let decodeModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [TaskEntity] else { return [TaskEntity(title: "nil", image: nil, currentDate: nil, descriptionText: nil, color: nil, date: nil)] }
+                  let decodeModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [TaskEntity] else { return [TaskEntity(title: "nil", image: #imageLiteral(resourceName: "DefaultProfileImage.png"), currentDate: "", descriptionText: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), date: "")] }
             return decodeModel
         } set {
             if let model = newValue {

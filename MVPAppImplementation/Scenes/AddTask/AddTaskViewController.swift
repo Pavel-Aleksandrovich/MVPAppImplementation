@@ -119,7 +119,12 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
             formatter.dateStyle = .medium
             let dateTimeString = formatter.string(from: currentDate)
             
-            let addTask = TaskEntity(title: titleTextField.text, image: imageView.image, currentDate: dateTimeString, descriptionText: descriptionTextView.text, color: colorPickerButton.backgroundColor, date: dateFormatter.string(from: datePicker.date))
+            let addTask = TaskEntity(title: titleTextField.textOrEmptyString,
+                                     image: imageView.textOrEmptyString,
+                                     currentDate: dateTimeString,
+                                     descriptionText: descriptionTextView.textOrEmptyString,
+                                     color: colorPickerButton.textOrEmptyString,
+                                     date: dateFormatter.string(from: datePicker.date))
             
             presenter.addTaskButtonPressed(task: addTask)
             presenter.popViewController(navigationController: self.navigationController)
@@ -179,8 +184,6 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     func colorPressed(color: UIColor?) {
         colorPickerButton.backgroundColor = color
     }
-    
-    
 }
 
 // MARK: - Date Picker Popover Delegate

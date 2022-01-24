@@ -23,7 +23,7 @@ final class PopoverColorViewController: UIViewController, UICollectionViewDelega
     private var collectionView: UICollectionView?
     private let colorArray: [UIColor] = [ .black, .blue, .brown, .cyan, .darkGray, .gray, .green, .lightGray, .link, .magenta, .orange, .purple, .red, .systemIndigo, .white, .yellow, .systemTeal, .systemPink]
     private let colorLiteral = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
-    
+    let c = UIColor.red
     override func viewDidLoad() {
         super.viewDidLoad()
         
