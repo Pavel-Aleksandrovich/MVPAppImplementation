@@ -55,10 +55,6 @@ final class TaskListPresenterImpl: TaskListPresenter {
         return taskSettings.numberOfTasks()
     }
     
-//    func addTaskAndSave(task: TaskEntity) {
-//        taskSettings.saveTask(task: task)
-//    }
-    
     func getTaskByIndex(index: Int) -> TaskEntity {
         return taskSettings.getTaskByIndex(index: index)
     }
@@ -68,12 +64,9 @@ final class TaskListPresenterImpl: TaskListPresenter {
     }
     
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath) {
-        let task = taskSettings.getTaskByIndex(index: indexPath.row)
-        
         router.presentTaskDetail(navigationController: navigationController,
-                                 task: task, animated: false) { [ weak self ] task in
-            self?.taskSettings.removeTask(index: indexPath.row)
-        }
+                                 indexForTaskDetails: indexPath.row,
+                                 animated: false)
     }
     
     func deselectRow(indexPath: IndexPath) {

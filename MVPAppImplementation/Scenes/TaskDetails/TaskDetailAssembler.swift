@@ -9,13 +9,13 @@ import UIKit
 
 final class TaskDetailAssembler {
     
-    class func assembly(task: TaskEntity,
-                         deleteComplition: @escaping (TaskEntity) -> ()) -> UIViewController {
+    class func assembly(indexForTaskDetails: Int) -> UIViewController {
         
         let router = TaskDetailRouterImpl()
-        let presenter = TaskDetailsPresenterImpl(task            : task,
-                                                 router          : router,
-                                                 deleteComplition: deleteComplition)
+        let taskSettings = TaskSettingsImpl()
+        let presenter = TaskDetailsPresenterImpl(indexForTaskDetails: indexForTaskDetails,
+                                                 router: router,
+                                                 taskSettings: taskSettings)
         let view = TaskDetailViewController(presenter: presenter)
         
         return view

@@ -17,25 +17,25 @@ protocol TaskDetailsPresenter {
 }
 
 class TaskDetailsPresenterImpl: TaskDetailsPresenter {
-    private let task: TaskEntity
+    private let indexForTaskDetails: Int
     private weak var view: TaskDetailView?
     private let router: TaskDetailRouter
-    private let deleteComplition: (TaskEntity) -> ()
+    private var taskSettings: TaskSettings
     
-    init(task: TaskEntity, router: TaskDetailRouter,
-         deleteComplition: @escaping (TaskEntity) -> ()) {
-        self.task = task
+    init(indexForTaskDetails: Int, router: TaskDetailRouter, taskSettings: TaskSettings) {
+        self.indexForTaskDetails = indexForTaskDetails
         self.router = router
-        self.deleteComplition = deleteComplition
+        self.taskSettings = taskSettings
     }
     
     func onViewAttached(view: TaskDetailView) {
+        let task = taskSettings.getTaskByIndex(index: indexForTaskDetails)
         self.view = view
         view.setTask(task: task)
     }
     
     func removeButtonDidPressed(navigationController: UINavigationController?) {
         router.popViewController(animated: false, navigationController: navigationController)
-        deleteComplition(task)
+        taskSettings.removeTask(index: indexForTaskDetails)
     }
 }
