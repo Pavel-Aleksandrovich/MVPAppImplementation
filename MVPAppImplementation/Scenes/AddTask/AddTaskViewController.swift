@@ -37,6 +37,10 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let interaction = UIContextMenuInteraction(delegate: self)
+        datePickerButton.addInteraction(interaction)
+        
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = saveButton
         
@@ -183,6 +187,32 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     
     func colorPressed(color: UIColor?) {
         colorPickerButton.backgroundColor = color
+    }
+}
+// MARK: - Date Picker Popover DelegateUIContextMenuInteractionDelegate
+
+extension AddTaskViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {suggestedActions in
+            
+            // Create an action for sharing
+            let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                // Show system share sheet
+            }
+            
+            // Create an action for renaming
+            let rename = UIAction(title: "Rename", image: UIImage(systemName: "square.and.pencil")) { action in
+                // Perform renaming
+            }
+            
+            // Here we specify the "destructive" attribute to show that it’s destructive in nature
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                // Perform delete
+            }
+            
+            // Create and return a UIMenu with all of the actions as children
+            return UIMenu(title: "", children: [share, rename, delete])
+        }
     }
 }
 

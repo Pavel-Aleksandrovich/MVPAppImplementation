@@ -42,6 +42,12 @@ class TaskListViewController: UIViewController {
         tableView.reloadData()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        tableView.viewLay
+//        myCollection.collectionViewLayout.invalidateLayout()
+    }
+    
     @objc func longTouchPressed(_ press: UIGestureRecognizer) {
         
         let location: CGPoint = press.location(in: tableView)
@@ -53,6 +59,7 @@ class TaskListViewController: UIViewController {
     }
     
     private func setupViews() {
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
