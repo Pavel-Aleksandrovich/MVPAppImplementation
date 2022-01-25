@@ -13,6 +13,7 @@ protocol TaskViewRouter {
     func presentTaskDetail(navigationController: UINavigationController?,
                            indexForTaskDetails: Int,
                            animated: Bool)
+    func presentTaskDetailBylongTouch(index: Int, viewController: UIViewController)
 }
 
 class TaskViewRouterImpl: TaskViewRouter {
@@ -29,5 +30,10 @@ class TaskViewRouterImpl: TaskViewRouter {
         
         let vc = TaskDetailAssembler.assembly(indexForTaskDetails: indexForTaskDetails)
         navigationController?.pushViewController(vc, animated: animated)
+    }
+    
+    func presentTaskDetailBylongTouch(index: Int, viewController: UIViewController) {
+        let pop = TaskDetailsPopupAssembler.assembly(taskIndex: index)
+        viewController.present(pop, animated: true, completion: nil)
     }
 }

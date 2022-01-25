@@ -17,6 +17,7 @@ protocol TaskListPresenter {
     func deselectRow(indexPath: IndexPath)
     func deleteTaskByIndex(index: Int)
     func moveCell(sourceIndexPath: Int, destinationIndexPath: Int)
+    func showTaskDetailBylongTouch(index: Int, viewController: UIViewController)
     }
 
 protocol TaskListView: AnyObject {
@@ -75,5 +76,9 @@ final class TaskListPresenterImpl: TaskListPresenter {
     
     func deleteTaskByIndex(index: Int) {
         taskSettings.removeTask(index: index)
+    }
+    
+    func showTaskDetailBylongTouch(index: Int, viewController: UIViewController) {
+        router.presentTaskDetailBylongTouch(index: index, viewController: viewController)
     }
 }

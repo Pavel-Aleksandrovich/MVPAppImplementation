@@ -33,7 +33,7 @@ class TaskListViewController: UIViewController {
         setButtonContstraints()
         setButtonAttributes()
         
-        let longPressGecture = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        let longPressGecture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchPressed))
         view.addGestureRecognizer(longPressGecture)
     }
     
@@ -42,15 +42,13 @@ class TaskListViewController: UIViewController {
         tableView.reloadData()
     }
     
-    @objc func longPress(_ press: UIGestureRecognizer) {
+    @objc func longTouchPressed(_ press: UIGestureRecognizer) {
         
         let location: CGPoint = press.location(in: tableView)
         
         if let indexPath: IndexPath = tableView.indexPathForRow(at: location) {
-            let popup = TaskDetailsPopupViewController()
-            present(popup, animated: false)
-            print(indexPath.row)
-        } else {return print("error")}
+            presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
+        } else { return print("error") }
         
     }
     
@@ -66,7 +64,6 @@ class TaskListViewController: UIViewController {
                            forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         
     }
     
@@ -156,6 +153,5 @@ extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         presenter.moveCell(sourceIndexPath: sourceIndexPath.row, destinationIndexPath: destinationIndexPath.row)
     }
-    
     
 }
