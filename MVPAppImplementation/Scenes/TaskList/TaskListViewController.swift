@@ -9,7 +9,7 @@ import UIKit
 
 class TaskListViewController: UIViewController {
     private enum Constants {
-        static let IDENTIFIER_CELL = "TaskCell"
+        static let identifierCell = "TaskCell"
     }
     
     private let presenter: TaskListPresenter!
@@ -33,8 +33,8 @@ class TaskListViewController: UIViewController {
         setButtonContstraints()
         setButtonAttributes()
         
-        let longPressGecture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchPressed))
-        view.addGestureRecognizer(longPressGecture)
+//        let longPressGecture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchPressed))
+//        view.addGestureRecognizer(longPressGecture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,19 +44,17 @@ class TaskListViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-//        tableView.viewLay
-//        myCollection.collectionViewLayout.invalidateLayout()
     }
     
-    @objc func longTouchPressed(_ press: UIGestureRecognizer) {
-        
-        let location: CGPoint = press.location(in: tableView)
-        
-        if let indexPath: IndexPath = tableView.indexPathForRow(at: location) {
-            presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
-        } else { return print("error") }
-        
-    }
+//    @objc func longTouchPressed(_ press: UIGestureRecognizer) {
+//
+//        let location: CGPoint = press.location(in: tableView)
+//
+//        if let indexPath: IndexPath = tableView.indexPathForRow(at: location) {
+//            presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
+//        } else { return print("error") }
+//
+//    }
     
     private func setupViews() {
         
@@ -68,7 +66,7 @@ class TaskListViewController: UIViewController {
         
         tableView.frame = view.bounds
         tableView.register(TaskCell.self,
-                           forCellReuseIdentifier: Constants.IDENTIFIER_CELL)
+                           forCellReuseIdentifier: Constants.identifierCell)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -118,7 +116,7 @@ extension TaskListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.IDENTIFIER_CELL, for: indexPath) as! TaskCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.identifierCell, for: indexPath) as! TaskCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.configureCell(task: task)
@@ -161,4 +159,12 @@ extension TaskListViewController: UITableViewDelegate {
         presenter.moveCell(sourceIndexPath: sourceIndexPath.row, destinationIndexPath: destinationIndexPath.row)
     }
     
+}
+
+// MARK: - UIContextMenuConfiguration
+
+extension TaskListViewController {
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return contextMenuConfiguration()
+    }
 }

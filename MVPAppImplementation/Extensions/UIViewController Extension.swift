@@ -46,8 +46,6 @@ extension UIViewController {
     // MARK: - Shake animation for title text field
     
     func showShakeAnimation(textField: UITextField) {
-//        keyPath: "position.x"
-//        keyPath: "position.y"
         let shakeAnimation = CAKeyframeAnimation(keyPath: "position.x")
         shakeAnimation.values = [0, -15, 15, -15, 15, 0]
         shakeAnimation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
@@ -55,4 +53,29 @@ extension UIViewController {
         shakeAnimation.isAdditive = true
         textField.layer.add(shakeAnimation, forKey: nil)
     }
+    
+    
+    func contextMenuConfiguration() -> UIContextMenuConfiguration {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {suggestedActions in
+            
+            // Create an action for sharing
+            let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                // Show system share sheet
+            }
+            
+            // Create an action for renaming
+            let rename = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { action in
+                // Perform renaming
+            }
+            
+            // Here we specify the "destructive" attribute to show that it’s destructive in nature
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                // Perform delete
+            }
+            
+            // Create and return a UIMenu with all of the actions as children
+            return UIMenu(title: "", children: [share, rename, delete])
+        }
+    }
 }
+

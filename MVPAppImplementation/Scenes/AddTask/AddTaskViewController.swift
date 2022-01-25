@@ -10,8 +10,8 @@ import UIKit
 class AddTaskViewController: UIViewController, PopoverColorDelegate {
     
     private enum Constants {
-        static let PLACEHOLDER = "Enter the text"
-        static let SAVE_BUTTON = "Save"
+        static let placeholder = "Enter the text"
+        static let saveButton = "Save"
     }
     
     private var presenter: AddTaskPresenter!
@@ -19,7 +19,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
     private let imageButton = UIButton()
-    private let saveButton = UIBarButtonItem(title: Constants.SAVE_BUTTON, style: .done, target: self, action: #selector(saveButtonPressed))
+    private let saveButton = UIBarButtonItem(title: Constants.saveButton, style: .done, target: self, action: #selector(saveButtonPressed))
     private let colorPickerButton = UIButton()
     private let fontPickerButton = UIButton()
     private let datePickerButton = UIButton()
@@ -38,9 +38,6 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let interaction = UIContextMenuInteraction(delegate: self)
-        datePickerButton.addInteraction(interaction)
-        
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = saveButton
         
@@ -51,7 +48,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
         
         titleTextField.frame = CGRect(x: 15, y: 110, width: view.bounds.width - 30, height: 30)
         view.addSubview(titleTextField)
-        titleTextField.placeholder = Constants.PLACEHOLDER
+        titleTextField.placeholder = Constants.placeholder
         titleTextField.delegate = self
         titleTextField.layer.borderColor = UIColor.black.cgColor
         titleTextField.layer.borderWidth = CGFloat(1)
@@ -187,32 +184,6 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     
     func colorPressed(color: UIColor?) {
         colorPickerButton.backgroundColor = color
-    }
-}
-// MARK: - Date Picker Popover DelegateUIContextMenuInteractionDelegate
-
-extension AddTaskViewController: UIContextMenuInteractionDelegate {
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {suggestedActions in
-            
-            // Create an action for sharing
-            let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
-                // Show system share sheet
-            }
-            
-            // Create an action for renaming
-            let rename = UIAction(title: "Rename", image: UIImage(systemName: "square.and.pencil")) { action in
-                // Perform renaming
-            }
-            
-            // Here we specify the "destructive" attribute to show that it’s destructive in nature
-            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
-                // Perform delete
-            }
-            
-            // Create and return a UIMenu with all of the actions as children
-            return UIMenu(title: "", children: [share, rename, delete])
-        }
     }
 }
 
