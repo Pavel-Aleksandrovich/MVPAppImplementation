@@ -32,9 +32,6 @@ class TaskListViewController: UIViewController {
         presenter.setTitle()
         setButtonContstraints()
         setButtonAttributes()
-        
-//        let longPressGecture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchPressed))
-//        view.addGestureRecognizer(longPressGecture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,16 +42,6 @@ class TaskListViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
-    
-//    @objc func longTouchPressed(_ press: UIGestureRecognizer) {
-//
-//        let location: CGPoint = press.location(in: tableView)
-//
-//        if let indexPath: IndexPath = tableView.indexPathForRow(at: location) {
-//            presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
-//        } else { return print("error") }
-//
-//    }
     
     private func setupViews() {
         
@@ -165,6 +152,18 @@ extension TaskListViewController: UITableViewDelegate {
 
 extension TaskListViewController {
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        return contextMenuConfiguration()
+        return contextMenuConfiguration { [ weak self ] action in
+            guard let self = self else { return }
+            
+            if action == "tapped delete" {
+                self.presenter.deleteTaskByIndex(index: indexPath.row)
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                }
+            } else if action == "Show Details" {
+                self.presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
+            }
+            
+        }
     }
 }
