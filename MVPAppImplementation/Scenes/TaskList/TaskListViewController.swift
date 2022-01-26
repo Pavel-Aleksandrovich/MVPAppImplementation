@@ -8,12 +8,19 @@
 import UIKit
 
 class TaskListViewController: UIViewController {
+    
     private enum Constants {
         static let identifierCell = "TaskCell"
+        static let heightCell = CGFloat(140)
+        static let widthAddTaskButton = CGFloat(100)
+        static let widthCellConstant = CGFloat(20)
+        static let mainTitle = "Tasks"
+        static let spacingBetweenCell = CGFloat(10)
     }
     
+    private let layout = UICollectionViewFlowLayout()
+    private var collectionView: UICollectionView!
     private let presenter: TaskListPresenter!
-    private let tableView = UITableView()
     private let addTaskButton = UIButton()
     
     init(presenter: TaskListPresenter) {
@@ -27,53 +34,31 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         presenter.onViewAttached(view: self)
-        setupViews()
-        presenter.setTitle()
-        setButtonContstraints()
-        setButtonAttributes()
+        configureView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    
-    private func setupViews() {
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        view.addSubview(tableView)
-        tableView.addSubview(addTaskButton)
-        
-        tableView.frame = view.bounds
-        tableView.register(TaskCell.self,
-                           forCellReuseIdentifier: Constants.identifierCell)
-        
+    private func configureView() {
+        title = Constants.mainTitle
         navigationController?.navigationBar.prefersLargeTitles = true
         
-    }
-    
-    private func setButtonContstraints() {
-        addTaskButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            addTaskButton.widthAnchor.constraint(equalToConstant: view.bounds.width/5),
-            addTaskButton.heightAnchor.constraint(equalToConstant: view.bounds.width/5),
-            addTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
-        ])
-    }
-    
-    private func setButtonAttributes() {
         addTaskButton.backgroundColor = .green
-        addTaskButton.layer.cornerRadius = view.bounds.width/10
+        addTaskButton.layer.cornerRadius = Constants.widthAddTaskButton/2
         addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
+        
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        collectionView.register(TaskCell.self, forCellWithReuseIdentifier: Constants.identifierCell)
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.addSubview(addTaskButton)
+        
+        view.addSubview(collectionView)
+        view.backgroundColor = .white
+        
+        layout.itemSize = CGSize(width: collectionView.frame.width - Constants.widthCellConstant, height: Constants.heightCell)
+        layout.minimumLineSpacing = Constants.spacingBetweenCell
     }
     
     @objc private func addTaskButtonTapped() {
@@ -86,72 +71,55 @@ class TaskListViewController: UIViewController {
 
 extension TaskListViewController: TaskListView {
     
-    func setTitle(title: String?) {
-        self.title = title
-    }
-    
     func deselectRow(indexPath: IndexPath, animated: Bool) {
-        tableView.deselectRow(at: indexPath, animated: animated)
+        collectionView.deselectItem(at: indexPath, animated: animated)
     }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - UICollectionViewDataSource
 
-extension TaskListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension TaskListViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfTasks()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.identifierCell, for: indexPath) as! TaskCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.identifierCell, for: indexPath) as! TaskCell
         
         let task = presenter.getTaskByIndex(index: indexPath.row)
         cell.configureCell(task: task)
         
-        cell.selectionStyle = .none
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
-            presenter.deleteTaskByIndex(index: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension TaskListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension TaskListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         presenter.deselectRow(indexPath: indexPath)
         presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
     }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension TaskListViewController: UICollectionViewDelegateFlowLayout {
     
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize.init(width: collectionView.frame.width - Constants.widthCellConstant, height: Constants.heightCell)
     }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        presenter.moveCell(sourceIndexPath: sourceIndexPath.row, destinationIndexPath: destinationIndexPath.row)
-    }
-    
 }
 
 // MARK: - UIContextMenuConfiguration
 
 extension TaskListViewController {
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         return contextMenuConfiguration { [ weak self ] action in
             guard let self = self else { return }
             
@@ -160,7 +128,7 @@ extension TaskListViewController {
                 
                 self.presenter.deleteTaskByIndex(index: indexPath.row)
                 DispatchQueue.main.async {
-                    tableView.reloadData()
+                    collectionView.reloadData()
                 }
                 
             case .edit:
@@ -171,5 +139,40 @@ extension TaskListViewController {
             }
             
         }
+    }
+}
+
+// MARK: - viewWillAppear
+
+extension TaskListViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // MARK: - Set Layout Constraints viewDidLayoutSubviews
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        [collectionView, addTaskButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            addTaskButton.widthAnchor.constraint(equalToConstant: Constants.widthAddTaskButton),
+            addTaskButton.heightAnchor.constraint(equalToConstant: Constants.widthAddTaskButton),
+            addTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.widthAddTaskButton/2),
+            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constants.widthAddTaskButton)
+        ])
     }
 }

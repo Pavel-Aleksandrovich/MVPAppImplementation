@@ -8,7 +8,6 @@
 import UIKit
 
 protocol TaskListPresenter {
-    func setTitle()
     func numberOfTasks() -> Int
     func getTaskByIndex(index: Int) -> TaskEntity
     func onViewAttached(view: TaskListView)
@@ -21,7 +20,6 @@ protocol TaskListPresenter {
     }
 
 protocol TaskListView: AnyObject {
-    func setTitle(title: String?)
     func deselectRow(indexPath: IndexPath, animated: Bool)
 }
 
@@ -46,10 +44,6 @@ final class TaskListPresenterImpl: TaskListPresenter {
     
     func  moveCell(sourceIndexPath: Int, destinationIndexPath: Int) {
         taskSettings.tasks.swapAt(sourceIndexPath, destinationIndexPath)
-    }
-    
-    func setTitle() {
-        view?.setTitle(title: "Tasks")
     }
     
     func numberOfTasks() -> Int {

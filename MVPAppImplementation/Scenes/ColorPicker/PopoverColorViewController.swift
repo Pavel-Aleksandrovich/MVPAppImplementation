@@ -20,14 +20,13 @@ final class PopoverColorViewController: UIViewController, UICollectionViewDelega
     weak var delegate: PopoverColorDelegate?
     private let popoverView = UIView()
     private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    private var collectionView: UICollectionView?
+    private var collectionView: UICollectionView!
     private let colorArray: [UIColor] = [ .black, .blue, .brown, .cyan, .darkGray, .gray, .green, .lightGray, .link, .magenta, .orange, .purple, .red, .systemIndigo, .white, .yellow, .systemTeal, .systemPink]
-    private let colorLiteral = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
-    let c = UIColor.red
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         
         layout.itemSize = CGSize(width: (collectionView.frame.width - 12)/6, height: (collectionView.frame.width - 12)/6)
         layout.minimumLineSpacing = 2
