@@ -155,13 +155,19 @@ extension TaskListViewController {
         return contextMenuConfiguration { [ weak self ] action in
             guard let self = self else { return }
             
-            if action == "tapped delete" {
+            switch action {
+            case .deleteConfirmation:
+                
                 self.presenter.deleteTaskByIndex(index: indexPath.row)
                 DispatchQueue.main.async {
                     tableView.reloadData()
                 }
-            } else if action == "Edit" {
+                
+            case .edit:
                 self.presenter.presentTaskDetail(navigationController: self.navigationController, indexPath: indexPath)
+                
+            case .showDetails:
+                print("show details")
             }
             
         }

@@ -54,25 +54,34 @@ extension UIViewController {
         textField.layer.add(shakeAnimation, forKey: nil)
     }
     
+    // MARK: - Enum for Context Menu
     
-    func contextMenuConfiguration(complition: @escaping (String) -> ()) -> UIContextMenuConfiguration {
+    enum ContextMenuActions {
+        case edit
+        case deleteConfirmation
+        case showDetails
+    }
+    
+    // MARK: - Context Menu Configuration
+    
+    func contextMenuConfiguration(complition: @escaping (ContextMenuActions) -> ()) -> UIContextMenuConfiguration {
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {suggestedActions in
             
             // Create an action for sharing
             let showDetails = UIAction(title: "Show Details", image: UIImage(systemName: "square.and.arrow.up")) { action in
-                complition("Show Details")
+                complition(.showDetails)
             }
             
             // Create an action for editing
             let edit = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { action in
-                complition("Edit")
+                complition(.edit)
             }
             
             // Here we specify the "destructive" attribute to show that it’s destructive in nature
             
             let deleteCancel = UIAction(title: "Cancel", image: UIImage(systemName: "xmark")) { action in }
             let deleteConfirmation = UIAction(title: "Delete", image: UIImage(systemName: "checkmark"), attributes: .destructive) { action in
-                complition("tapped delete")
+                complition(.deleteConfirmation)
             }
             
             let delete = UIMenu(title: "Delete", image: UIImage(systemName: "trash"), children: [deleteCancel, deleteConfirmation])
