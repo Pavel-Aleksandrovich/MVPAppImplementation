@@ -11,21 +11,31 @@ protocol PopoverColorDelegate: AnyObject {
     func colorPressed(color: UIColor?)
 }
 
-final class PopoverColorViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class ColorPickerViewController: UIViewController, ColorPickerView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private enum Constants {
         static let cellIdentifier = "cell"
     }
     
-    weak var delegate: PopoverColorDelegate?
+    private let presenter: ColorPickerPresenter!
+    private let delegateCell: PopoverColorDelegate?
     private let popoverView = UIView()
-    private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    private let layout = UICollectionViewFlowLayout()
     private var collectionView: UICollectionView!
-    private let colorArray: [UIColor] = [ .black, .blue, .brown, .cyan, .darkGray, .gray, .green, .lightGray, .link, .magenta, .orange, .purple, .red, .systemIndigo, .white, .yellow, .systemTeal, .systemPink]
+    
+    init(presenter: ColorPickerPresenter, delegate: PopoverColorDelegate) {
+        self.presenter = presenter
+        self.delegateCell = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        presenter.onViewAttached(view: self)
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         
         layout.itemSize = CGSize(width: (collectionView.frame.width - 12)/6, height: (collectionView.frame.width - 12)/6)
@@ -47,13 +57,14 @@ final class PopoverColorViewController: UIViewController, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colorArray.count
+        return presenter.numberOfColors()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier, for: indexPath) as! PopoverColorCell
         
-        cell.cellView.backgroundColor = colorArray[indexPath.item]
+        let color = presenter.getColorByIndex(index: indexPath.item)
+        cell.cellView.backgroundColor = color
         
         return cell
     }
@@ -61,7 +72,7 @@ final class PopoverColorViewController: UIViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath)! as! PopoverColorCell
-        delegate?.colorPressed(color: cell.cellView.backgroundColor)
+        delegateCell?.colorPressed(color: cell.cellView.backgroundColor)
     }
     
 }

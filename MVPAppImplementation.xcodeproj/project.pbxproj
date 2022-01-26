@@ -27,7 +27,7 @@
 		8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F2278C425C0062440A /* TaskDetailRouter.swift */; };
 		8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F5278D39AD0062440A /* TaskSettings.swift */; };
 		8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F8278D51E30062440A /* UIViewController Extension.swift */; };
-		8476A1FC2798065B0062440A /* PopoverColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FB2798065A0062440A /* PopoverColorViewController.swift */; };
+		8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FB2798065A0062440A /* ColorPickerViewController.swift */; };
 		8476A1FE279930170062440A /* PopoverColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FD279930170062440A /* PopoverColorCell.swift */; };
 		8476A2012799602A0062440A /* FontPickerPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A2002799602A0062440A /* FontPickerPopoverViewController.swift */; };
 		8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A203279A60A60062440A /* DatePickerPopoverViewController.swift */; };
@@ -37,6 +37,9 @@
 		8476A20E279EBA3B0062440A /* TaskDetailsPopupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A20D279EBA3B0062440A /* TaskDetailsPopupRouter.swift */; };
 		8476A210279EBA560062440A /* TaskDetailsPopupAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A20F279EBA560062440A /* TaskDetailsPopupAssembler.swift */; };
 		8476A212279FCB3A0062440A /* TaskDetailsPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A211279FCB3A0062440A /* TaskDetailsPopupView.swift */; };
+		8476A21427A154BE0062440A /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A21327A154BE0062440A /* ColorEntity.swift */; };
+		8476A21827A15A780062440A /* ColorPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A21727A15A780062440A /* ColorPickerPresenter.swift */; };
+		8476A21A27A15B5A0062440A /* ColorPickerAssembler .swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A21927A15B5A0062440A /* ColorPickerAssembler .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +65,7 @@
 		8476A1F2278C425C0062440A /* TaskDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailRouter.swift; sourceTree = "<group>"; };
 		8476A1F5278D39AD0062440A /* TaskSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettings.swift; sourceTree = "<group>"; };
 		8476A1F8278D51E30062440A /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
-		8476A1FB2798065A0062440A /* PopoverColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverColorViewController.swift; sourceTree = "<group>"; };
+		8476A1FB2798065A0062440A /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		8476A1FD279930170062440A /* PopoverColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverColorCell.swift; sourceTree = "<group>"; };
 		8476A2002799602A0062440A /* FontPickerPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerPopoverViewController.swift; sourceTree = "<group>"; };
 		8476A203279A60A60062440A /* DatePickerPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopoverViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +75,9 @@
 		8476A20D279EBA3B0062440A /* TaskDetailsPopupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPopupRouter.swift; sourceTree = "<group>"; };
 		8476A20F279EBA560062440A /* TaskDetailsPopupAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPopupAssembler.swift; sourceTree = "<group>"; };
 		8476A211279FCB3A0062440A /* TaskDetailsPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPopupView.swift; sourceTree = "<group>"; };
+		8476A21327A154BE0062440A /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
+		8476A21727A15A780062440A /* ColorPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerPresenter.swift; sourceTree = "<group>"; };
+		8476A21927A15B5A0062440A /* ColorPickerAssembler .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorPickerAssembler .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +215,11 @@
 		8476A1FF27995AE90062440A /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				8476A1FB2798065A0062440A /* PopoverColorViewController.swift */,
+				8476A1FB2798065A0062440A /* ColorPickerViewController.swift */,
+				8476A21727A15A780062440A /* ColorPickerPresenter.swift */,
 				8476A1FD279930170062440A /* PopoverColorCell.swift */,
+				8476A21927A15B5A0062440A /* ColorPickerAssembler .swift */,
+				8476A21327A154BE0062440A /* ColorEntity.swift */,
 			);
 			path = ColorPicker;
 			sourceTree = "<group>";
@@ -317,6 +326,7 @@
 				8476A1E2278963C00062440A /* AddTaskAssembler.swift in Sources */,
 				8476A1D527881D680062440A /* TaskListAssembler.swift in Sources */,
 				8476A1EA278BFA510062440A /* AddTaskRouter.swift in Sources */,
+				8476A21A27A15B5A0062440A /* ColorPickerAssembler .swift in Sources */,
 				8476A212279FCB3A0062440A /* TaskDetailsPopupView.swift in Sources */,
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
 				8476A20E279EBA3B0062440A /* TaskDetailsPopupRouter.swift in Sources */,
@@ -332,11 +342,13 @@
 				8476A1FE279930170062440A /* PopoverColorCell.swift in Sources */,
 				8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */,
 				8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */,
+				8476A21827A15A780062440A /* ColorPickerPresenter.swift in Sources */,
 				8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */,
 				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
 				8476A20A279E83390062440A /* UITextField Extension.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
-				8476A1FC2798065B0062440A /* PopoverColorViewController.swift in Sources */,
+				8476A21427A154BE0062440A /* ColorEntity.swift in Sources */,
+				8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */,
 				8476A1EF278C3FF80062440A /* TaskDetailsPresenter.swift in Sources */,
 				8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */,
 				8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */,

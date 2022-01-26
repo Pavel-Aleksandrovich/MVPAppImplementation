@@ -166,8 +166,7 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     }
     
     @objc func showColorPickerPopover() {
-        let popoverViewController = PopoverColorViewController()
-        popoverViewController.delegate = self
+        let popoverViewController = ColorPickerAssembler.assembly(delegate: self)
         popoverViewController.modalPresentationStyle = .popover
         popoverViewController.popoverPresentationController?.delegate = self
         
