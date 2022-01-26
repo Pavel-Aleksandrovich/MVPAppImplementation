@@ -59,23 +59,26 @@ extension UIViewController {
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {suggestedActions in
             
             // Create an action for sharing
-            let share = UIAction(title: "Show Details", image: UIImage(systemName: "square.and.arrow.up")) { action in
+            let showDetails = UIAction(title: "Show Details", image: UIImage(systemName: "square.and.arrow.up")) { action in
                 complition("Show Details")
             }
             
-            // Create an action for renaming
-            let rename = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { action in
-                complition("tapped edit")
+            // Create an action for editing
+            let edit = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { action in
+                complition("Edit")
             }
             
             // Here we specify the "destructive" attribute to show that it’s destructive in nature
-            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+            
+            let deleteCancel = UIAction(title: "Cancel", image: UIImage(systemName: "xmark")) { action in }
+            let deleteConfirmation = UIAction(title: "Delete", image: UIImage(systemName: "checkmark"), attributes: .destructive) { action in
                 complition("tapped delete")
             }
             
+            let delete = UIMenu(title: "Delete", image: UIImage(systemName: "trash"), children: [deleteCancel, deleteConfirmation])
+            
             // Create and return a UIMenu with all of the actions as children
-            return UIMenu(title: "", children: [share, rename, delete])
+            return UIMenu(title: "", children: [showDetails, edit, delete])
         }
     }
 }
-

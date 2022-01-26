@@ -135,7 +135,7 @@ extension TaskListViewController: UITableViewDataSource {
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.deselectRow(indexPath: indexPath)
-        presenter.presentTaskDetail(navigationController: self.navigationController, indexPath: indexPath)
+        presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -160,8 +160,8 @@ extension TaskListViewController {
                 DispatchQueue.main.async {
                     tableView.reloadData()
                 }
-            } else if action == "Show Details" {
-                self.presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
+            } else if action == "Edit" {
+                self.presenter.presentTaskDetail(navigationController: self.navigationController, indexPath: indexPath)
             }
             
         }
