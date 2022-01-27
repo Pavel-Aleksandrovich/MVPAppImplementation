@@ -14,6 +14,7 @@ protocol AddTaskPresenter {
     func popViewController(navigationController: UINavigationController?)
     func setDataForAlertPhotoPicker()
     func presentColorPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController)
+    func presentFontPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController)
 }
 
 protocol AddTaskView: AnyObject {
@@ -67,5 +68,9 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
     
     func presentColorPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController) {
         router.presentColorPicker(viewController: viewController, animated: true, sourceView: sourceView, delegate: delegate)
+    }
+    
+    func presentFontPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController) {
+        router.presentFontPicker(viewController: viewController, animated: true, sourceView: sourceView, delegate: delegate)
     }
 }

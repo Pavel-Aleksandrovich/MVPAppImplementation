@@ -34,6 +34,6 @@ class TaskViewRouterImpl: TaskViewRouter {
     
     func presentTaskDetailBylongTouch(index: Int, viewController: UIViewController) {
         let pop = TaskDetailsPopupAssembler.assembly(taskIndex: index)
-        viewController.present(pop, animated: true, completion: nil)
+        viewController.present(pop, animated: true)
     }
 }

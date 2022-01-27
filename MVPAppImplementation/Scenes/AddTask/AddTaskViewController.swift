@@ -14,7 +14,7 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
         static let saveButton = "Save"
     }
     
-    private var presenter: AddTaskPresenter!
+    private let presenter: AddTaskPresenter!
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
@@ -150,19 +150,7 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
     }
     
     @objc func showFontPickerPopover() {
-        let fontPickerPopoverViewController = FontPickerPopoverViewController()
-        fontPickerPopoverViewController.delegate = self
-        fontPickerPopoverViewController.modalPresentationStyle = .popover
-        fontPickerPopoverViewController.popoverPresentationController?.delegate = self
-        
-        let fontPicker = fontPickerPopoverViewController.popoverPresentationController
-        fontPicker?.permittedArrowDirections = .down
-        fontPicker?.sourceView = fontPickerButton
-        fontPicker?.sourceRect = fontPickerButton.bounds
-        
-        fontPickerPopoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
-        
-        present(fontPickerPopoverViewController, animated: true, completion: nil)
+        presenter.presentFontPicker(viewController: self, sourceView: fontPickerButton, delegate: self)
     }
     
     @objc func showColorPickerPopover() {
@@ -181,7 +169,8 @@ extension AddTaskViewController: DatePickerPopoverDelegate {
 
 // MARK: - Font Picker Popover Delegate
 
-extension AddTaskViewController: FontPickerPopoverDelegate {
+extension AddTaskViewController: FontPickerDelegate {
+    
     func setFont(font: String) {
         titleTextField.font = UIFont.init(name: font, size: 25)
         fontPickerButton.setTitle(font, for: .normal)

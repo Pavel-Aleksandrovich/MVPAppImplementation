@@ -18,7 +18,7 @@ final class ColorPickerViewController: UIViewController, ColorPickerView {
     }
     
     private let presenter: ColorPickerPresenter!
-    private let delegate: ColorPickerDelegate
+    private weak var delegate: ColorPickerDelegate?
     private let popoverView = UIView()
     private let layout = UICollectionViewFlowLayout()
     private var collectionView: UICollectionView!
@@ -66,7 +66,7 @@ extension ColorPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let color = presenter.getColorByIndex(index: indexPath.item)
-        delegate.pickColor(color: color)
+        delegate?.pickColor(color: color)
     }
 }
 
