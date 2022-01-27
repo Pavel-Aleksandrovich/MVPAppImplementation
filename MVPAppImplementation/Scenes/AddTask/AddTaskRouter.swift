@@ -9,11 +9,20 @@ import UIKit
 
 protocol AddTaskRouter {
     func popViewController(navigationController: UINavigationController?, animated: Bool)
+    func presentColorPicker(viewController: UIViewController, animated: Bool,
+                            sourceView: UIButton, delegate: AddTaskViewController)
 }
 
 class AddTaskRouterImpl: AddTaskRouter {
     
     func popViewController(navigationController: UINavigationController?, animated: Bool) {
         navigationController?.popViewController(animated: animated)
+    }
+    
+    func presentColorPicker(viewController: UIViewController, animated: Bool,
+                            sourceView: UIButton, delegate: AddTaskViewController) {
+        let colorPickerViewController = ColorPickerAssembler.assembly(delegate: delegate, sourceView: sourceView)
+        
+        viewController.present(colorPickerViewController, animated: animated)
     }
 }

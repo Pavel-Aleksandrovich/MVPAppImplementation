@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddTaskViewController: UIViewController, PopoverColorDelegate {
+class AddTaskViewController: UIViewController, ColorPickerDelegate {
     
     private enum Constants {
         static let placeholder = "Enter the text"
@@ -166,22 +166,10 @@ class AddTaskViewController: UIViewController, PopoverColorDelegate {
     }
     
     @objc func showColorPickerPopover() {
-        let popoverViewController = ColorPickerAssembler.assembly(delegate: self)
-        popoverViewController.modalPresentationStyle = .popover
-        popoverViewController.popoverPresentationController?.delegate = self
-        
-        let popov = popoverViewController.popoverPresentationController
-        popov?.permittedArrowDirections = .down
-        popov?.sourceView = colorPickerButton
-        popov?.sourceRect = colorPickerButton.bounds
-        
-        popoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
-        
-        present(popoverViewController, animated: true, completion: nil)
-        
+        presenter.presentColorPicker(viewController: self, sourceView: colorPickerButton, delegate: self)
     }
     
-    func colorPressed(color: UIColor?) {
+    func pickColor(color: UIColor?) {
         colorPickerButton.backgroundColor = color
     }
 }
@@ -203,7 +191,7 @@ extension AddTaskViewController: FontPickerPopoverDelegate {
 // MARK: - Color Picker Popover Delegate
 
 extension AddTaskViewController: UIPopoverPresentationControllerDelegate {
-    
+
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }

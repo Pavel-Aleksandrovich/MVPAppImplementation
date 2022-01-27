@@ -17,7 +17,7 @@ protocol ColorPickerView: AnyObject {
     
 }
 
-class ColorPickerPresenterImpl: ColorPickerPresenter {
+final class ColorPickerPresenterImpl: ColorPickerPresenter {
     
     private weak var view: ColorPickerView?
     private let colorEntity: ColorEntity
@@ -31,10 +31,10 @@ class ColorPickerPresenterImpl: ColorPickerPresenter {
     }
     
     func numberOfColors() -> Int {
-        return colorEntity.colors.count
+        return colorEntity.numberOfColors()
     }
     
     func getColorByIndex(index: Int) -> UIColor {
-        return colorEntity.colors[index]
+        return colorEntity.getColorByIndex(index: index)
     }
 }

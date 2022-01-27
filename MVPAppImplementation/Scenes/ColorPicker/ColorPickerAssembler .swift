@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ColorPickerAssembler {
+final class ColorPickerAssembler {
     
-    class func assembly(delegate: PopoverColorDelegate) -> UIViewController {
+    class func assembly(delegate: ColorPickerDelegate, sourceView: UIButton) -> UIViewController {
         
         let colors = ColorEntityImpl()
         let presenter = ColorPickerPresenterImpl(colors: colors)
-        let view = ColorPickerViewController(presenter: presenter, delegate: delegate)
+        let view = ColorPickerViewController(presenter: presenter, delegate: delegate, sourceView: sourceView)
         
         return view
     }
