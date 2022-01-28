@@ -28,12 +28,12 @@ class FontPickerViewController: UIViewController, FontPickerView {
         self.sourceView = sourceView
         super.init(nibName: nil, bundle: nil)
         
-        self.preferredContentSize = CGSize(width: 260, height: 140)
-        self.popoverPresentationController?.permittedArrowDirections = .down
-        self.modalPresentationStyle = .popover
-        self.popoverPresentationController?.delegate = self
-        self.popoverPresentationController?.sourceView = sourceView
-        self.popoverPresentationController?.sourceRect = sourceView.bounds
+        preferredContentSize = CGSize(width: 260, height: 140)
+        popoverPresentationController?.permittedArrowDirections = .down
+        modalPresentationStyle = .popover
+        popoverPresentationController?.delegate = self
+        popoverPresentationController?.sourceView = sourceView
+        popoverPresentationController?.sourceRect = sourceView.bounds
     }
     
     required init?(coder: NSCoder) {

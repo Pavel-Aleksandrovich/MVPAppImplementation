@@ -68,10 +68,10 @@ class TaskDetailsPopupViewImpl: UIView {
         taskImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
-            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -100),
+            backgroundView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            backgroundView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            backgroundView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
             
             closeButton.heightAnchor.constraint(equalToConstant: 60),
             closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
@@ -111,11 +111,13 @@ class TaskDetailsPopupViewImpl: UIView {
             taskImageView.widthAnchor.constraint(equalToConstant: 300),
             taskImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
-         
+    
+    
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+       
 }

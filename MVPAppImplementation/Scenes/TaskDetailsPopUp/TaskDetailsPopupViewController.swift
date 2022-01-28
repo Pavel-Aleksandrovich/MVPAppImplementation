@@ -17,6 +17,7 @@ class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupView {
         super.init(nibName: nil, bundle: nil)
         modalTransitionStyle = .crossDissolve
         modalPresentationStyle = .overCurrentContext
+        definesPresentationContext = true
     }
     
     required init?(coder: NSCoder) {

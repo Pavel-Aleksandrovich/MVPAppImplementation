@@ -90,15 +90,24 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
         // datePickerButton
         
         view.addSubview(datePickerButton)
-        datePickerButton.backgroundColor = .link
+        datePickerButton.backgroundColor = .black
         datePickerButton.frame = CGRect(x: 100, y: view.bounds.width - 25, width: 80, height: 25)
-//        datePickerButton.addTarget(self, action: #selector(popUp), for: .touchUpInside)
+        datePickerButton.addTarget(self, action: #selector(calendarPicker), for: .touchUpInside)
+        
+        // datePicker
         
         view.addSubview(datePicker)
         datePicker.center = view.center
         dateFormatter.dateFormat = "MMM d, yyyy, h:mm a"
         datePicker.preferredDatePickerStyle = .compact
         datePicker.sizeToFit()
+    }
+    
+    @objc private func calendarPicker() {
+        let calendar = CalendarPickerViewController(baseDate: Date()) { Date in
+            print("\(Date)")
+        }
+        present(calendar, animated: true, completion: nil)
     }
     
     @objc private func showPickImageFromGallery() {

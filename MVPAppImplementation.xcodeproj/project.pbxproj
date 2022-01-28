@@ -43,6 +43,12 @@
 		8476A21C27A2644C0062440A /* FontPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A21B27A2644C0062440A /* FontPickerPresenter.swift */; };
 		8476A21E27A2656F0062440A /* FontPickerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A21D27A2656F0062440A /* FontPickerAssembler.swift */; };
 		8476A22027A26B060062440A /* FontEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A21F27A26B060062440A /* FontEntity.swift */; };
+		8476A22627A3AE220062440A /* CalendarPickerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22227A3AE220062440A /* CalendarPickerFooterView.swift */; };
+		8476A22727A3AE220062440A /* CalendarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22327A3AE220062440A /* CalendarPickerViewController.swift */; };
+		8476A22827A3AE220062440A /* CalendarDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22427A3AE220062440A /* CalendarDateCollectionViewCell.swift */; };
+		8476A22927A3AE220062440A /* CalendarPickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22527A3AE220062440A /* CalendarPickerHeaderView.swift */; };
+		8476A22F27A3AE360062440A /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22C27A3AE360062440A /* Day.swift */; };
+		8476A23027A3AE360062440A /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22D27A3AE360062440A /* MonthMetadata.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +90,12 @@
 		8476A21B27A2644C0062440A /* FontPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerPresenter.swift; sourceTree = "<group>"; };
 		8476A21D27A2656F0062440A /* FontPickerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerAssembler.swift; sourceTree = "<group>"; };
 		8476A21F27A26B060062440A /* FontEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontEntity.swift; sourceTree = "<group>"; };
+		8476A22227A3AE220062440A /* CalendarPickerFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPickerFooterView.swift; sourceTree = "<group>"; };
+		8476A22327A3AE220062440A /* CalendarPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPickerViewController.swift; sourceTree = "<group>"; };
+		8476A22427A3AE220062440A /* CalendarDateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDateCollectionViewCell.swift; sourceTree = "<group>"; };
+		8476A22527A3AE220062440A /* CalendarPickerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPickerHeaderView.swift; sourceTree = "<group>"; };
+		8476A22C27A3AE360062440A /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		8476A22D27A3AE360062440A /* MonthMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +174,7 @@
 			children = (
 				8476A1FF27995AE90062440A /* ColorPicker */,
 				8476A20227997E890062440A /* FontPicker */,
+				8476A22127A3AE220062440A /* CalendarPicker */,
 				8476A205279AA7CF0062440A /* DatePickerPopoverViewController */,
 				8476A1EB278C3EF60062440A /* TaskDetails */,
 				8476A1DC278949410062440A /* AddTask */,
@@ -261,6 +274,27 @@
 			path = TaskDetailsPopUp;
 			sourceTree = "<group>";
 		};
+		8476A22127A3AE220062440A /* CalendarPicker */ = {
+			isa = PBXGroup;
+			children = (
+				8476A22A27A3AE360062440A /* Models */,
+				8476A22327A3AE220062440A /* CalendarPickerViewController.swift */,
+				8476A22427A3AE220062440A /* CalendarDateCollectionViewCell.swift */,
+				8476A22527A3AE220062440A /* CalendarPickerHeaderView.swift */,
+				8476A22227A3AE220062440A /* CalendarPickerFooterView.swift */,
+			);
+			path = CalendarPicker;
+			sourceTree = "<group>";
+		};
+		8476A22A27A3AE360062440A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8476A22C27A3AE360062440A /* Day.swift */,
+				8476A22D27A3AE360062440A /* MonthMetadata.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -330,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8476A23027A3AE360062440A /* MonthMetadata.swift in Sources */,
 				8476A210279EBA560062440A /* TaskDetailsPopupAssembler.swift in Sources */,
 				8476A21C27A2644C0062440A /* FontPickerPresenter.swift in Sources */,
 				8476A1C2278815870062440A /* TaskListViewController.swift in Sources */,
@@ -344,9 +379,11 @@
 				8476A1E62789812F0062440A /* TaskEntity.swift in Sources */,
 				8476A208279AA87F0062440A /* TaskDetailsPopupViewController.swift in Sources */,
 				8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */,
+				8476A22827A3AE220062440A /* CalendarDateCollectionViewCell.swift in Sources */,
 				8476A20C279EBA1D0062440A /* TaskDetailsPopupPresenter.swift in Sources */,
 				8476A21E27A2656F0062440A /* FontPickerAssembler.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,
+				8476A22F27A3AE360062440A /* Day.swift in Sources */,
 				8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */,
 				8476A2012799602A0062440A /* FontPickerViewController.swift in Sources */,
 				8476A1DB27883CFB0062440A /* TaskCell.swift in Sources */,
@@ -354,10 +391,13 @@
 				8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */,
 				8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */,
 				8476A21827A15A780062440A /* ColorPickerPresenter.swift in Sources */,
+				8476A22927A3AE220062440A /* CalendarPickerHeaderView.swift in Sources */,
 				8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */,
 				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
 				8476A20A279E83390062440A /* UITextField Extension.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
+				8476A22727A3AE220062440A /* CalendarPickerViewController.swift in Sources */,
+				8476A22627A3AE220062440A /* CalendarPickerFooterView.swift in Sources */,
 				8476A21427A154BE0062440A /* ColorEntity.swift in Sources */,
 				8476A22027A26B060062440A /* FontEntity.swift in Sources */,
 				8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */,

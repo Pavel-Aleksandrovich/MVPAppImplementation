@@ -30,12 +30,13 @@ final class ColorPickerViewController: UIViewController, ColorPickerView {
         self.sourceView = sourceView
         
         super.init(nibName: nil, bundle: nil)
-        self.preferredContentSize = CGSize(width: 260, height: 160)
-        self.modalPresentationStyle = .popover
-        self.popoverPresentationController?.permittedArrowDirections = .down
-        self.popoverPresentationController?.sourceView = sourceView
-        self.popoverPresentationController?.sourceRect = sourceView.bounds
-        self.popoverPresentationController?.delegate = self
+        
+        preferredContentSize = CGSize(width: 260, height: 160)
+        modalPresentationStyle = .popover
+        popoverPresentationController?.permittedArrowDirections = .down
+        popoverPresentationController?.sourceView = sourceView
+        popoverPresentationController?.sourceRect = sourceView.bounds
+        popoverPresentationController?.delegate = self
     }
     
     required init?(coder: NSCoder) {
