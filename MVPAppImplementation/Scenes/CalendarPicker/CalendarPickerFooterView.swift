@@ -2,6 +2,7 @@
 import UIKit
 
 class CalendarPickerFooterView: UIView {
+    
   lazy var separatorView: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false

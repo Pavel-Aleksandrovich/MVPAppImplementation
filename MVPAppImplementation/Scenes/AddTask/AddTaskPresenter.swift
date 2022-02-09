@@ -8,10 +8,8 @@
 import UIKit
 
 protocol AddTaskPresenter {
-    func addTaskButtonPressed(task: TaskEntity)
     func onViewAttached(view: AddTaskView)
     func isEnabledSaveButton(text: String) -> UIColor
-    func popViewController(navigationController: UINavigationController?)
     func setDataForAlertPhotoPicker()
     func presentColorPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController)
     func presentFontPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController)
@@ -26,16 +24,20 @@ protocol AddTaskView: AnyObject {
                                              message: String?,
                                              animated: Bool)
     func showImagePickerController(sourceType: UIImagePickerController.SourceType)
+    func configure(task: TaskEntity)
+    var saveTaskButtonTappedHandler: ((TaskEntity) -> ())? { get set }
 }
 
 final class AddTaskPresenterImpl: AddTaskPresenter {
     private weak var view: AddTaskView?
     private let router: AddTaskRouter
     private var taskSettings: TaskSettings
+    private let index: Int?
     
-    init(router: AddTaskRouter, taskSettings: TaskSettings) {
+    init(router: AddTaskRouter, taskSettings: TaskSettings, index: Int?) {
         self.router = router
         self.taskSettings = taskSettings
+        self.index = index
     }
     
     func isEnabledSaveButton(text: String) -> UIColor {
@@ -52,18 +54,31 @@ final class AddTaskPresenterImpl: AddTaskPresenter {
         view.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
         view.setSaveButtonColor(color: .gray.withAlphaComponent(0.6))
         self.view = view
+        configureView()
+        addTaskButtonPressed()
+    }
+    
+    private func configureView() {
+       guard let index = index else { return }
+        let task = taskSettings.getTaskByIndex(index: index)
+        view?.configure(task: task)
     }
     
     func setDataForAlertPhotoPicker() {
         view?.showChooseSourceTypeAlertController(style: .actionSheet, title: "Shoose Image", message: nil, animated: false)
     }
     
-    func addTaskButtonPressed(task: TaskEntity) {
-        taskSettings.saveTask(task: task)
-    }
-    
-    func popViewController(navigationController: UINavigationController?) {
-        router.popViewController(navigationController: navigationController, animated: false)
+    private func addTaskButtonPressed() {
+        view?.saveTaskButtonTappedHandler = { [weak self] task in
+            if self?.index == nil {
+                self?.taskSettings.saveTask(task: task)
+                self?.router.popViewController(animated: false)
+            } else {
+                self?.taskSettings.updateTaskByIndex(task: task, index: (self?.index)!)
+                self?.router.popViewController(animated: false)
+            }
+        }
+        
     }
     
     func presentColorPicker(viewController: UIViewController, sourceView: UIButton, delegate: AddTaskViewController) {

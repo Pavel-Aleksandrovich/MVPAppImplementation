@@ -26,6 +26,8 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
     private let datePicker = UIDatePicker()
     private let dateFormatter = DateFormatter()
     
+    var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
+    
     init(presenter: AddTaskPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -121,7 +123,6 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
         if saveButton.tintColor == .gray.withAlphaComponent(0.6) {
             showShakeAnimation(textField: titleTextField)
         } else {
-            
             // MARK: - Date
             
             let currentDate = Date()
@@ -136,8 +137,7 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
                                      color: colorPickerButton.textOrEmptyString,
                                      date: dateFormatter.string(from: datePicker.date))
             
-            presenter.addTaskButtonPressed(task: addTask)
-            presenter.popViewController(navigationController: self.navigationController)
+            saveTaskButtonTappedHandler?(addTask)
             
         }
     }
@@ -198,6 +198,13 @@ extension AddTaskViewController: UIPopoverPresentationControllerDelegate {
 // MARK: - AddTaskView
 
 extension AddTaskViewController: AddTaskView {
+    
+    func configure(task: TaskEntity) {
+        titleTextField.text = task.titleText
+        descriptionTextView.text = task.descriptionText
+        imageView.image = task.image
+        colorPickerButton.backgroundColor = task.color
+    }
     
     func setSaveButtonColor(color: UIColor) {
         saveButton.tintColor = color

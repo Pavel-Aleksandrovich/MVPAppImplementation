@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskViewRouter {
-    func presentAddTask(navigationController: UINavigationController?, animated: Bool)
+    func presentAddTask(animated: Bool, index: Int?)
     
     func presentTaskDetail(navigationController: UINavigationController?,
                            indexForTaskDetails: Int,
@@ -18,10 +18,12 @@ protocol TaskViewRouter {
 
 class TaskViewRouterImpl: TaskViewRouter {
     
-    func presentAddTask(navigationController: UINavigationController?, animated: Bool) {
+    weak var controller: UIViewController?
+    
+    func presentAddTask(animated: Bool, index: Int?) {
         
-        let vc = AddTaskAssembler.assembly()
-        navigationController?.pushViewController(vc, animated: animated)
+        let vc = AddTaskAssembler.assembly(index: index)
+        controller?.navigationController?.pushViewController(vc, animated: animated)
     }
     
     func presentTaskDetail(navigationController: UINavigationController?,

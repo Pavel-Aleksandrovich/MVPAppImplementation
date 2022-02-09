@@ -15,6 +15,8 @@ class TaskEntity: NSObject, NSCoding {
     let currentDate: String
     let color: UIColor
     let date: String
+    var completed: Bool
+//    let id: UUID
     
     private enum SettingsKey {
         static let taskTitle = "taskTitle"
@@ -23,16 +25,29 @@ class TaskEntity: NSObject, NSCoding {
         static let descriptionText = "descriptionText"
         static let color = "color"
         static let date = "date"
+        static let completed = "completed"
+        static let id = "id"
     }
     
-    init(title: String, image: UIImage, currentDate: String, descriptionText: String, color: UIColor, date: String) {
+    init(title: String, image: UIImage, currentDate: String, descriptionText: String,
+         color: UIColor, date: String, completed: Bool = true) {
+//        self.id = UUID()
         self.titleText = title
         self.image = image
         self.currentDate = currentDate
         self.descriptionText = descriptionText
         self.color = color
         self.date = date
+        self.completed = completed
     }
+
+//    func hash(into hasher: inout Hasher) {
+//      hasher.combine(id)
+//    }
+//
+//    static func == (lhs: TaskEntity, rhs: TaskEntity) -> Bool {
+//      return lhs.id == rhs.id
+//    }
     
     required init?(coder: NSCoder) {
         titleText = coder.decodeObject(forKey: SettingsKey.taskTitle) as? String ?? "nil"
@@ -41,6 +56,8 @@ class TaskEntity: NSObject, NSCoding {
         descriptionText = coder.decodeObject(forKey: SettingsKey.descriptionText) as? String ?? "nil"
         color = coder.decodeObject(forKey: SettingsKey.color) as? UIColor ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         date = coder.decodeObject(forKey: SettingsKey.date) as? String ?? "nil"
+        completed = coder.decodeObject(forKey: SettingsKey.completed) as? Bool ?? true
+//        id = coder.decodeObject(forKey: SettingsKey.id) as? UUID ?? UUID()
     }
     
     func encode(with coder: NSCoder) {
@@ -50,5 +67,6 @@ class TaskEntity: NSObject, NSCoding {
         coder.encode(descriptionText, forKey: SettingsKey.descriptionText)
         coder.encode(color, forKey: SettingsKey.color)
         coder.encode(date, forKey: SettingsKey.date)
+        coder.encode(completed, forKey: SettingsKey.completed)
     }
 }

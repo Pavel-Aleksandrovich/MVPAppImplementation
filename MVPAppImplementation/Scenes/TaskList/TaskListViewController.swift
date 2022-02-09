@@ -23,6 +23,8 @@ class TaskListViewController: UIViewController {
     private let presenter: TaskListPresenter!
     private let addTaskButton = UIButton()
     
+    var addTaskButtonTappedHandler: ((Int?) -> ())?
+    
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -62,18 +64,33 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func addTaskButtonTapped() {
-        presenter.addTaskButtonTapped(navigationController: self.navigationController)
+        addTaskButtonTappedHandler?(nil)
+    }
+    
+    func updateTask(closure: @escaping (Bool, Int) -> ()) {
+        print("func updateTask(closure: @escaping (Bool, Int) -> ())")
+//        presenter.onCompleteCheckBoxTapped(bool: bool, index: indexPath.row)
     }
     
 }
 
 // MARK: - TaskListView
 
-extension TaskListViewController: TaskListView {
+extension TaskListViewController: TaskListView, Delegate {
     
     func deselectRow(indexPath: IndexPath, animated: Bool) {
         collectionView.deselectItem(at: indexPath, animated: animated)
     }
+    
+    func reloadData() {
+        collectionView.reloadData()
+    }
+    
+    func checkMarkTap(bool: Bool, task: TaskEntity, index: Int) {
+        presenter.onCompleteCheckBoxTapped(bool: bool, index: index, task: task)
+        print("delegate")
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -87,9 +104,9 @@ extension TaskListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.identifierCell, for: indexPath) as! TaskCell
-        
+        cell.delegate = self
         let task = presenter.getTaskByIndex(index: indexPath.row)
-        cell.configureCell(task: task)
+        cell.configureCell(task: task, index: indexPath.row)
         
         return cell
     }
@@ -132,9 +149,10 @@ extension TaskListViewController {
                 }
                 
             case .edit:
-                self.presenter.presentTaskDetail(navigationController: self.navigationController, indexPath: indexPath)
+                self.addTaskButtonTappedHandler?(indexPath.row)
                 
             case .showDetails:
+                
                 print("show details")
             }
             

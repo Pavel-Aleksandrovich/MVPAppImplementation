@@ -14,8 +14,9 @@ final class TaskListAssembler {
         let router = TaskViewRouterImpl()
         let taskSettings = TaskSettingsImpl()
         let presenter = TaskListPresenterImpl(router: router, taskSettings: taskSettings)
-        let view = TaskListViewController(presenter: presenter)
+        let controller = TaskListViewController(presenter: presenter)
+        router.controller = controller
         
-        return view
+        return controller
     }
 }

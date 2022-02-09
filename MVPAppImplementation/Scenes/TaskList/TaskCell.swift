@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol Delegate: AnyObject {
+    func checkMarkTap(bool: Bool, task: TaskEntity, index: Int)
+}
+
+
 final class TaskCell: UICollectionViewCell, TaskListCellView {
     
     private enum Constants {
@@ -15,14 +20,18 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         static let titleLabelConstant = CGFloat(10)
         static let taskCheckMarkButtonConstant = CGFloat(20)
         static let taskDataLabelConstant = CGFloat(10)
+        static let taskCheckMarkButton: CGFloat = 30
     }
-    
+    weak var delegate: Delegate?
     private let cellView = UIView()
     private let titleLabel = UILabel()
     private let illustrationImageView = UIImageView()
     private let taskCurrentDataLabel = UILabel()
-    private let taskCheckMarkButton = UIView()
+    private let taskCheckMarkButton = UIButton()
     private let taskDataLabel = UILabel()
+    private var completed: Bool!
+    private var task: TaskEntity!
+    private var index: Int!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,15 +44,29 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureCell(task: TaskEntity) {
+    func configureCell(task: TaskEntity, index: Int) {
         titleLabel.text = task.titleText
         illustrationImageView.image = task.image
         cellView.backgroundColor = task.color
         taskDataLabel.text = task.date
-    }
-}
+        
+        self.index = index
+        print(task.completed)
+        completed = task.completed
+        self.task = task
+        
+        let symbolName: String
+        
+        if task.completed {
+          symbolName = "square"
+        } else {
+          symbolName = "checkmark.square"
+        }
 
-private extension TaskCell {
+        let configuration = UIImage.SymbolConfiguration(scale: .large)
+        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
+        taskCheckMarkButton.setImage(image, for: .normal)
+    }
     
     func configureView() {
         
@@ -59,7 +82,15 @@ private extension TaskCell {
         cellView.layer.borderColor = UIColor.black.cgColor
         cellView.clipsToBounds = true
         
-        taskCheckMarkButton.backgroundColor = .red
+        taskCheckMarkButton.backgroundColor = .none
+        taskCheckMarkButton.setImage(UIImage(systemName: "square", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
+        taskCheckMarkButton.addTarget(self, action: #selector(pres), for: .touchUpInside)
+        
+        taskCheckMarkButton.contentMode = .scaleAspectFit
+        taskCheckMarkButton.isUserInteractionEnabled = true
+        taskCheckMarkButton.isAccessibilityElement = true
+        taskCheckMarkButton.accessibilityTraits = .button
+        taskCheckMarkButton.accessibilityLabel = "Mark as Complete"
         
         titleLabel.font = .systemFont(ofSize: 25, weight: .bold)
         titleLabel.textColor = .black
@@ -69,6 +100,29 @@ private extension TaskCell {
         
         taskDataLabel.font = .systemFont(ofSize: 15, weight: .light)
         taskDataLabel.textAlignment = .left
+        
+    }
+    
+    @objc func pres() {
+        print("press")
+        
+        guard let task = task, var completed = completed else {return}
+        completed.toggle()
+        delegate?.checkMarkTap(bool: completed, task: task, index: index)
+        print(completed)
+        task.completed = completed
+        print(task.completed)
+        let symbolName: String
+        
+        if completed {
+          symbolName = "square"
+        } else {
+          symbolName = "checkmark.square"
+        }
+
+        let configuration = UIImage.SymbolConfiguration(scale: .large)
+        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
+        taskCheckMarkButton.setImage(image, for: .normal)
         
     }
     
@@ -98,8 +152,8 @@ private extension TaskCell {
             
             taskCheckMarkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskCheckMarkButtonConstant),
             taskCheckMarkButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 2*Constants.taskCheckMarkButtonConstant),
-            taskCheckMarkButton.heightAnchor.constraint(equalToConstant: self.bounds.height/2),
-            taskCheckMarkButton.widthAnchor.constraint(equalToConstant: self.bounds.height/2),
+            taskCheckMarkButton.heightAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
+            taskCheckMarkButton.widthAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
             
             taskDataLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.taskDataLabelConstant),
             taskDataLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskDataLabelConstant),

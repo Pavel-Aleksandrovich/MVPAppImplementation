@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddTaskRouter {
-    func popViewController(navigationController: UINavigationController?, animated: Bool)
+    func popViewController(animated: Bool)
     func presentColorPicker(viewController: UIViewController, animated: Bool,
                             sourceView: UIButton, delegate: AddTaskViewController)
     func presentFontPicker(viewController: UIViewController, animated: Bool,
@@ -17,8 +17,10 @@ protocol AddTaskRouter {
 
 class AddTaskRouterImpl: AddTaskRouter {
     
-    func popViewController(navigationController: UINavigationController?, animated: Bool) {
-        navigationController?.popViewController(animated: animated)
+    weak var controller: UIViewController?
+    
+    func popViewController(animated: Bool) {
+        controller?.navigationController?.popViewController(animated: animated)
     }
     
     func presentColorPicker(viewController: UIViewController, animated: Bool,

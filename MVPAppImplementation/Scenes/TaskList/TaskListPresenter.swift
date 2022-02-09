@@ -11,20 +11,21 @@ protocol TaskListPresenter {
     func numberOfTasks() -> Int
     func getTaskByIndex(index: Int) -> TaskEntity
     func onViewAttached(view: TaskListView)
-    func addTaskButtonTapped(navigationController: UINavigationController?)
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskByIndex(index: Int)
-    func moveCell(sourceIndexPath: Int, destinationIndexPath: Int)
     func showTaskDetailBylongTouch(index: Int, viewController: UIViewController)
+    func onCompleteCheckBoxTapped(bool: Bool, index: Int, task: TaskEntity)
     }
 
 protocol TaskListView: AnyObject {
+    var addTaskButtonTappedHandler: ((Int?) -> ())? { get set }
     func deselectRow(indexPath: IndexPath, animated: Bool)
+    func reloadData()
 }
 
 protocol TaskListCellView {
-    func configureCell(task: TaskEntity)
+    func configureCell(task: TaskEntity, index: Int)
 }
 
 final class TaskListPresenterImpl: TaskListPresenter {
@@ -40,10 +41,7 @@ final class TaskListPresenterImpl: TaskListPresenter {
     
     func onViewAttached(view: TaskListView) {
         self.view = view
-    }
-    
-    func  moveCell(sourceIndexPath: Int, destinationIndexPath: Int) {
-        taskSettings.tasks.swapAt(sourceIndexPath, destinationIndexPath)
+        addTaskButtonTapped()
     }
     
     func numberOfTasks() -> Int {
@@ -54,8 +52,10 @@ final class TaskListPresenterImpl: TaskListPresenter {
         return taskSettings.getTaskByIndex(index: index)
     }
     
-    func addTaskButtonTapped(navigationController: UINavigationController?) {
-        router.presentAddTask(navigationController: navigationController, animated: false)
+    private func addTaskButtonTapped() {
+        view?.addTaskButtonTappedHandler = { [weak self] index in
+            self?.router.presentAddTask(animated: false, index: index)
+        }
     }
     
     func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath) {
@@ -74,5 +74,11 @@ final class TaskListPresenterImpl: TaskListPresenter {
     
     func showTaskDetailBylongTouch(index: Int, viewController: UIViewController) {
         router.presentTaskDetailBylongTouch(index: index, viewController: viewController)
+    }
+    
+    func onCompleteCheckBoxTapped(bool: Bool, index: Int, task: TaskEntity) {
+        taskSettings.updateTaskByIndex(task: task, index: index)
+        print(bool)
+        print("onCompleteCheckBoxTapped")
     }
 }

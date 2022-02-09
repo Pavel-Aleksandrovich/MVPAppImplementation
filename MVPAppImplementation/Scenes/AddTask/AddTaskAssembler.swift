@@ -9,13 +9,14 @@ import UIKit
 
 final class AddTaskAssembler {
     
-    class func assembly() -> UIViewController {
+    class func assembly(index: Int?) -> UIViewController {
         
         let router = AddTaskRouterImpl()
         let taskSettings = TaskSettingsImpl()
-        let presenter = AddTaskPresenterImpl(router: router, taskSettings: taskSettings)
-        let view = AddTaskViewController(presenter: presenter)
+        let presenter = AddTaskPresenterImpl(router: router, taskSettings: taskSettings, index: index)
+        let controller = AddTaskViewController(presenter: presenter)
+        router.controller = controller
         
-        return view
+        return controller
     }
 }

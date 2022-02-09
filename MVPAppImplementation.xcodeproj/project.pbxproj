@@ -177,8 +177,8 @@
 				8476A22127A3AE220062440A /* CalendarPicker */,
 				8476A205279AA7CF0062440A /* DatePickerPopoverViewController */,
 				8476A1EB278C3EF60062440A /* TaskDetails */,
-				8476A1DC278949410062440A /* AddTask */,
 				8476A206279AA8250062440A /* TaskDetailsPopUp */,
+				8476A1DC278949410062440A /* AddTask */,
 				8476A1D8278830110062440A /* TaskList */,
 			);
 			path = Scenes;
