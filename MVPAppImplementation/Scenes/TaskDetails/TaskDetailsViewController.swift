@@ -19,14 +19,15 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
     private let imageButton = UIButton()
-    private let saveButton = UIBarButtonItem(title: Constants.saveButton, style: .done, target: self, action: #selector(saveButtonPressed))
+    private let saveButton = UIBarButtonItem(title: Constants.saveButton, style: .done, target: self, action: #selector(saveButtonTapped))
     private let colorPickerButton = UIButton()
     private let fontPickerButton = UIButton()
     private let datePickerButton = UIButton()
     private let datePicker = UIDatePicker()
-    private let dateFormatter = DateFormatter()
     
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
+    var colorPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())?
+    var fontPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())?
     
     init(presenter: TaskDetailsPresenter) {
         self.presenter = presenter
@@ -100,7 +101,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
         
         view.addSubview(datePicker)
         datePicker.center = view.center
-        dateFormatter.dateFormat = "MMM d, yyyy, h:mm a"
+        
         datePicker.preferredDatePickerStyle = .compact
         datePicker.sizeToFit()
     }
@@ -109,7 +110,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
         let calendar = CalendarPickerViewController(baseDate: Date()) { Date in
             print("\(Date)")
         }
-        present(calendar, animated: true, completion: nil)
+        present(calendar, animated: true)
     }
     
     @objc private func showPickImageFromGallery() {
@@ -118,28 +119,39 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     
     // MARK: - Save Button Pressed
     
-    @objc private func saveButtonPressed() {
+    @objc private func saveButtonTapped() {
         
         if saveButton.tintColor == .gray.withAlphaComponent(0.6) {
             showShakeAnimation(textField: titleTextField)
         } else {
-            // MARK: - Date
-            
-            let currentDate = Date()
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            let dateTimeString = formatter.string(from: currentDate)
+            let currentDate = createCurrentDate()
+            let date = createDate()
             
             let addTask = TaskEntity(title: titleTextField.textOrEmptyString,
                                      image: imageView.textOrEmptyString,
-                                     currentDate: dateTimeString,
+                                     currentDate: currentDate,
                                      descriptionText: descriptionTextView.textOrEmptyString,
                                      color: colorPickerButton.textOrEmptyString,
-                                     date: dateFormatter.string(from: datePicker.date))
+                                     date: date)
             
             saveTaskButtonTappedHandler?(addTask)
-            
         }
+    }
+    
+    private func createDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy, h:mm a"
+        
+        return dateFormatter.string(from: datePicker.date)
+    }
+    
+    private func createCurrentDate() -> String {
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let dateTimeString = formatter.string(from: currentDate)
+        
+        return dateTimeString
     }
     
     @objc func showDatePickerPopover() {
@@ -159,11 +171,11 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     }
     
     @objc func showFontPickerPopover() {
-        presenter.presentFontPicker(viewController: self, sourceView: fontPickerButton, delegate: self)
+        fontPickerButtonTappedHandler?(fontPickerButton, self)
     }
     
     @objc func showColorPickerPopover() {
-        presenter.presentColorPicker(viewController: self, sourceView: colorPickerButton, delegate: self)
+        colorPickerButtonTappedHandler?(colorPickerButton, self)
     }
     
     func pickColor(color: UIColor?) {
@@ -185,7 +197,6 @@ extension TaskDetailsViewController: FontPickerDelegate {
         fontPickerButton.setTitle(font, for: .normal)
     }
 }
-
 // MARK: - Color Picker Popover Delegate
 
 extension TaskDetailsViewController: UIPopoverPresentationControllerDelegate {
@@ -194,7 +205,6 @@ extension TaskDetailsViewController: UIPopoverPresentationControllerDelegate {
         return .none
     }
 }
-
 // MARK: - AddTaskView
 
 extension TaskDetailsViewController: TaskDetailsView {

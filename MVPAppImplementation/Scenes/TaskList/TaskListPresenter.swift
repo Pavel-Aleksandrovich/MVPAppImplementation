@@ -20,7 +20,6 @@ protocol TaskListPresenter {
 protocol TaskListView: AnyObject {
     var addTaskButtonTappedHandler: ((Int?) -> ())? { get set }
     func deselectRow(indexPath: IndexPath, animated: Bool)
-    func reloadData()
 }
 
 protocol TaskListCellView {

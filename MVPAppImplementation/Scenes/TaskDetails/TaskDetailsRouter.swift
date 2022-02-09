@@ -9,13 +9,11 @@ import UIKit
 
 protocol TaskDetailsRouter {
     func popViewController(animated: Bool)
-    func presentColorPicker(viewController: UIViewController, animated: Bool,
-                            sourceView: UIButton, delegate: TaskDetailsViewController)
-    func presentFontPicker(viewController: UIViewController, animated: Bool,
-                           sourceView: UIButton, delegate: TaskDetailsViewController)
+    func presentColorPicker(animated: Bool, sourceView: UIButton, delegate: TaskDetailsViewController)
+    func presentFontPicker(animated: Bool, sourceView: UIButton, delegate: TaskDetailsViewController)
 }
 
-class TaskDetailsRouterImpl: TaskDetailsRouter {
+final class TaskDetailsRouterImpl: TaskDetailsRouter {
     
     weak var controller: UIViewController?
     
@@ -23,19 +21,19 @@ class TaskDetailsRouterImpl: TaskDetailsRouter {
         controller?.navigationController?.popViewController(animated: animated)
     }
     
-    func presentColorPicker(viewController: UIViewController, animated: Bool,
+    func presentColorPicker(animated: Bool,
                             sourceView: UIButton, delegate: TaskDetailsViewController) {
         
         let colorPickerViewController = ColorPickerAssembler.assembly(delegate: delegate, sourceView: sourceView)
         
-        viewController.present(colorPickerViewController, animated: animated)
+        controller?.present(colorPickerViewController, animated: animated)
     }
     
-    func presentFontPicker(viewController: UIViewController, animated: Bool,
+    func presentFontPicker(animated: Bool,
                            sourceView: UIButton, delegate: TaskDetailsViewController) {
         
         let fontPickerViewController = FontPickerAssembler.assembly(delegate: delegate, sourceView: sourceView)
         
-        viewController.present(fontPickerViewController, animated: animated)
+        controller?.present(fontPickerViewController, animated: animated)
     }
 }

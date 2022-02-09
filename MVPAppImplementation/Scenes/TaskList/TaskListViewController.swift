@@ -13,9 +13,11 @@ class TaskListViewController: UIViewController {
         static let identifierCell = "TaskCell"
         static let heightCell = CGFloat(140)
         static let widthAddTaskButton = CGFloat(100)
+        static let addTaskButtonTrailingConstant = CGFloat(100)
         static let widthCellConstant = CGFloat(20)
         static let mainTitle = "Tasks"
         static let spacingBetweenCell = CGFloat(10)
+        static let smallDevice = CGFloat(350)
     }
     
     private let layout = UICollectionViewFlowLayout()
@@ -81,11 +83,7 @@ extension TaskListViewController: TaskListView, Delegate {
     func deselectRow(indexPath: IndexPath, animated: Bool) {
         collectionView.deselectItem(at: indexPath, animated: animated)
     }
-    
-    func reloadData() {
-        collectionView.reloadData()
-    }
-    
+
     func checkMarkTap(bool: Bool, task: TaskEntity, index: Int) {
         presenter.onCompleteCheckBoxTapped(bool: bool, index: index, task: task)
         print("delegate")
@@ -177,6 +175,9 @@ extension TaskListViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        let smallDevice = UIScreen.main.bounds.width <= Constants.smallDevice
+        let widthAddTaskButton: CGFloat = smallDevice ? 0.8*Constants.widthAddTaskButton : Constants.widthAddTaskButton
+        
         [collectionView, addTaskButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -187,10 +188,10 @@ extension TaskListViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            addTaskButton.widthAnchor.constraint(equalToConstant: Constants.widthAddTaskButton),
-            addTaskButton.heightAnchor.constraint(equalToConstant: Constants.widthAddTaskButton),
-            addTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.widthAddTaskButton/2),
-            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constants.widthAddTaskButton)
+            addTaskButton.widthAnchor.constraint(equalToConstant: widthAddTaskButton),
+            addTaskButton.heightAnchor.constraint(equalToConstant: widthAddTaskButton),
+            addTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.addTaskButtonTrailingConstant/2),
+            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constants.addTaskButtonTrailingConstant)
         ])
     }
 }
