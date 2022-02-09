@@ -1,41 +1,91 @@
 //
-//  TaskDetailsPresenter.swift
+//  AddTaskPresenter.swift
 //  MVPAppImplementation
 //
-//  Created by pavel mishanin on 10.01.2022.
+//  Created by pavel mishanin on 08.01.2022.
 //
 
 import UIKit
 
-protocol TaskDetailView: AnyObject {
-    func setTask(task: TaskEntity)
-}
-
 protocol TaskDetailsPresenter {
-    func onViewAttached(view: TaskDetailView)
-    func removeButtonDidPressed(navigationController: UINavigationController?)
+    func onViewAttached(view: TaskDetailsView)
+    func isEnabledSaveButton(text: String) -> UIColor
+    func setDataForAlertPhotoPicker()
+    func presentColorPicker(viewController: UIViewController, sourceView: UIButton, delegate: TaskDetailsViewController)
+    func presentFontPicker(viewController: UIViewController, sourceView: UIButton, delegate: TaskDetailsViewController)
 }
 
-class TaskDetailsPresenterImpl: TaskDetailsPresenter {
-    private let indexForTaskDetails: Int
-    private weak var view: TaskDetailView?
-    private let router: TaskDetailRouter
-    private var taskSettings: TaskSettings
+protocol TaskDetailsView: AnyObject {
+    func setViewBackgrounColor(color: UIColor?)
+    func setViewTitle(title: String?)
+    func setSaveButtonColor(color: UIColor)
+    func showChooseSourceTypeAlertController(style: UIAlertController.Style,
+                                             title: String?,
+                                             message: String?,
+                                             animated: Bool)
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType)
+    func configure(task: TaskEntity)
+    var saveTaskButtonTappedHandler: ((TaskEntity) -> ())? { get set }
+}
+
+final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
+    private weak var view: TaskDetailsView?
+    private let router: TaskDetailsRouter
+    private let taskSettings: TaskSettings
+    private let index: Int?
     
-    init(indexForTaskDetails: Int, router: TaskDetailRouter, taskSettings: TaskSettings) {
-        self.indexForTaskDetails = indexForTaskDetails
+    init(router: TaskDetailsRouter, taskSettings: TaskSettings, index: Int?) {
         self.router = router
         self.taskSettings = taskSettings
+        self.index = index
     }
     
-    func onViewAttached(view: TaskDetailView) {
-        let task = taskSettings.getTaskByIndex(index: indexForTaskDetails)
+    func isEnabledSaveButton(text: String) -> UIColor {
+        
+        if text.isEmpty {
+            return .gray.withAlphaComponent(0.6)
+        } else {
+            return .red
+        }
+    }
+    
+    func onViewAttached(view: TaskDetailsView) {
+        view.setViewTitle(title: "Add Task")
+        view.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
+        view.setSaveButtonColor(color: .gray.withAlphaComponent(0.6))
         self.view = view
-        view.setTask(task: task)
+        configureView()
+        addTaskButtonPressed()
     }
     
-    func removeButtonDidPressed(navigationController: UINavigationController?) {
-        router.popViewController(animated: false, navigationController: navigationController)
-        taskSettings.removeTask(index: indexForTaskDetails)
+    private func configureView() {
+       guard let index = index else { return }
+        let task = taskSettings.getTaskByIndex(index: index)
+        view?.configure(task: task)
+    }
+    
+    func setDataForAlertPhotoPicker() {
+        view?.showChooseSourceTypeAlertController(style: .actionSheet, title: "Shoose Image", message: nil, animated: false)
+    }
+    
+    private func addTaskButtonPressed() {
+        view?.saveTaskButtonTappedHandler = { [weak self] task in
+            if self?.index == nil {
+                self?.taskSettings.saveTask(task: task)
+                self?.router.popViewController(animated: false)
+            } else {
+                self?.taskSettings.updateTaskByIndex(task: task, index: (self?.index)!)
+                self?.router.popViewController(animated: false)
+            }
+        }
+        
+    }
+    
+    func presentColorPicker(viewController: UIViewController, sourceView: UIButton, delegate: TaskDetailsViewController) {
+        router.presentColorPicker(viewController: viewController, animated: true, sourceView: sourceView, delegate: delegate)
+    }
+    
+    func presentFontPicker(viewController: UIViewController, sourceView: UIButton, delegate: TaskDetailsViewController) {
+        router.presentFontPicker(viewController: viewController, animated: true, sourceView: sourceView, delegate: delegate)
     }
 }

@@ -11,7 +11,6 @@ protocol TaskListPresenter {
     func numberOfTasks() -> Int
     func getTaskByIndex(index: Int) -> TaskEntity
     func onViewAttached(view: TaskListView)
-    func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskByIndex(index: Int)
     func showTaskDetailBylongTouch(index: Int, viewController: UIViewController)
@@ -31,10 +30,10 @@ protocol TaskListCellView {
 final class TaskListPresenterImpl: TaskListPresenter {
     
     private weak var view: TaskListView?
-    private let router: TaskViewRouter
-    private var taskSettings: TaskSettings
+    private let router: TaskListRouter
+    private let taskSettings: TaskSettings
     
-    init(router: TaskViewRouter, taskSettings: TaskSettings) {
+    init(router: TaskListRouter, taskSettings: TaskSettings) {
         self.router = router
         self.taskSettings = taskSettings
     }
@@ -54,14 +53,8 @@ final class TaskListPresenterImpl: TaskListPresenter {
     
     private func addTaskButtonTapped() {
         view?.addTaskButtonTappedHandler = { [weak self] index in
-            self?.router.presentAddTask(animated: false, index: index)
+            self?.router.presentTaskDetails(animated: false, index: index)
         }
-    }
-    
-    func presentTaskDetail(navigationController: UINavigationController?, indexPath: IndexPath) {
-        router.presentTaskDetail(navigationController: navigationController,
-                                 indexForTaskDetails: indexPath.row,
-                                 animated: false)
     }
     
     func deselectRow(indexPath: IndexPath) {

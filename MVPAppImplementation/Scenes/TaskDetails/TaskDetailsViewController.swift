@@ -7,14 +7,14 @@
 
 import UIKit
 
-class AddTaskViewController: UIViewController, ColorPickerDelegate {
+class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     
     private enum Constants {
         static let placeholder = "Enter the text"
         static let saveButton = "Save"
     }
     
-    private let presenter: AddTaskPresenter!
+    private let presenter: TaskDetailsPresenter!
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
@@ -28,7 +28,7 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
     
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
     
-    init(presenter: AddTaskPresenter) {
+    init(presenter: TaskDetailsPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -173,12 +173,12 @@ class AddTaskViewController: UIViewController, ColorPickerDelegate {
 
 // MARK: - Date Picker Popover Delegate
 
-extension AddTaskViewController: DatePickerPopoverDelegate {
+extension TaskDetailsViewController: DatePickerPopoverDelegate {
 }
 
 // MARK: - Font Picker Popover Delegate
 
-extension AddTaskViewController: FontPickerDelegate {
+extension TaskDetailsViewController: FontPickerDelegate {
     
     func setFont(font: String) {
         titleTextField.font = UIFont.init(name: font, size: 25)
@@ -188,7 +188,7 @@ extension AddTaskViewController: FontPickerDelegate {
 
 // MARK: - Color Picker Popover Delegate
 
-extension AddTaskViewController: UIPopoverPresentationControllerDelegate {
+extension TaskDetailsViewController: UIPopoverPresentationControllerDelegate {
 
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
@@ -197,7 +197,7 @@ extension AddTaskViewController: UIPopoverPresentationControllerDelegate {
 
 // MARK: - AddTaskView
 
-extension AddTaskViewController: AddTaskView {
+extension TaskDetailsViewController: TaskDetailsView {
     
     func configure(task: TaskEntity) {
         titleTextField.text = task.titleText
@@ -239,7 +239,7 @@ extension AddTaskViewController: AddTaskView {
 
 // MARK: - UITextFieldDelegate
 
-extension AddTaskViewController: UITextFieldDelegate {
+extension TaskDetailsViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
@@ -251,7 +251,7 @@ extension AddTaskViewController: UITextFieldDelegate {
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
-extension AddTaskViewController:
+extension TaskDetailsViewController:
     UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

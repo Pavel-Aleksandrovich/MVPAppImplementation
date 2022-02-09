@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol AddTaskRouter {
+protocol TaskDetailsRouter {
     func popViewController(animated: Bool)
     func presentColorPicker(viewController: UIViewController, animated: Bool,
-                            sourceView: UIButton, delegate: AddTaskViewController)
+                            sourceView: UIButton, delegate: TaskDetailsViewController)
     func presentFontPicker(viewController: UIViewController, animated: Bool,
-                           sourceView: UIButton, delegate: AddTaskViewController)
+                           sourceView: UIButton, delegate: TaskDetailsViewController)
 }
 
-class AddTaskRouterImpl: AddTaskRouter {
+class TaskDetailsRouterImpl: TaskDetailsRouter {
     
     weak var controller: UIViewController?
     
@@ -24,7 +24,7 @@ class AddTaskRouterImpl: AddTaskRouter {
     }
     
     func presentColorPicker(viewController: UIViewController, animated: Bool,
-                            sourceView: UIButton, delegate: AddTaskViewController) {
+                            sourceView: UIButton, delegate: TaskDetailsViewController) {
         
         let colorPickerViewController = ColorPickerAssembler.assembly(delegate: delegate, sourceView: sourceView)
         
@@ -32,7 +32,7 @@ class AddTaskRouterImpl: AddTaskRouter {
     }
     
     func presentFontPicker(viewController: UIViewController, animated: Bool,
-                           sourceView: UIButton, delegate: AddTaskViewController) {
+                           sourceView: UIButton, delegate: TaskDetailsViewController) {
         
         let fontPickerViewController = FontPickerAssembler.assembly(delegate: delegate, sourceView: sourceView)
         

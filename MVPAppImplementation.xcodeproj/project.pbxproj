@@ -15,16 +15,12 @@
 		8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D2278817870062440A /* TaskListPresenter.swift */; };
 		8476A1D527881D680062440A /* TaskListAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1D427881D680062440A /* TaskListAssembler.swift */; };
 		8476A1DB27883CFB0062440A /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DA27883CFB0062440A /* TaskCell.swift */; };
-		8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DD278949660062440A /* AddTaskViewController.swift */; };
-		8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DF278949A90062440A /* AddTaskPresenter.swift */; };
-		8476A1E2278963C00062440A /* AddTaskAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E1278963C00062440A /* AddTaskAssembler.swift */; };
+		8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DD278949660062440A /* TaskDetailsViewController.swift */; };
+		8476A1E0278949A90062440A /* TaskDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */; };
+		8476A1E2278963C00062440A /* TaskDetailsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */; };
 		8476A1E62789812F0062440A /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E52789812F0062440A /* TaskEntity.swift */; };
-		8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E7278BE9F20062440A /* TaskViewRouter.swift */; };
-		8476A1EA278BFA510062440A /* AddTaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E9278BFA510062440A /* AddTaskRouter.swift */; };
-		8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1EC278C3F210062440A /* TaskDetailViewController.swift */; };
-		8476A1EF278C3FF80062440A /* TaskDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1EE278C3FF80062440A /* TaskDetailsPresenter.swift */; };
-		8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F0278C41EA0062440A /* TaskDetailAssembler.swift */; };
-		8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F2278C425C0062440A /* TaskDetailRouter.swift */; };
+		8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E7278BE9F20062440A /* TaskListRouter.swift */; };
+		8476A1EA278BFA510062440A /* TaskDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */; };
 		8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F5278D39AD0062440A /* TaskSettings.swift */; };
 		8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F8278D51E30062440A /* UIViewController Extension.swift */; };
 		8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FB2798065A0062440A /* ColorPickerViewController.swift */; };
@@ -62,16 +58,12 @@
 		8476A1D2278817870062440A /* TaskListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPresenter.swift; sourceTree = "<group>"; };
 		8476A1D427881D680062440A /* TaskListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListAssembler.swift; sourceTree = "<group>"; };
 		8476A1DA27883CFB0062440A /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
-		8476A1DD278949660062440A /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
-		8476A1DF278949A90062440A /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
-		8476A1E1278963C00062440A /* AddTaskAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskAssembler.swift; sourceTree = "<group>"; };
+		8476A1DD278949660062440A /* TaskDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsViewController.swift; sourceTree = "<group>"; };
+		8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPresenter.swift; sourceTree = "<group>"; };
+		8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsAssembler.swift; sourceTree = "<group>"; };
 		8476A1E52789812F0062440A /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
-		8476A1E7278BE9F20062440A /* TaskViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewRouter.swift; sourceTree = "<group>"; };
-		8476A1E9278BFA510062440A /* AddTaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskRouter.swift; sourceTree = "<group>"; };
-		8476A1EC278C3F210062440A /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
-		8476A1EE278C3FF80062440A /* TaskDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPresenter.swift; sourceTree = "<group>"; };
-		8476A1F0278C41EA0062440A /* TaskDetailAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailAssembler.swift; sourceTree = "<group>"; };
-		8476A1F2278C425C0062440A /* TaskDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailRouter.swift; sourceTree = "<group>"; };
+		8476A1E7278BE9F20062440A /* TaskListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRouter.swift; sourceTree = "<group>"; };
+		8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsRouter.swift; sourceTree = "<group>"; };
 		8476A1F5278D39AD0062440A /* TaskSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettings.swift; sourceTree = "<group>"; };
 		8476A1F8278D51E30062440A /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
 		8476A1FB2798065A0062440A /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
@@ -164,7 +156,7 @@
 				8476A1D2278817870062440A /* TaskListPresenter.swift */,
 				8476A1D427881D680062440A /* TaskListAssembler.swift */,
 				8476A1DA27883CFB0062440A /* TaskCell.swift */,
-				8476A1E7278BE9F20062440A /* TaskViewRouter.swift */,
+				8476A1E7278BE9F20062440A /* TaskListRouter.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -176,23 +168,22 @@
 				8476A20227997E890062440A /* FontPicker */,
 				8476A22127A3AE220062440A /* CalendarPicker */,
 				8476A205279AA7CF0062440A /* DatePickerPopoverViewController */,
-				8476A1EB278C3EF60062440A /* TaskDetails */,
 				8476A206279AA8250062440A /* TaskDetailsPopUp */,
-				8476A1DC278949410062440A /* AddTask */,
+				8476A1DC278949410062440A /* TaskDetails */,
 				8476A1D8278830110062440A /* TaskList */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		8476A1DC278949410062440A /* AddTask */ = {
+		8476A1DC278949410062440A /* TaskDetails */ = {
 			isa = PBXGroup;
 			children = (
-				8476A1DD278949660062440A /* AddTaskViewController.swift */,
-				8476A1DF278949A90062440A /* AddTaskPresenter.swift */,
-				8476A1E1278963C00062440A /* AddTaskAssembler.swift */,
-				8476A1E9278BFA510062440A /* AddTaskRouter.swift */,
+				8476A1DD278949660062440A /* TaskDetailsViewController.swift */,
+				8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */,
+				8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */,
+				8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */,
 			);
-			path = AddTask;
+			path = TaskDetails;
 			sourceTree = "<group>";
 		};
 		8476A1E4278981130062440A /* Common */ = {
@@ -201,17 +192,6 @@
 				8476A1E52789812F0062440A /* TaskEntity.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		8476A1EB278C3EF60062440A /* TaskDetails */ = {
-			isa = PBXGroup;
-			children = (
-				8476A1EC278C3F210062440A /* TaskDetailViewController.swift */,
-				8476A1EE278C3FF80062440A /* TaskDetailsPresenter.swift */,
-				8476A1F0278C41EA0062440A /* TaskDetailAssembler.swift */,
-				8476A1F2278C425C0062440A /* TaskDetailRouter.swift */,
-			);
-			path = TaskDetails;
 			sourceTree = "<group>";
 		};
 		8476A1F4278D39150062440A /* Store */ = {
@@ -368,9 +348,9 @@
 				8476A210279EBA560062440A /* TaskDetailsPopupAssembler.swift in Sources */,
 				8476A21C27A2644C0062440A /* FontPickerPresenter.swift in Sources */,
 				8476A1C2278815870062440A /* TaskListViewController.swift in Sources */,
-				8476A1E2278963C00062440A /* AddTaskAssembler.swift in Sources */,
+				8476A1E2278963C00062440A /* TaskDetailsAssembler.swift in Sources */,
 				8476A1D527881D680062440A /* TaskListAssembler.swift in Sources */,
-				8476A1EA278BFA510062440A /* AddTaskRouter.swift in Sources */,
+				8476A1EA278BFA510062440A /* TaskDetailsRouter.swift in Sources */,
 				8476A21A27A15B5A0062440A /* ColorPickerAssembler .swift in Sources */,
 				8476A212279FCB3A0062440A /* TaskDetailsPopupView.swift in Sources */,
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
@@ -378,22 +358,19 @@
 				8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */,
 				8476A1E62789812F0062440A /* TaskEntity.swift in Sources */,
 				8476A208279AA87F0062440A /* TaskDetailsPopupViewController.swift in Sources */,
-				8476A1E8278BE9F20062440A /* TaskViewRouter.swift in Sources */,
+				8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */,
 				8476A22827A3AE220062440A /* CalendarDateCollectionViewCell.swift in Sources */,
 				8476A20C279EBA1D0062440A /* TaskDetailsPopupPresenter.swift in Sources */,
 				8476A21E27A2656F0062440A /* FontPickerAssembler.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,
 				8476A22F27A3AE360062440A /* Day.swift in Sources */,
-				8476A1F3278C425C0062440A /* TaskDetailRouter.swift in Sources */,
 				8476A2012799602A0062440A /* FontPickerViewController.swift in Sources */,
 				8476A1DB27883CFB0062440A /* TaskCell.swift in Sources */,
 				8476A1FE279930170062440A /* ColorPickerCell.swift in Sources */,
-				8476A1ED278C3F210062440A /* TaskDetailViewController.swift in Sources */,
 				8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */,
 				8476A21827A15A780062440A /* ColorPickerPresenter.swift in Sources */,
 				8476A22927A3AE220062440A /* CalendarPickerHeaderView.swift in Sources */,
-				8476A1F1278C41EA0062440A /* TaskDetailAssembler.swift in Sources */,
-				8476A1E0278949A90062440A /* AddTaskPresenter.swift in Sources */,
+				8476A1E0278949A90062440A /* TaskDetailsPresenter.swift in Sources */,
 				8476A20A279E83390062440A /* UITextField Extension.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
 				8476A22727A3AE220062440A /* CalendarPickerViewController.swift in Sources */,
@@ -401,9 +378,8 @@
 				8476A21427A154BE0062440A /* ColorEntity.swift in Sources */,
 				8476A22027A26B060062440A /* FontEntity.swift in Sources */,
 				8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */,
-				8476A1EF278C3FF80062440A /* TaskDetailsPresenter.swift in Sources */,
 				8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */,
-				8476A1DE278949660062440A /* AddTaskViewController.swift in Sources */,
+				8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
