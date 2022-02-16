@@ -25,8 +25,13 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     private let datePickerButton = UIButton()
     private let datePicker = UIDatePicker()
     
+    private lazy var imagePicker: ImagePicker = {
+        let imagePicker = ImagePicker(viewController: self, delegate: self)
+        return imagePicker
+    }()
+    
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
-    var colorPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())?
+    var colorPickerButtonTappedHandler: ((UIButton) -> ())?
     var fontPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())?
     
     init(presenter: TaskDetailsPresenter) {
@@ -114,7 +119,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     }
     
     @objc private func showPickImageFromGallery() {
-        presenter.setDataForAlertPhotoPicker()
+        imagePicker.showChooseSourceTypeAlertController()
     }
     
     // MARK: - Save Button Pressed
@@ -128,7 +133,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
             let date = createDate()
             
             let addTask = TaskEntity(title: titleTextField.textOrEmptyString,
-                                     image: imageView.textOrEmptyString,
+                                     image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage.png"),
                                      currentDate: currentDate,
                                      descriptionText: descriptionTextView.textOrEmptyString,
                                      color: colorPickerButton.textOrEmptyString,
@@ -175,7 +180,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     }
     
     @objc func showColorPickerPopover() {
-        colorPickerButtonTappedHandler?(colorPickerButton, self)
+        colorPickerButtonTappedHandler?(colorPickerButton)
     }
     
     func pickColor(color: UIColor?) {
@@ -183,7 +188,13 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
     }
 }
 
-// MARK: - Date Picker Popover Delegate
+// MARK: - ImagePickerDelegate
+
+extension TaskDetailsViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        imageView.image = image
+    }
+}
 
 extension TaskDetailsViewController: DatePickerPopoverDelegate {
 }
@@ -227,24 +238,6 @@ extension TaskDetailsViewController: TaskDetailsView {
     func setViewTitle(title: String?) {
         self.title = title
     }
-    
-    func showChooseSourceTypeAlertController(style: UIAlertController.Style,
-                                             title: String?,
-                                             message: String?,
-                                             animated: Bool) {
-        
-        showAlertPhotoPicker(style: style, title: title, message: message, animated: animated) { [ weak self ] (sourceType) in
-            self?.showImagePickerController(sourceType: sourceType)
-        }
-    }
-    
-    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        imagePickerController.sourceType = sourceType
-        present(imagePickerController, animated: true)
-    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -258,21 +251,3 @@ extension TaskDetailsViewController: UITextFieldDelegate {
         return true
     }
 }
-
-// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-
-extension TaskDetailsViewController:
-    UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            self.imageView.image = editedImage.withRenderingMode(.alwaysOriginal)
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.imageView.image = originalImage.withRenderingMode(.alwaysOriginal)
-        }
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-

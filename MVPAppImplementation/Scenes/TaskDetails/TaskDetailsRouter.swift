@@ -9,7 +9,7 @@ import UIKit
 
 protocol TaskDetailsRouter {
     func popViewController(animated: Bool)
-    func presentColorPicker(animated: Bool, sourceView: UIButton, delegate: TaskDetailsViewController)
+    func presentColorPicker(animated: Bool, sourceView: UIButton)
     func presentFontPicker(animated: Bool, sourceView: UIButton, delegate: TaskDetailsViewController)
 }
 
@@ -22,9 +22,9 @@ final class TaskDetailsRouterImpl: TaskDetailsRouter {
     }
     
     func presentColorPicker(animated: Bool,
-                            sourceView: UIButton, delegate: TaskDetailsViewController) {
+                            sourceView: UIButton) {
         
-        let colorPickerViewController = ColorPickerAssembler.assembly(delegate: delegate, sourceView: sourceView)
+        let colorPickerViewController = ColorPickerAssembler.assembly(delegate: controller as! ColorPickerDelegate, sourceView: sourceView)
         
         controller?.present(colorPickerViewController, animated: animated)
     }

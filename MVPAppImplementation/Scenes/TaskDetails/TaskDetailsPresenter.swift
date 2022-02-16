@@ -10,21 +10,15 @@ import UIKit
 protocol TaskDetailsPresenter {
     func onViewAttached(view: TaskDetailsView)
     func isEnabledSaveButton(text: String) -> UIColor
-    func setDataForAlertPhotoPicker()
 }
 
 protocol TaskDetailsView: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
     func setSaveButtonColor(color: UIColor)
-    func showChooseSourceTypeAlertController(style: UIAlertController.Style,
-                                             title: String?,
-                                             message: String?,
-                                             animated: Bool)
-    func showImagePickerController(sourceType: UIImagePickerController.SourceType)
     func configure(task: TaskEntity)
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())? { get set }
-    var colorPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())? { get set }
+    var colorPickerButtonTappedHandler: ((UIButton) -> ())? { get set }
     var fontPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())? { get set }
 }
 
@@ -60,10 +54,6 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         presentFontPicker()
     }
     
-    func setDataForAlertPhotoPicker() {
-        view?.showChooseSourceTypeAlertController(style: .actionSheet, title: "Shoose Image", message: nil, animated: false)
-    }
-    
     private func configureView() {
         guard let index = index else { return }
         let task = taskSettings.getTaskByIndex(index: index)
@@ -83,8 +73,8 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     }
     
     private func presentColorPicker() {
-        view?.colorPickerButtonTappedHandler = { [weak self] sourceView, delegate in
-            self?.router.presentColorPicker(animated: true, sourceView: sourceView, delegate: delegate)
+        view?.colorPickerButtonTappedHandler = { [weak self] sourceView in
+            self?.router.presentColorPicker(animated: true, sourceView: sourceView)
         }
     }
     
