@@ -7,32 +7,43 @@
 
 import Foundation
 
-protocol TaskDetailsPopupView: AnyObject {
-    func getTaskByIndex(task: TaskEntity)
+protocol TaskDetailsPopupController: AnyObject {
 }
 
 protocol TaskDetailsPopupPresenter {
-    func onViewAttached(view: TaskDetailsPopupView)
-    func getTaskByIndex()
+    func onViewAttached(controller: TaskDetailsPopupController, view: TaskDetailsPopupView)
 }
 
 final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     
+    private weak var controller: TaskDetailsPopupController?
     private weak var view: TaskDetailsPopupView?
     private let index: Int
-    private var taskSettings: TaskSettings
+    private let taskSettings: TaskSettings
+    private let router: TaskDetailsPopupRouter
     
-    init(index: Int, taskSettings: TaskSettings) {
+    init(index: Int, taskSettings: TaskSettings, router: TaskDetailsPopupRouter) {
         self.index = index
         self.taskSettings = taskSettings
+        self.router = router
     }
     
-    func onViewAttached(view: TaskDetailsPopupView) {
+    func onViewAttached(controller: TaskDetailsPopupController,
+                        view: TaskDetailsPopupView) {
+        self.controller = controller
         self.view = view
+        getTaskByIndex()
+        dismissView()
     }
     
-    func getTaskByIndex() {
+    private func getTaskByIndex() {
         let task = taskSettings.getTaskByIndex(index: index)
-        view?.getTaskByIndex(task: task)
+        view?.configure(task: task)
+    }
+    
+    private func dismissView() {
+        view?.complitionHandler = { [ weak self ] in
+            self?.router.dismissView()
+        }
     }
 }

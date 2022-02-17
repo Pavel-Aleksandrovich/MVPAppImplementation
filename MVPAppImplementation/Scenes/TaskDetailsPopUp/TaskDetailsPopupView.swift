@@ -7,19 +7,27 @@
 
 import UIKit
 
-class TaskDetailsPopupViewImpl: UIView {
+protocol TaskDetailsPopupView: UIView {
+    func configure(task: TaskEntity)
+    var complitionHandler: (() -> ())? { get set }
+}
+
+final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     
-    let backgroundView = UIView()
-    let titleText = UILabel()
-    let taskDateLabel = UILabel()
-    let descriptionText = UILabel()
-    let scrollView = UIScrollView()
-    let closeButton = UIButton()
-    let checkMurkButton = UIButton()
-    let taskImageView = UIImageView()
+    private let backgroundView = UIView()
+    private let titleText = UILabel()
+    private let taskDateLabel = UILabel()
+    private let descriptionText = UILabel()
+    private let scrollView = UIScrollView()
+    private let closeButton = UIButton()
+    private let checkMurkButton = UIButton()
+    private let taskImageView = UIImageView()
+    
+    var complitionHandler: (() -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        closeButtonAddTarget()
         
         backgroundColor = .black.withAlphaComponent(0.3)
         
@@ -111,13 +119,25 @@ class TaskDetailsPopupViewImpl: UIView {
             taskImageView.widthAnchor.constraint(equalToConstant: 300),
             taskImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
-    
-    
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-       
+    func configure(task: TaskEntity) {
+        titleText.text = task.titleText
+        descriptionText.text = task.descriptionText
+        taskDateLabel.text = task.date
+        taskImageView.image = task.image
+        backgroundView.backgroundColor = task.color
+    }
+    
+    private func closeButtonAddTarget() {
+        closeButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+    }
+    
+    @objc private func dismissView() {
+        complitionHandler?()
+    }
 }

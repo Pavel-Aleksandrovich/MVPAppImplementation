@@ -14,7 +14,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
         static let saveButton = "Save"
     }
     
-    private let presenter: TaskDetailsPresenter!
+    private let presenter: TaskDetailsPresenter
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
@@ -79,7 +79,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
         view.addSubview(imageButton)
         imageButton.layer.borderWidth = CGFloat(1)
         //        imageButton.center = view.center
-        imageButton.addTarget(self, action: #selector(showPickImageFromGallery), for: .touchUpInside)
+        imageButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
         
         // colorPopoverButton
         
@@ -118,7 +118,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
         present(calendar, animated: true)
     }
     
-    @objc private func showPickImageFromGallery() {
+    @objc private func showImagePicker() {
         imagePicker.showChooseSourceTypeAlertController()
     }
     
@@ -191,7 +191,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate {
 // MARK: - ImagePickerDelegate
 
 extension TaskDetailsViewController: ImagePickerDelegate {
-    func didSelect(image: UIImage?) {
+    func imageDidPick(image: UIImage?) {
         imageView.image = image
     }
 }

@@ -7,13 +7,14 @@
 
 import UIKit
 
-class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupView {
+final class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupController {
     
-    private let popupView = TaskDetailsPopupViewImpl()
-    private let presenter: TaskDetailsPopupPresenter!
+    private let mainView: TaskDetailsPopupView
+    private let presenter: TaskDetailsPopupPresenter
     
     init(presenter: TaskDetailsPopupPresenter) {
         self.presenter = presenter
+        mainView = TaskDetailsPopupViewImpl()
         super.init(nibName: nil, bundle: nil)
         modalTransitionStyle = .crossDissolve
         modalPresentationStyle = .overCurrentContext
@@ -25,28 +26,13 @@ class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupView {
     }
     
     override func loadView() {
-        view = popupView
+        view = mainView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        popupView.closeButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
-        presenter.onViewAttached(view: self)
-        presenter.getTaskByIndex()
+        presenter.onViewAttached(controller: self, view: mainView)
     }
-    
-    func getTaskByIndex(task: TaskEntity) {
-        popupView.titleText.text = task.titleText
-        popupView.descriptionText.text = task.descriptionText
-        popupView.taskDateLabel.text = task.date
-        popupView.taskImageView.image = task.image
-        popupView.backgroundView.backgroundColor = task.color
-    }
-    
-    @objc func dismissView() {
-        dismiss(animated: true, completion: nil)
-    }
-    
 }
 
 

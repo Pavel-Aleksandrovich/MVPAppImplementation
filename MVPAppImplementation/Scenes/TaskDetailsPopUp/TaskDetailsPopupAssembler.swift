@@ -11,10 +11,12 @@ final class TaskDetailsPopupAssembler {
     
     class func assembly(taskIndex index: Int) -> UIViewController {
         
+        let router = TaskDetailsPopupRouterImpl()
         let taskSettings = TaskSettingsImpl()
-        let presenter = TaskDetailsPopupPresenterImpl(index: index, taskSettings: taskSettings)
-        let view = TaskDetailsPopupViewController(presenter: presenter)
+        let presenter = TaskDetailsPopupPresenterImpl(index: index, taskSettings: taskSettings, router: router)
+        let controller = TaskDetailsPopupViewController(presenter: presenter)
+        router.controller = controller
         
-        return view
+        return controller
     }
 }
