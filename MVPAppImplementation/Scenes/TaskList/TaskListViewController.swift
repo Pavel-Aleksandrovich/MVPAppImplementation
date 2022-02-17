@@ -17,7 +17,7 @@ class TaskListViewController: UIViewController {
         static let widthCellConstant = CGFloat(20)
         static let mainTitle = "Tasks"
         static let spacingBetweenCell = CGFloat(10)
-        static let smallDevice = CGFloat(350)
+        static let smallDevice = CGFloat(320)
     }
     
     private let layout = UICollectionViewFlowLayout()
@@ -72,6 +72,18 @@ class TaskListViewController: UIViewController {
     func updateTask(closure: @escaping (Bool, Int) -> ()) {
         print("func updateTask(closure: @escaping (Bool, Int) -> ())")
 //        presenter.onCompleteCheckBoxTapped(bool: bool, index: indexPath.row)
+    }
+    
+    private func getWidthAddTaskButton() -> CGFloat {
+        let isCompact = traitCollection.horizontalSizeClass == .compact
+        let smallWidth = UIScreen.main.bounds.width <= Constants.smallDevice
+        let widthGreaterThanHeight = UIScreen.main.bounds.width > UIScreen.main.bounds.height
+        
+        let smallDevice = isCompact && (smallWidth || widthGreaterThanHeight)
+        
+        let widthAddTaskButton: CGFloat = smallDevice ? Constants.widthAddTaskButton : 1.2*Constants.widthAddTaskButton
+        
+        return widthAddTaskButton
     }
     
 }
@@ -175,8 +187,7 @@ extension TaskListViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let smallDevice = UIScreen.main.bounds.width <= Constants.smallDevice
-        let widthAddTaskButton: CGFloat = smallDevice ? 0.8*Constants.widthAddTaskButton : Constants.widthAddTaskButton
+        let widthAddTaskButton: CGFloat = getWidthAddTaskButton()
         
         [collectionView, addTaskButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false

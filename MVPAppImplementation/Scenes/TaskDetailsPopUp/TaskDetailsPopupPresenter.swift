@@ -42,7 +42,7 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     }
     
     private func dismissView() {
-        view?.complitionHandler = { [ weak self ] in
+        view?.closeButtonTappedHandler = { [ weak self ] in
             self?.router.dismissView()
         }
     }
