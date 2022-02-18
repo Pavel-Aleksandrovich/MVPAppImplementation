@@ -8,11 +8,11 @@
 import UIKit
 
 protocol TaskDetailsPresenter {
-    func onViewAttached(view: TaskDetailsView)
+    func onViewAttached(controller: TaskDetailsController,view: TaskDetailsView)
     func isEnabledSaveButton(text: String) -> UIColor
 }
 
-protocol TaskDetailsView: AnyObject {
+protocol TaskDetailsController: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
     func setSaveButtonColor(color: UIColor)
@@ -23,6 +23,7 @@ protocol TaskDetailsView: AnyObject {
 }
 
 final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
+    private weak var controller: TaskDetailsController?
     private weak var view: TaskDetailsView?
     private let router: TaskDetailsRouter
     private let taskSettings: TaskSettings
@@ -43,10 +44,12 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         }
     }
     
-    func onViewAttached(view: TaskDetailsView) {
-        view.setViewTitle(title: "Add Task")
-        view.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
-        view.setSaveButtonColor(color: .gray.withAlphaComponent(0.6))
+    func onViewAttached(controller: TaskDetailsController,
+                        view: TaskDetailsView) {
+        controller.setViewTitle(title: "Add Task")
+        controller.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
+        controller.setSaveButtonColor(color: .gray.withAlphaComponent(0.6))
+        self.controller = controller
         self.view = view
         configureView()
         addTaskButtonPressed()
@@ -57,11 +60,11 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private func configureView() {
         guard let index = index else { return }
         let task = taskSettings.getTaskByIndex(index: index)
-        view?.configure(task: task)
+        controller?.configure(task: task)
     }
     
     private func addTaskButtonPressed() {
-        view?.saveTaskButtonTappedHandler = { [weak self] task in
+        controller?.saveTaskButtonTappedHandler = { [weak self] task in
             if self?.index == nil {
                 self?.taskSettings.saveTask(task: task)
                 self?.router.popViewController(animated: false)
@@ -73,13 +76,13 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     }
     
     private func presentColorPicker() {
-        view?.colorPickerButtonTappedHandler = { [weak self] sourceView in
+        controller?.colorPickerButtonTappedHandler = { [weak self] sourceView in
             self?.router.presentColorPicker(animated: true, sourceView: sourceView)
         }
     }
     
     private func presentFontPicker() {
-        view?.fontPickerButtonTappedHandler = { [weak self] sourceView, delegate in
+        controller?.fontPickerButtonTappedHandler = { [weak self] sourceView, delegate in
             self?.router.presentFontPicker(animated: true, sourceView: sourceView, delegate: delegate)
         }
     }

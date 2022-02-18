@@ -30,11 +30,16 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
         configureView()
         configureViewAttributes()
         closeButtonAddTarget()
-        configureLayout()
+       
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+      super.layoutSubviews()
+        configureLayout()
     }
     
     func configure(task: TaskEntity) {
@@ -83,26 +88,37 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     }
     
     private func configureView() {
-        addSubview(backgroundView)
-        backgroundView.addSubview(closeButton)
-        backgroundView.addSubview(titleText)
-        backgroundView.addSubview(scrollView)
-        backgroundView.addSubview(checkMurkButton)
-        backgroundView.addSubview(taskDateLabel)
-        backgroundView.addSubview(taskImageView)
-        backgroundView.addSubview(descriptionText)
-    }
-    
-    private func configureLayout() {
+        
         [backgroundView, closeButton, titleText, scrollView, descriptionText, checkMurkButton, taskDateLabel, taskImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        addSubview(backgroundView)
+        backgroundView.addSubview(scrollView)
+        scrollView.addSubview(closeButton)
+        scrollView.addSubview(titleText)
+        scrollView.addSubview(checkMurkButton)
+        scrollView.addSubview(taskDateLabel)
+        scrollView.addSubview(taskImageView)
+        scrollView.addSubview(descriptionText)
+    }
+    
+    private func configureLayout() {
+        
         NSLayoutConstraint.activate([
-            backgroundView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            backgroundView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            backgroundView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
-            backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
+            backgroundView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            
+//            scrollView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+//            scrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+//            scrollView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+//            scrollView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
+            
+//            backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
+//            backgroundView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             closeButton.heightAnchor.constraint(equalToConstant: 60),
             closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
@@ -114,10 +130,7 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
             titleText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             titleText.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
             
-//            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
-//            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
-//            scrollView.topAnchor.constraint(equalTo: taskDateLabel.bottomAnchor, constant: 10),
-//            scrollView.bottomAnchor.constraint(equalTo: self.centerYAnchor),
+            
             
             descriptionText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
             descriptionText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 30),
