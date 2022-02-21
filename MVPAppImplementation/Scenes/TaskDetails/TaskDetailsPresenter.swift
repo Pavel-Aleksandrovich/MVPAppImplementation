@@ -19,7 +19,6 @@ protocol TaskDetailsController: AnyObject {
     func configure(task: TaskEntity)
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())? { get set }
     var colorPickerButtonTappedHandler: ((UIButton) -> ())? { get set }
-    var fontPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())? { get set }
 }
 
 final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
@@ -54,7 +53,6 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         configureView()
         addTaskButtonPressed()
         presentColorPicker()
-        presentFontPicker()
     }
     
     private func configureView() {
@@ -78,12 +76,6 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private func presentColorPicker() {
         controller?.colorPickerButtonTappedHandler = { [weak self] sourceView in
             self?.router.presentColorPicker(animated: true, sourceView: sourceView)
-        }
-    }
-    
-    private func presentFontPicker() {
-        controller?.fontPickerButtonTappedHandler = { [weak self] sourceView, delegate in
-            self?.router.presentFontPicker(animated: true, sourceView: sourceView, delegate: delegate)
         }
     }
 }

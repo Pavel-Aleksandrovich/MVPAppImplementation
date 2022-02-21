@@ -159,9 +159,7 @@
 				8476A1D627882F770062440A /* Application */,
 				846BA6C927BB9A26006D8447 /* DataStoreManager */,
 				8476A1F4278D39150062440A /* Store */,
-				847BBBDB27C351C6005E8A6C /* Helpers */,
 				8476A1E4278981130062440A /* Common */,
-				8476A1F7278D51B70062440A /* Extensions */,
 				8476A1D9278831150062440A /* Scenes */,
 				8476A1D727882FCC0062440A /* Resources */,
 			);
@@ -229,7 +227,8 @@
 		8476A1E4278981130062440A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8476A1E52789812F0062440A /* TaskEntity.swift */,
+				8476A1F7278D51B70062440A /* Extensions */,
+				847BBBDB27C351C6005E8A6C /* Helpers */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -237,6 +236,7 @@
 		8476A1F4278D39150062440A /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				8476A1E52789812F0062440A /* TaskEntity.swift */,
 				8476A1F5278D39AD0062440A /* TaskSettings.swift */,
 			);
 			path = Store;

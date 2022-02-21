@@ -22,8 +22,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let saveButton = UIBarButtonItem(title: Constants.saveButton, style: .done, target: self, action: #selector(saveButtonTapped))
     private let imageButton = UIButton()
     private let colorPickerButton = UIButton()
-    private let fontPickerButton = UIButton()
-    private let datePickerButton = UIButton()
     private let scrollView = UIScrollView()
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
@@ -40,7 +38,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
     var colorPickerButtonTappedHandler: ((UIButton) -> ())?
-    var fontPickerButtonTappedHandler: ((UIButton, TaskDetailsViewController) -> ())?
     
     init(presenter: TaskDetailsPresenter) {
         mainView = TaskDetailsViewImpl()
@@ -108,10 +105,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         imageButton.layer.borderWidth = CGFloat(1)
         
         colorPickerButton.backgroundColor = .magenta
-        
-        fontPickerButton.backgroundColor = .red
-        
-        datePickerButton.backgroundColor = .black
     }
     
     private func createDatePicker() {
@@ -119,19 +112,14 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     }
     
     private func createFontPicker() {
-        fontPicker = FontPicker(viewController: self, textField: fontPickerTextField, complitionHandler: { [ weak self ] font in
-            self?.titleTextField.font = UIFont(name: font, size: 14)
+        fontPicker = FontPicker(viewController: self, textField: fontPickerTextField, complitionHandler: { [ weak self ] font, size in
+            self?.titleTextField.font = UIFont(name: font, size: size)
         })
     }
     
     private func configureActions() {
-        configureFontPickerTextFieldAction()
         configureColorPickerButtonAction()
         configureImageButtonAction()
-    }
-    
-    private func configureFontPickerTextFieldAction() {
-        fontPickerTextField.addTarget(self, action: #selector(showFontPickerPopover), for: .touchUpInside)
     }
     
     private func configureColorPickerButtonAction() {
@@ -140,10 +128,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     private func configureImageButtonAction() {
         imageButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
-    }
-    
-    @objc func showFontPickerPopover() {
-        fontPickerButtonTappedHandler?(fontPickerButton, self)
     }
     
     @objc func showColorPickerPopover() {
@@ -196,16 +180,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
 extension TaskDetailsViewController: ImagePickerDelegate {
     func imageDidPick(image: UIImage?) {
         imageView.image = image
-    }
-}
-
-// MARK: - Font Picker Popover Delegate
-
-extension TaskDetailsViewController: FontPickerDelegate {
-    
-    func setFont(font: String) {
-        titleTextField.font = UIFont.init(name: font, size: 25)
-        fontPickerButton.setTitle(font, for: .normal)
     }
 }
 
@@ -279,7 +253,7 @@ private extension TaskDetailsViewController {
     
     func configureView() {
         
-        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerButton, datePickerButton, fontPickerTextField, datePickerTextField, hStackView].forEach {
+        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerTextField, datePickerTextField, hStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -288,8 +262,6 @@ private extension TaskDetailsViewController {
         scrollView.addSubview(titleTextField)
         scrollView.addSubview(imageView)
         scrollView.addSubview(imageButton)
-        scrollView.addSubview(datePickerButton)
-        scrollView.addSubview(fontPickerButton)
         scrollView.addSubview(colorPickerButton)
         scrollView.addSubview(descriptionTextView)
         hStackView.addArrangedSubview(datePickerTextField)
