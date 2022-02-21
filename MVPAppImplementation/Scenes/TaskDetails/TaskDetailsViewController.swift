@@ -30,9 +30,10 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let datePickerTextField = UITextField()
     private let hStackView = UIStackView()
     private var scrollViewLayoutConstraint: NSLayoutConstraint?
+    private var keyboardHelper: KeyboardHelper?
     
-    private lazy var imagePicker: ImagePicker = {
-        let imagePicker = ImagePicker(viewController: self, delegate: self)
+    private lazy var imagePicker: ImagePickerHelper = {
+        let imagePicker = ImagePickerHelper(viewController: self, delegate: self)
         return imagePicker
     }()
     
@@ -48,10 +49,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        removeKeyboardNotifications()
     }
     
     override func loadView() {
@@ -291,31 +288,28 @@ extension TaskDetailsViewController: UITextFieldDelegate {
     }
 }
 
-extension TaskDetailsViewController {
+private extension TaskDetailsViewController {
     
     func registerKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        keyboardHelper = KeyboardHelper( complitionHandler: { [ weak self ] moveKeyboard, keyboardFrame in
+            switch moveKeyboard {
+            case .keyboardWillHide:
+                self?.keyboardWillHide()
+            case .keyboardWillShow:
+                self?.keyboardWillShow(keyboardFrame: keyboardFrame)
+            }
+        })
     }
     
-    func removeKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        let userInfo = notification.userInfo
-        guard let keyboardSize = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        
+    func keyboardWillShow(keyboardFrame: CGRect) {
         if scrollViewLayoutConstraint?.constant == 0 {
-            let keyboardTop = -keyboardSize.cgRectValue.height
-            scrollViewLayoutConstraint?.constant = keyboardTop
-            scrollView.contentOffset = CGPoint(x: 0, y: keyboardSize.cgRectValue.height)
+            let keyboardTop = keyboardFrame.height
+            scrollViewLayoutConstraint?.constant = -keyboardTop
+            scrollView.contentOffset = CGPoint(x: 0, y: keyboardTop)
         }
     }
     
-    @objc func keyboardWillHide(notification: Notification) {
+    func keyboardWillHide() {
         if scrollViewLayoutConstraint?.constant != 0 {
             scrollViewLayoutConstraint?.constant = 0
             scrollView.contentOffset = CGPoint.zero
