@@ -269,15 +269,14 @@ private extension TaskDetailsViewController {
     }
     
     func configureLayout() {
-        scrollViewLayoutConstraint = imageView.bottomAnchor.constraint(
-            equalTo: scrollView.bottomAnchor, constant: 0)
+        scrollViewLayoutConstraint = scrollView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor, constant: 0)
         scrollViewLayoutConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             titleTextField.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 15),
             titleTextField.heightAnchor.constraint(equalToConstant: 30),
@@ -308,6 +307,7 @@ private extension TaskDetailsViewController {
             imageView.topAnchor.constraint(equalTo: hStackView.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             imageButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
