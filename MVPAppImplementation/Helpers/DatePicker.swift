@@ -9,45 +9,46 @@ import UIKit
 
 final class DatePicker {
     
-    private let picker = UIDatePicker()
-    private var viewController: UIViewController
-    private let datePickerTextField: UITextField
+    private let datePicker = UIDatePicker()
+    private let toolbar = UIToolbar()
+    private weak var viewController: UIViewController?
+    private let textField: UITextField
     
-    init(datePickerTextField: UITextField, viewController: UIViewController) {
-        self.datePickerTextField = datePickerTextField
+    init(textField: UITextField, viewController: UIViewController) {
+        self.textField = textField
         self.viewController = viewController
-        pic()
+        configureAppearance()
+        configureToolbar()
     }
     
-    private func pic() {
+    private func configureAppearance() {
         if #available(iOS 13.4, *) {
-            picker.preferredDatePickerStyle = .wheels
-            picker.sizeToFit()
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
         }
+        datePicker.datePickerMode = .dateAndTime
         
-        picker.datePickerMode = .dateAndTime
-        
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
-        
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-
-        datePickerTextField.inputAccessoryView = toolbar
-        datePickerTextField.inputView = picker
+        textField.inputAccessoryView = toolbar
+        textField.inputView = datePicker
     }
     
-    @objc private func donedatePicker() {
+    private func configureToolbar() {
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonTapped))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        
+        toolbar.sizeToFit()
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+    }
+    
+    @objc private func doneButtonTapped() {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy, h:mm a"
-        datePickerTextField.text = formatter.string(from: picker.date)
-        viewController.view.endEditing(true)
+        textField.text = formatter.string(from: datePicker.date)
+        viewController?.view.endEditing(true)
     }
     
-    @objc private func cancelDatePicker() {
-        viewController.view.endEditing(true)
+    @objc private func cancelButtonTapped() {
+        viewController?.view.endEditing(true)
     }
 }

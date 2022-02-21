@@ -1,5 +1,5 @@
 //
-//  KeyboardHelper.swift
+//  Keyboard.swift
 //  MVPAppImplementation
 //
 //  Created by pavel mishanin on 21.02.2022.
@@ -13,7 +13,7 @@ enum MoveKeyboard {
     case keyboardWillHide
 }
 
-final class KeyboardHelper {
+final class Keyboard {
     
     typealias ComplitionHandler = (_ moveKeyboard: MoveKeyboard, _ keyboardFrame: CGRect) -> Void
     

@@ -1,5 +1,5 @@
 //
-//  ImagePickerHelper.swift
+//  ImagePicker.swift
 //  MVPAppImplementation
 //
 //  Created by pavel mishanin on 16.02.2022.
@@ -10,7 +10,7 @@ protocol ImagePickerDelegate: AnyObject {
     func imageDidPick(image: UIImage?)
 }
 
-final class ImagePickerHelper: NSObject {
+final class ImagePicker: NSObject {
 
     private weak var viewController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
@@ -46,7 +46,7 @@ final class ImagePickerHelper: NSObject {
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
-extension ImagePickerHelper:
+extension ImagePicker:
     UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -61,7 +61,7 @@ extension ImagePickerHelper:
     }
 }
 
-private extension ImagePickerHelper {
+private extension ImagePicker {
     
     func showAlertPhotoPicker(style: UIAlertController.Style, title: String?, message: String?, animated: Bool,
                               closure: @escaping (UIImagePickerController.SourceType) -> ()) {

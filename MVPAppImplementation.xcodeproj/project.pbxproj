@@ -11,7 +11,7 @@
 		846BA6CB27BB9A4A006D8447 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CA27BB9A4A006D8447 /* DataStoreManager.swift */; };
 		846BA6CE27BBA8D8006D8447 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CC27BBA8D8006D8447 /* Task+CoreDataClass.swift */; };
 		846BA6CF27BBA8D8006D8447 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CD27BBA8D8006D8447 /* Task+CoreDataProperties.swift */; };
-		846BA6D227BCB665006D8447 /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6D127BCB665006D8447 /* ImagePickerHelper.swift */; };
+		846BA6D227BCB665006D8447 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6D127BCB665006D8447 /* ImagePicker.swift */; };
 		846BA6D427BE7AB0006D8447 /* TaskDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6D327BE7AB0006D8447 /* TaskDetailsView.swift */; };
 		8476A1BE278815870062440A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1BD278815870062440A /* AppDelegate.swift */; };
 		8476A1C0278815870062440A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1BF278815870062440A /* SceneDelegate.swift */; };
@@ -51,8 +51,9 @@
 		8476A22927A3AE220062440A /* CalendarPickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22527A3AE220062440A /* CalendarPickerHeaderView.swift */; };
 		8476A22F27A3AE360062440A /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22C27A3AE360062440A /* Day.swift */; };
 		8476A23027A3AE360062440A /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22D27A3AE360062440A /* MonthMetadata.swift */; };
-		847BBBDA27C33BC7005E8A6C /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBD927C33BC7005E8A6C /* KeyboardHelper.swift */; };
+		847BBBDA27C33BC7005E8A6C /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBD927C33BC7005E8A6C /* Keyboard.swift */; };
 		847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDC27C37BA1005E8A6C /* DatePicker.swift */; };
+		847BBBDF27C39953005E8A6C /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDE27C39953005E8A6C /* FontPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +61,7 @@
 		846BA6CA27BB9A4A006D8447 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
 		846BA6CC27BBA8D8006D8447 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		846BA6CD27BBA8D8006D8447 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		846BA6D127BCB665006D8447 /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
+		846BA6D127BCB665006D8447 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		846BA6D327BE7AB0006D8447 /* TaskDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsView.swift; sourceTree = "<group>"; };
 		8476A1BA278815870062440A /* MVPAppImplementation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVPAppImplementation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8476A1BD278815870062440A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,8 +103,9 @@
 		8476A22527A3AE220062440A /* CalendarPickerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPickerHeaderView.swift; sourceTree = "<group>"; };
 		8476A22C27A3AE360062440A /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		8476A22D27A3AE360062440A /* MonthMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
-		847BBBD927C33BC7005E8A6C /* KeyboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
+		847BBBD927C33BC7005E8A6C /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		847BBBDC27C37BA1005E8A6C /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		847BBBDE27C39953005E8A6C /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,9 +318,10 @@
 		847BBBDB27C351C6005E8A6C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				846BA6D127BCB665006D8447 /* ImagePickerHelper.swift */,
-				847BBBD927C33BC7005E8A6C /* KeyboardHelper.swift */,
+				846BA6D127BCB665006D8447 /* ImagePicker.swift */,
+				847BBBD927C33BC7005E8A6C /* Keyboard.swift */,
 				847BBBDC27C37BA1005E8A6C /* DatePicker.swift */,
+				847BBBDE27C39953005E8A6C /* FontPicker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				8476A21C27A2644C0062440A /* FontPickerPresenter.swift in Sources */,
 				8476A1C2278815870062440A /* TaskListViewController.swift in Sources */,
 				8476A1E2278963C00062440A /* TaskDetailsAssembler.swift in Sources */,
+				847BBBDF27C39953005E8A6C /* FontPicker.swift in Sources */,
 				8476A1D527881D680062440A /* TaskListAssembler.swift in Sources */,
 				8476A1EA278BFA510062440A /* TaskDetailsRouter.swift in Sources */,
 				8476A21A27A15B5A0062440A /* ColorPickerAssembler .swift in Sources */,
@@ -409,9 +413,9 @@
 				846BA6C827BB5EFA006D8447 /* MVPAppImplementation.xcdatamodeld in Sources */,
 				8476A208279AA87F0062440A /* TaskDetailsPopupViewController.swift in Sources */,
 				8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */,
-				847BBBDA27C33BC7005E8A6C /* KeyboardHelper.swift in Sources */,
+				847BBBDA27C33BC7005E8A6C /* Keyboard.swift in Sources */,
 				8476A22827A3AE220062440A /* CalendarDateCollectionViewCell.swift in Sources */,
-				846BA6D227BCB665006D8447 /* ImagePickerHelper.swift in Sources */,
+				846BA6D227BCB665006D8447 /* ImagePicker.swift in Sources */,
 				8476A20C279EBA1D0062440A /* TaskDetailsPopupPresenter.swift in Sources */,
 				8476A21E27A2656F0062440A /* FontPickerAssembler.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,

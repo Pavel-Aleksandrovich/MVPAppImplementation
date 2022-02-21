@@ -24,17 +24,17 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let colorPickerButton = UIButton()
     private let fontPickerButton = UIButton()
     private let datePickerButton = UIButton()
-//    private let datePicker = UIDatePicker()
     private let scrollView = UIScrollView()
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
     private let hStackView = UIStackView()
     private var scrollViewLayoutConstraint: NSLayoutConstraint?
-    private var keyboardHelper: KeyboardHelper?
+    private var keyboardHelper: Keyboard?
     private var datePicker: DatePicker?
+    private var fontPicker: FontPicker?
     
-    private lazy var imagePicker: ImagePickerHelper = {
-        let imagePicker = ImagePickerHelper(viewController: self, delegate: self)
+    private lazy var imagePicker: ImagePicker = {
+        let imagePicker = ImagePicker(viewController: self, delegate: self)
         return imagePicker
     }()
     
@@ -67,6 +67,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         configureActions()
         registerKeyboardNotification()
         createDatePicker()
+        createFontPicker()
     }
     
     private func createSaveButton() {
@@ -77,14 +78,12 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         navigationItem.largeTitleDisplayMode = .never
         //                hideKeyboardWhenTappedAround()
         
-        fontPickerTextField.inputView = UIView(frame: .zero)
         fontPickerTextField.textAlignment = .center
         fontPickerTextField.sizeToFit()
         fontPickerTextField.placeholder = "Pick font"
         fontPickerTextField.borderStyle = .roundedRect
         
         datePickerTextField.textAlignment = .center
-        datePickerTextField.sizeToFit()
         datePickerTextField.placeholder = "Pick date"
         datePickerTextField.borderStyle = .roundedRect
         
@@ -113,11 +112,16 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         fontPickerButton.backgroundColor = .red
         
         datePickerButton.backgroundColor = .black
-        
     }
     
     private func createDatePicker() {
-        datePicker = DatePicker(datePickerTextField: datePickerTextField, viewController: self)
+        datePicker = DatePicker(textField: datePickerTextField, viewController: self)
+    }
+    
+    private func createFontPicker() {
+        fontPicker = FontPicker(viewController: self, textField: fontPickerTextField, complitionHandler: { [ weak self ] font in
+            self?.titleTextField.font = UIFont(name: font, size: 14)
+        })
     }
     
     private func configureActions() {
@@ -156,30 +160,21 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
             showShakeAnimation(textField: titleTextField)
         } else {
             let currentDate = createCurrentDate()
-            let date = createDate()
             
-            saveTask(currentDate: currentDate, date: date)
+            saveTask(currentDate: currentDate)
         }
     }
     
-    private func saveTask(currentDate: String, date: String) {
+    private func saveTask(currentDate: String) {
         
         let addTask = TaskEntity(title: titleTextField.textOrEmptyString,
                                  image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage.png"),
                                  currentDate: currentDate,
                                  descriptionText: descriptionTextView.textOrEmptyString,
                                  color: colorPickerButton.textOrEmptyString,
-                                 date: date)
+                                 date: datePickerTextField.text!)
         
         saveTaskButtonTappedHandler?(addTask)
-    }
-    
-    private func createDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy, h:mm a"
-        
-//        return dateFormatter.string(from: datePicker.date)
-        return ""
     }
     
     private func createCurrentDate() -> String {
@@ -189,22 +184,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         let dateTimeString = formatter.string(from: currentDate)
         
         return dateTimeString
-    }
-    
-    @objc func showDatePickerPopover() {
-        let datePickerPopoverViewController = DatePickerPopoverViewController()
-        datePickerPopoverViewController.delegate = self
-//        datePickerPopoverViewController.modalPresentationStyle = .popover
-        datePickerPopoverViewController.popoverPresentationController?.delegate = self
-        
-//        let datePicker = datePickerPopoverViewController.popoverPresentationController
-//        datePicker?.permittedArrowDirections = .down
-//        datePicker?.sourceView = datePickerButton
-//        datePicker?.sourceRect = datePickerButton.bounds
-        
-//        datePickerPopoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
-        
-        present(datePickerPopoverViewController, animated: true, completion: nil)
     }
     
     func pickColor(color: UIColor?) {
@@ -220,9 +199,6 @@ extension TaskDetailsViewController: ImagePickerDelegate {
     }
 }
 
-extension TaskDetailsViewController: DatePickerPopoverDelegate {
-}
-
 // MARK: - Font Picker Popover Delegate
 
 extension TaskDetailsViewController: FontPickerDelegate {
@@ -232,14 +208,7 @@ extension TaskDetailsViewController: FontPickerDelegate {
         fontPickerButton.setTitle(font, for: .normal)
     }
 }
-// MARK: - Color Picker Popover Delegate
 
-extension TaskDetailsViewController: UIPopoverPresentationControllerDelegate {
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-}
 // MARK: - AddTaskView
 
 extension TaskDetailsViewController: TaskDetailsController {
@@ -283,7 +252,7 @@ extension TaskDetailsViewController: UITextFieldDelegate {
 private extension TaskDetailsViewController {
     
     func registerKeyboardNotification() {
-        keyboardHelper = KeyboardHelper( complitionHandler: { [ weak self ] moveKeyboard, keyboardFrame in
+        keyboardHelper = Keyboard( complitionHandler: { [ weak self ] moveKeyboard, keyboardFrame in
             switch moveKeyboard {
             case .keyboardWillHide:
                 self?.keyboardWillHide()
@@ -317,7 +286,6 @@ private extension TaskDetailsViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(hStackView)
         scrollView.addSubview(titleTextField)
-//        scrollView.addSubview(datePicker)
         scrollView.addSubview(imageView)
         scrollView.addSubview(imageButton)
         scrollView.addSubview(datePickerButton)
@@ -364,11 +332,6 @@ private extension TaskDetailsViewController {
             fontPickerTextField.trailingAnchor.constraint(
                 equalTo: hStackView.trailingAnchor),
             
-//            fontPickerButton.leadingAnchor.constraint(equalTo: fontPickerTextField.leadingAnchor),
-//            fontPickerButton.topAnchor.constraint(equalTo: hStackView.bottomAnchor, constant: 16),
-//            fontPickerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-//            fontPickerButton.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-//
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: hStackView.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
