@@ -31,6 +31,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let hStackView = UIStackView()
     private var scrollViewLayoutConstraint: NSLayoutConstraint?
     private var keyboardHelper: KeyboardHelper?
+    private let picker = UIDatePicker()
     
     private lazy var imagePicker: ImagePickerHelper = {
         let imagePicker = ImagePickerHelper(viewController: self, delegate: self)
@@ -76,6 +77,27 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         
         //                hideKeyboardWhenTappedAround()
         
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+            picker.sizeToFit()
+        }
+        
+        picker.datePickerMode = .dateAndTime
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+
+        datePickerTextField.inputAccessoryView = toolbar
+        datePickerTextField.inputView = picker
+        
+        
+        fontPickerTextField.inputView = UIView(frame: .zero)
         fontPickerTextField.textAlignment = .center
         fontPickerTextField.sizeToFit()
         fontPickerTextField.placeholder = "Pick font"
@@ -112,24 +134,19 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         
         datePickerButton.backgroundColor = .black
         
-        datePicker.center = view.center
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.sizeToFit()
+//        datePicker.center = view.center
+//        datePicker.preferredDatePickerStyle = .compact
+//        datePicker.sizeToFit()
     }
     
     private func configureActions() {
-        configureDatePickerButtonAction()
-        configureFontPickerButtonAction()
+        configureFontPickerTextFieldAction()
         configureColorPickerButtonAction()
         configureImageButtonAction()
     }
     
-    private func configureDatePickerButtonAction() {
-        datePickerButton.addTarget(self, action: #selector(calendarPicker), for: .touchUpInside)
-    }
-    
-    private func configureFontPickerButtonAction() {
-        fontPickerButton.addTarget(self, action: #selector(showFontPickerPopover), for: .touchUpInside)
+    private func configureFontPickerTextFieldAction() {
+        fontPickerTextField.addTarget(self, action: #selector(showFontPickerPopover), for: .touchUpInside)
     }
     
     private func configureColorPickerButtonAction() {
@@ -142,17 +159,11 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     @objc func showFontPickerPopover() {
         fontPickerButtonTappedHandler?(fontPickerButton, self)
+        
     }
     
     @objc func showColorPickerPopover() {
         colorPickerButtonTappedHandler?(colorPickerButton)
-    }
-    
-    @objc private func calendarPicker() {
-        let calendar = CalendarPickerViewController(baseDate: Date()) { Date in
-            print("\(Date)")
-        }
-        present(calendar, animated: true)
     }
     
     @objc private func showImagePicker() {
@@ -169,6 +180,19 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
             
             saveTask(currentDate: currentDate, date: date)
         }
+    }
+    
+    @objc func donedatePicker(){
+
+       let formatter = DateFormatter()
+       formatter.dateFormat = "dd/MM/yyyy, h:mm a"
+        datePickerTextField.text = formatter.string(from: picker.date)
+       self.view.endEditing(true)
+        
+     }
+    
+    @objc func cancelDatePicker(){
+        self.view.endEditing(true)
     }
     
     private func saveTask(currentDate: String, date: String) {
@@ -202,15 +226,15 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     @objc func showDatePickerPopover() {
         let datePickerPopoverViewController = DatePickerPopoverViewController()
         datePickerPopoverViewController.delegate = self
-        datePickerPopoverViewController.modalPresentationStyle = .popover
+//        datePickerPopoverViewController.modalPresentationStyle = .popover
         datePickerPopoverViewController.popoverPresentationController?.delegate = self
         
-        let datePicker = datePickerPopoverViewController.popoverPresentationController
-        datePicker?.permittedArrowDirections = .down
-        datePicker?.sourceView = datePickerButton
-        datePicker?.sourceRect = datePickerButton.bounds
+//        let datePicker = datePickerPopoverViewController.popoverPresentationController
+//        datePicker?.permittedArrowDirections = .down
+//        datePicker?.sourceView = datePickerButton
+//        datePicker?.sourceRect = datePickerButton.bounds
         
-        datePickerPopoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
+//        datePickerPopoverViewController.preferredContentSize = CGSize(width: 260, height: 140)
         
         present(datePickerPopoverViewController, animated: true, completion: nil)
     }
@@ -372,6 +396,11 @@ private extension TaskDetailsViewController {
             fontPickerTextField.trailingAnchor.constraint(
                 equalTo: hStackView.trailingAnchor),
             
+//            fontPickerButton.leadingAnchor.constraint(equalTo: fontPickerTextField.leadingAnchor),
+//            fontPickerButton.topAnchor.constraint(equalTo: hStackView.bottomAnchor, constant: 16),
+//            fontPickerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+//            fontPickerButton.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+//
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: hStackView.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
