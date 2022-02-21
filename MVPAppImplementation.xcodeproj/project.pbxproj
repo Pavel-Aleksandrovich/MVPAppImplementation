@@ -201,10 +201,6 @@
 		8476A1D9278831150062440A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				8476A1FF27995AE90062440A /* ColorPicker */,
-				8476A20227997E890062440A /* FontPicker */,
-				8476A22127A3AE220062440A /* CalendarPicker */,
-				8476A205279AA7CF0062440A /* DatePickerPopoverViewController */,
 				8476A206279AA8250062440A /* TaskDetailsPopUp */,
 				8476A1DC278949410062440A /* TaskDetails */,
 				8476A1D8278830110062440A /* TaskList */,
@@ -322,6 +318,10 @@
 				847BBBD927C33BC7005E8A6C /* Keyboard.swift */,
 				847BBBDC27C37BA1005E8A6C /* DatePicker.swift */,
 				847BBBDE27C39953005E8A6C /* FontPicker.swift */,
+				8476A1FF27995AE90062440A /* ColorPicker */,
+				8476A20227997E890062440A /* FontPicker */,
+				8476A22127A3AE220062440A /* CalendarPicker */,
+				8476A205279AA7CF0062440A /* DatePickerPopoverViewController */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
