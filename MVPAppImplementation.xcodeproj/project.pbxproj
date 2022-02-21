@@ -52,6 +52,7 @@
 		8476A22F27A3AE360062440A /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22C27A3AE360062440A /* Day.swift */; };
 		8476A23027A3AE360062440A /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A22D27A3AE360062440A /* MonthMetadata.swift */; };
 		847BBBDA27C33BC7005E8A6C /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBD927C33BC7005E8A6C /* KeyboardHelper.swift */; };
+		847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDC27C37BA1005E8A6C /* DatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		8476A22C27A3AE360062440A /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		8476A22D27A3AE360062440A /* MonthMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
 		847BBBD927C33BC7005E8A6C /* KeyboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
+		847BBBDC27C37BA1005E8A6C /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +318,7 @@
 			children = (
 				846BA6D127BCB665006D8447 /* ImagePickerHelper.swift */,
 				847BBBD927C33BC7005E8A6C /* KeyboardHelper.swift */,
+				847BBBDC27C37BA1005E8A6C /* DatePicker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				8476A22027A26B060062440A /* FontEntity.swift in Sources */,
 				8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */,
 				8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */,
+				847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */,
 				846BA6CF27BBA8D8006D8447 /* Task+CoreDataProperties.swift in Sources */,
 				8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */,
 			);

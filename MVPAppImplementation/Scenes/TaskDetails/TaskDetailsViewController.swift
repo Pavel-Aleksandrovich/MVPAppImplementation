@@ -24,14 +24,14 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let colorPickerButton = UIButton()
     private let fontPickerButton = UIButton()
     private let datePickerButton = UIButton()
-    private let datePicker = UIDatePicker()
+//    private let datePicker = UIDatePicker()
     private let scrollView = UIScrollView()
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
     private let hStackView = UIStackView()
     private var scrollViewLayoutConstraint: NSLayoutConstraint?
     private var keyboardHelper: KeyboardHelper?
-    private let picker = UIDatePicker()
+    private var datePicker: DatePicker?
     
     private lazy var imagePicker: ImagePickerHelper = {
         let imagePicker = ImagePickerHelper(viewController: self, delegate: self)
@@ -66,6 +66,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         configureLayout()
         configureActions()
         registerKeyboardNotification()
+        createDatePicker()
     }
     
     private func createSaveButton() {
@@ -74,28 +75,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     private func configureAppearance() {
         navigationItem.largeTitleDisplayMode = .never
-        
         //                hideKeyboardWhenTappedAround()
-        
-        if #available(iOS 13.4, *) {
-            picker.preferredDatePickerStyle = .wheels
-            picker.sizeToFit()
-        }
-        
-        picker.datePickerMode = .dateAndTime
-        
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
-        
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-
-        datePickerTextField.inputAccessoryView = toolbar
-        datePickerTextField.inputView = picker
-        
         
         fontPickerTextField.inputView = UIView(frame: .zero)
         fontPickerTextField.textAlignment = .center
@@ -134,9 +114,10 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         
         datePickerButton.backgroundColor = .black
         
-//        datePicker.center = view.center
-//        datePicker.preferredDatePickerStyle = .compact
-//        datePicker.sizeToFit()
+    }
+    
+    private func createDatePicker() {
+        datePicker = DatePicker(datePickerTextField: datePickerTextField, viewController: self)
     }
     
     private func configureActions() {
@@ -159,7 +140,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     @objc func showFontPickerPopover() {
         fontPickerButtonTappedHandler?(fontPickerButton, self)
-        
     }
     
     @objc func showColorPickerPopover() {
@@ -182,19 +162,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         }
     }
     
-    @objc func donedatePicker(){
-
-       let formatter = DateFormatter()
-       formatter.dateFormat = "dd/MM/yyyy, h:mm a"
-        datePickerTextField.text = formatter.string(from: picker.date)
-       self.view.endEditing(true)
-        
-     }
-    
-    @objc func cancelDatePicker(){
-        self.view.endEditing(true)
-    }
-    
     private func saveTask(currentDate: String, date: String) {
         
         let addTask = TaskEntity(title: titleTextField.textOrEmptyString,
@@ -211,7 +178,8 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy, h:mm a"
         
-        return dateFormatter.string(from: datePicker.date)
+//        return dateFormatter.string(from: datePicker.date)
+        return ""
     }
     
     private func createCurrentDate() -> String {
@@ -349,7 +317,7 @@ private extension TaskDetailsViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(hStackView)
         scrollView.addSubview(titleTextField)
-        scrollView.addSubview(datePicker)
+//        scrollView.addSubview(datePicker)
         scrollView.addSubview(imageView)
         scrollView.addSubview(imageButton)
         scrollView.addSubview(datePickerButton)
