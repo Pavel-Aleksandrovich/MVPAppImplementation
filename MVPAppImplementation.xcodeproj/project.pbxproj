@@ -54,6 +54,7 @@
 		847BBBDA27C33BC7005E8A6C /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBD927C33BC7005E8A6C /* Keyboard.swift */; };
 		847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDC27C37BA1005E8A6C /* DatePicker.swift */; };
 		847BBBDF27C39953005E8A6C /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDE27C39953005E8A6C /* FontPicker.swift */; };
+		847BBBE127C48FCE005E8A6C /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBE027C48FCE005E8A6C /* ContextMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,7 @@
 		847BBBD927C33BC7005E8A6C /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		847BBBDC27C37BA1005E8A6C /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		847BBBDE27C39953005E8A6C /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
+		847BBBE027C48FCE005E8A6C /* ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 				847BBBD927C33BC7005E8A6C /* Keyboard.swift */,
 				847BBBDC27C37BA1005E8A6C /* DatePicker.swift */,
 				847BBBDE27C39953005E8A6C /* FontPicker.swift */,
+				847BBBE027C48FCE005E8A6C /* ContextMenu.swift */,
 				8476A1FF27995AE90062440A /* ColorPicker */,
 				8476A20227997E890062440A /* FontPicker */,
 				8476A22127A3AE220062440A /* CalendarPicker */,
@@ -397,6 +400,7 @@
 			files = (
 				8476A23027A3AE360062440A /* MonthMetadata.swift in Sources */,
 				8476A210279EBA560062440A /* TaskDetailsPopupAssembler.swift in Sources */,
+				847BBBE127C48FCE005E8A6C /* ContextMenu.swift in Sources */,
 				8476A21C27A2644C0062440A /* FontPickerPresenter.swift in Sources */,
 				8476A1C2278815870062440A /* TaskListViewController.swift in Sources */,
 				8476A1E2278963C00062440A /* TaskDetailsAssembler.swift in Sources */,

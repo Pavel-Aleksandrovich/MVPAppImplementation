@@ -33,7 +33,6 @@ final class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupCo
         super.viewDidLoad()
         presenter.onViewAttached(controller: self, view: mainView)
     }
-    
 }
 
 

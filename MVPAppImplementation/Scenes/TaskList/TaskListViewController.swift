@@ -24,6 +24,7 @@ class TaskListViewController: UIViewController {
     private var collectionView: UICollectionView!
     private let presenter: TaskListPresenter!
     private let addTaskButton = UIButton()
+    private var contextMenu = ContextMenu()
     
     var addTaskButtonTappedHandler: ((Int?) -> ())?
     
@@ -147,26 +148,20 @@ extension TaskListViewController: UICollectionViewDelegateFlowLayout {
 extension TaskListViewController {
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        return contextMenuConfiguration { [ weak self ] action in
-            guard let self = self else { return }
+        return contextMenu.contextMenuConfiguration(complitionHandler: { [ weak self ] actions in
             
-            switch action {
+            switch actions {
             case .deleteConfirmation:
-                
-                self.presenter.deleteTaskByIndex(index: indexPath.row)
+                self?.presenter.deleteTaskByIndex(index: indexPath.row)
                 DispatchQueue.main.async {
                     collectionView.reloadData()
                 }
-                
             case .edit:
-                self.addTaskButtonTappedHandler?(indexPath.row)
-                
+                self?.addTaskButtonTappedHandler?(indexPath.row)
             case .showDetails:
-                
-                print("show details")
+                print("showDetails")
             }
-            
-        }
+        })
     }
 }
 
