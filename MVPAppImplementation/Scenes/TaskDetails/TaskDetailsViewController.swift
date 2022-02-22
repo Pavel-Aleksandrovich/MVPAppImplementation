@@ -19,9 +19,9 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
-    private let saveButton = UIBarButtonItem(title: Constants.saveButton, style: .done, target: self, action: #selector(saveButtonTapped))
     private let imageButton = UIButton()
     private let colorPickerButton = UIButton()
+    private let saveButton = UIButton()
     private let scrollView = UIScrollView()
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
@@ -53,7 +53,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         super.viewDidLoad()
         presenter.onViewAttached(controller: self, view: mainView)
         configureAppearance()
-        createSaveButton()
         configureView()
         configureLayout()
         configureActions()
@@ -62,16 +61,12 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         createFontPicker()
     }
     
-    private func createSaveButton() {
-        navigationItem.rightBarButtonItem = saveButton
-    }
-    
     private func configureAppearance() {
         navigationItem.largeTitleDisplayMode = .never
-        //                hideKeyboardWhenTappedAround()
+        
+        hideKeyboardWhenTappedAround()
         
         fontPickerTextField.textAlignment = .center
-//        fontPickerTextField.sizeToFit()
         fontPickerTextField.placeholder = "Pick font"
         fontPickerTextField.borderStyle = .roundedRect
         
@@ -99,17 +94,22 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         imageView.image = #imageLiteral(resourceName: "DefaultProfileImage.png")
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds  = true
+        
         imageButton.layer.borderColor = UIColor.systemGray5.cgColor
         imageButton.layer.borderWidth = CGFloat(0.8)
         imageButton.layer.cornerRadius = 25
-        imageButton.clipsToBounds = true
+        
+        saveButton.layer.borderColor = UIColor.systemBlue.cgColor
+        saveButton.layer.borderWidth = CGFloat(3)
+        saveButton.layer.cornerRadius = 30
+        saveButton.setTitle("SAVE", for: .normal)
+        saveButton.setTitleColor(.systemBlue, for: .normal)
         
         colorPickerButton.layer.cornerRadius = 5
         colorPickerButton.setTitle("Pick color", for: .normal)
         colorPickerButton.setTitleColor(.systemGray3, for: .normal)
         colorPickerButton.layer.borderColor = UIColor.systemGray5.cgColor
         colorPickerButton.layer.borderWidth = CGFloat(0.8)
-//        colorPickerButton.backgroundColor = .magenta
     }
     
     private func createDatePicker() {
@@ -126,6 +126,11 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private func configureActions() {
         configureColorPickerButtonAction()
         configureImageButtonAction()
+        configureSaveButtonAction()
+    }
+    
+    private func configureSaveButtonAction() {
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
     
     private func configureColorPickerButtonAction() {
@@ -231,12 +236,13 @@ private extension TaskDetailsViewController {
     
     func configureView() {
         
-        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerTextField, datePickerTextField, vStackView].forEach {
+        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerTextField, datePickerTextField, vStackView, saveButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         view.addSubview(scrollView)
         scrollView.addSubview(vStackView)
+        scrollView.addSubview(saveButton)
         scrollView.addSubview(titleTextField)
         scrollView.addSubview(imageView)
         scrollView.addSubview(imageButton)
@@ -286,12 +292,17 @@ private extension TaskDetailsViewController {
             imageView.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             imageButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             imageButton.topAnchor.constraint(equalTo: imageView.topAnchor),
             imageButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            saveButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            saveButton.heightAnchor.constraint(equalToConstant: 60),
+            saveButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
     }
 }
