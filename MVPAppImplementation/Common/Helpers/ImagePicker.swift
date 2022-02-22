@@ -17,9 +17,9 @@ final class ImagePicker: NSObject {
     
     init(viewController: UIViewController,
          delegate: ImagePickerDelegate) {
-        super.init()
         self.viewController = viewController
         self.delegate = delegate
+        super.init()
     }
 
     public func showChooseSourceTypeAlertController() {
