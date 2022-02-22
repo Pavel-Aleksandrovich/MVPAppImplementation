@@ -6,33 +6,24 @@
 //
 import UIKit
 
-protocol ImagePickerDelegate: AnyObject {
-    func imageDidPick(image: UIImage?)
-}
-
 final class ImagePicker: NSObject {
 
     private weak var viewController: UIViewController?
-    private weak var delegate: ImagePickerDelegate?
+    private let complitionHandler: (UIImage) -> ()
     
     init(viewController: UIViewController,
-         delegate: ImagePickerDelegate) {
+         complitionHandler: @escaping (UIImage) -> ()) {
         self.viewController = viewController
-        self.delegate = delegate
+        self.complitionHandler = complitionHandler
         super.init()
+        showChooseSourceTypeAlertController()
     }
 
-    public func showChooseSourceTypeAlertController() {
+    private func showChooseSourceTypeAlertController() {
         
         showAlertPhotoPicker(style: .actionSheet, title: "Shoose Image", message: nil, animated: false) { [ weak self ] (sourceType) in
             self?.showImagePickerController(sourceType: sourceType)
         }
-    }
-    
-    private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
-        
-        delegate?.imageDidPick(image: image)
-        controller.dismiss(animated: true, completion: nil)
     }
     
     private func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
@@ -44,20 +35,19 @@ final class ImagePicker: NSObject {
     }
 }
 
-// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-
-extension ImagePicker:
-    UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension ImagePicker: UINavigationControllerDelegate,
+                       UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             let image = editedImage.withRenderingMode(.alwaysOriginal)
-            pickerController(picker, didSelect: image)
+            complitionHandler(image)
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let image = originalImage.withRenderingMode(.alwaysOriginal)
-            pickerController(picker, didSelect: image)
+            complitionHandler(image)
         }
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

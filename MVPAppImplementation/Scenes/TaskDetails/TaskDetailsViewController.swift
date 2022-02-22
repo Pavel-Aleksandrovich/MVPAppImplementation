@@ -30,11 +30,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private var keyboardHelper: Keyboard?
     private var datePicker: DatePicker?
     private var fontPicker: FontPicker?
-    
-    private lazy var imagePicker: ImagePicker = {
-        let imagePicker = ImagePicker(viewController: self, delegate: self)
-        return imagePicker
-    }()
+    private var imagePicker: ImagePicker?
     
     var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
     var colorPickerButtonTappedHandler: ((UIButton) -> ())?
@@ -135,7 +131,9 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     }
     
     @objc private func showImagePicker() {
-        imagePicker.showChooseSourceTypeAlertController()
+        imagePicker = ImagePicker(viewController: self, complitionHandler: { [ weak self ] image in
+            self?.imageView.image = image
+        })
     }
     
     @objc private func saveButtonTapped() {
@@ -172,14 +170,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     func pickColor(color: UIColor?) {
         colorPickerButton.backgroundColor = color
-    }
-}
-
-// MARK: - ImagePickerDelegate
-
-extension TaskDetailsViewController: ImagePickerDelegate {
-    func imageDidPick(image: UIImage?) {
-        imageView.image = image
     }
 }
 
