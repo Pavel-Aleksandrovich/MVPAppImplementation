@@ -9,7 +9,6 @@ import UIKit
 
 protocol TaskDetailsPresenter {
     func onViewAttached(controller: TaskDetailsController,view: TaskDetailsView)
-    func isEnabledSaveButton(text: String) -> UIColor
 }
 
 protocol TaskDetailsController: AnyObject {
@@ -32,15 +31,6 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         self.router = router
         self.taskSettings = taskSettings
         self.index = index
-    }
-    
-    func isEnabledSaveButton(text: String) -> UIColor {
-        
-        if text.isEmpty {
-            return .gray.withAlphaComponent(0.6)
-        } else {
-            return .red
-        }
     }
     
     func onViewAttached(controller: TaskDetailsController,

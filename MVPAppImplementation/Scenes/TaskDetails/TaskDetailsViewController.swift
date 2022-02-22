@@ -152,14 +152,9 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     }
     
     @objc private func saveButtonTapped() {
+        let currentDate = createCurrentDate()
         
-        if saveButton.tintColor == .gray.withAlphaComponent(0.6) {
-            showShakeAnimation(textField: titleTextField)
-        } else {
-            let currentDate = createCurrentDate()
-            
-            saveTask(currentDate: currentDate)
-        }
+        saveTask(currentDate: currentDate)
     }
     
     private func saveTask(currentDate: String) {
@@ -185,6 +180,9 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     func pickColor(color: UIColor?) {
         colorPickerButton.backgroundColor = color
+        
+        saveButton.setTitleColor(color, for: .normal)
+        saveButton.layer.borderColor = color?.cgColor
     }
 }
 
@@ -215,13 +213,6 @@ extension TaskDetailsViewController: TaskDetailsController {
 // MARK: - UITextFieldDelegate
 
 extension TaskDetailsViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        
-        saveButton.tintColor = presenter.isEnabledSaveButton(text: text)
-        return true
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
         return true
@@ -260,12 +251,12 @@ private extension TaskDetailsViewController {
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
             titleTextField.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 15),
-            titleTextField.heightAnchor.constraint(equalToConstant: 30),
+            titleTextField.heightAnchor.constraint(equalToConstant: 40),
             titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             descriptionTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16),
-            descriptionTextView.heightAnchor.constraint(equalToConstant: 200),
+            descriptionTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
@@ -276,7 +267,7 @@ private extension TaskDetailsViewController {
             
             datePickerTextField.widthAnchor.constraint(
                 equalTo: vStackView.widthAnchor),
-            datePickerTextField.heightAnchor.constraint(equalToConstant: 30),
+            datePickerTextField.heightAnchor.constraint(equalTo: titleTextField.heightAnchor),
             
             fontPickerTextField.widthAnchor.constraint(
                 equalTo: vStackView.widthAnchor),

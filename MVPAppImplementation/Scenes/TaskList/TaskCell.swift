@@ -22,8 +22,9 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         static let taskDataLabelConstant = CGFloat(10)
         static let taskCheckMarkButton: CGFloat = 30
     }
+    
     weak var delegate: Delegate?
-    private let cellView = UIView()
+    private let bacgroundView = UIView()
     private let titleLabel = UILabel()
     private let illustrationImageView = UIImageView()
     private let taskCurrentDataLabel = UILabel()
@@ -47,7 +48,7 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     func configureCell(task: TaskEntity, index: Int) {
         titleLabel.text = task.titleText
         illustrationImageView.image = task.image
-        cellView.backgroundColor = task.color
+        bacgroundView.layer.borderColor = task.color.cgColor
         taskDataLabel.text = task.date
         
         self.index = index
@@ -70,17 +71,18 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     
     func configureView() {
         
-        self.addSubview(cellView)
-        cellView.addSubview(illustrationImageView)
-        cellView.addSubview(titleLabel)
-        cellView.addSubview(taskCheckMarkButton)
-        cellView.addSubview(taskDataLabel)
+        self.addSubview(bacgroundView)
+        bacgroundView.addSubview(illustrationImageView)
+        bacgroundView.addSubview(titleLabel)
+        bacgroundView.addSubview(taskCheckMarkButton)
+        bacgroundView.addSubview(taskDataLabel)
         
-        cellView.backgroundColor = .white
-        cellView.layer.cornerRadius = Constants.cellCornerRadius
-        cellView.layer.borderWidth = CGFloat(0.05)
-        cellView.layer.borderColor = UIColor.black.cgColor
-        cellView.clipsToBounds = true
+        bacgroundView.backgroundColor = .white
+        bacgroundView.layer.cornerRadius = Constants.cellCornerRadius
+        bacgroundView.layer.borderWidth = CGFloat(3)
+//        bacgroundView.layer.borderColor = UIColor.black.cgColor
+        bacgroundView.clipsToBounds = true
+        
         
         taskCheckMarkButton.backgroundColor = .none
         taskCheckMarkButton.setImage(UIImage(systemName: "square", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
@@ -130,15 +132,15 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     
     func configureLayoutConstraints() {
         
-        [cellView, titleLabel, illustrationImageView, taskCurrentDataLabel, taskCheckMarkButton, taskDataLabel].forEach {
+        [bacgroundView, titleLabel, illustrationImageView, taskCurrentDataLabel, taskCheckMarkButton, taskDataLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            cellView.topAnchor.constraint(equalTo: self.topAnchor),
-            cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            bacgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            bacgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            bacgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            bacgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
             illustrationImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.imageConstant),
             illustrationImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constants.imageConstant),

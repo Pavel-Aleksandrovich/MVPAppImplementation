@@ -15,13 +15,13 @@ protocol TaskDetailsPopupView: UIView {
 final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     
     private let backgroundView = UIView()
-    private let titleText = UILabel()
+    private let titleLabel = UILabel()
     private let taskDateLabel = UILabel()
-    private let descriptionText = UILabel()
+    private let descriptionLabel = UILabel()
     private let scrollView = UIScrollView()
     private let closeButton = UIButton()
     private let checkMurkButton = UIButton()
-    private let taskImageView = UIImageView()
+    private let imageView = UIImageView()
     
     var closeButtonTappedHandler: (() -> ())?
     
@@ -43,11 +43,14 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     }
     
     func configure(task: TaskEntity) {
-        titleText.text = task.titleText
-        descriptionText.text = task.descriptionText
+        titleLabel.text = task.titleText
+        descriptionLabel.text = task.descriptionText
         taskDateLabel.text = task.date
-        taskImageView.image = task.image
-        backgroundView.backgroundColor = task.color
+        imageView.image = task.image
+        backgroundView.layer.borderColor = task.color.cgColor
+        
+        closeButton.setTitleColor(task.color, for: .normal)
+        closeButton.layer.borderColor = task.color.cgColor
     }
     
     private func closeButtonAddTarget() {
@@ -61,23 +64,26 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     private func configureViewAttributes() {
         backgroundColor = .black.withAlphaComponent(0.3)
         
-        backgroundView.backgroundColor = .red
+        backgroundView.backgroundColor = .white
         backgroundView.layer.cornerRadius = 25
         backgroundView.clipsToBounds = true
+        backgroundView.layer.borderWidth = 5
         
-        closeButton.backgroundColor = .green
+        imageView.layer.cornerRadius = 25
+        imageView.clipsToBounds  = true
+        
+        
+        closeButton.layer.borderWidth = CGFloat(3)
         closeButton.layer.cornerRadius = 25
         closeButton.setTitle("CLOSE", for: .normal)
-        closeButton.titleLabel?.font = UIFont(name: "Kailasa", size: 30)
-        closeButton.clipsToBounds = true
         
-        titleText.textAlignment = .center
+        titleLabel.textAlignment = .center
         
         scrollView.showsVerticalScrollIndicator = false
         
-        descriptionText.lineBreakMode = .byWordWrapping
-        descriptionText.numberOfLines = 0
-        descriptionText.sizeToFit()
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.sizeToFit()
         
         checkMurkButton.backgroundColor = .green
         checkMurkButton.setTitle("Task Completed", for: .normal)
@@ -89,71 +95,65 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     
     private func configureView() {
         
-        [backgroundView, closeButton, titleText, scrollView, descriptionText, checkMurkButton, taskDateLabel, taskImageView].forEach {
+        [backgroundView, closeButton, titleLabel, scrollView, descriptionLabel, checkMurkButton, taskDateLabel, imageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         addSubview(backgroundView)
         backgroundView.addSubview(scrollView)
         scrollView.addSubview(closeButton)
-        scrollView.addSubview(titleText)
-        scrollView.addSubview(checkMurkButton)
+        scrollView.addSubview(titleLabel)
+//        scrollView.addSubview(checkMurkButton)
         scrollView.addSubview(taskDateLabel)
-        scrollView.addSubview(taskImageView)
-        scrollView.addSubview(descriptionText)
+        scrollView.addSubview(imageView)
+        scrollView.addSubview(descriptionLabel)
     }
     
     private func configureLayout() {
         
         NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            backgroundView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
+            backgroundView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            backgroundView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            backgroundView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-//            scrollView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//            scrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            scrollView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
-//            scrollView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
+            scrollView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            scrollView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            scrollView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
             
-//            backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9),
-//            backgroundView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-//            backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
+            titleLabel.heightAnchor.constraint(equalToConstant: 30),
+            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 30),
             
-            closeButton.heightAnchor.constraint(equalToConstant: 60),
-            closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
-            closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
-            closeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -100),
+            descriptionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            descriptionLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             
-            titleText.heightAnchor.constraint(equalToConstant: 60),
-            titleText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            titleText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            titleText.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
+            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            imageView.topAnchor.constraint(greaterThanOrEqualTo: descriptionLabel.bottomAnchor, constant: 300),
+            imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.4),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+//            imageView.bottomAnchor.constraint(equalTo: closeButton.topAnchor, constant: 16),
             
+            closeButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            closeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            closeButton.heightAnchor.constraint(equalToConstant: 50),
+            closeButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.7),
+            closeButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
             
+//            checkMurkButton.heightAnchor.constraint(equalToConstant: 30),
+//            checkMurkButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+//            checkMurkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+////            checkMurkButton.widthAnchor.constraint(equalToConstant: 200),
+//            checkMurkButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
             
-            descriptionText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
-            descriptionText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 30),
-            descriptionText.topAnchor.constraint(equalTo: taskDateLabel.bottomAnchor, constant: 10),
-            descriptionText.bottomAnchor.constraint(equalTo: self.centerYAnchor),
+//            taskDateLabel.heightAnchor.constraint(equalToConstant: 30),
+//            taskDateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+//            taskDateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+//            taskDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             
-//            descriptionText.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            checkMurkButton.heightAnchor.constraint(equalToConstant: 30),
-            checkMurkButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            checkMurkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            checkMurkButton.widthAnchor.constraint(equalToConstant: 200),
-            checkMurkButton.topAnchor.constraint(equalTo: descriptionText.bottomAnchor, constant: 20),
-            
-            taskDateLabel.heightAnchor.constraint(equalToConstant: 30),
-            taskDateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            taskDateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            taskDateLabel.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 10),
-            
-            taskImageView.topAnchor.constraint(equalTo: checkMurkButton.bottomAnchor),
-            taskImageView.bottomAnchor.constraint(equalTo: closeButton.topAnchor),
-            taskImageView.widthAnchor.constraint(equalToConstant: 300),
-            taskImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
     }
 }
