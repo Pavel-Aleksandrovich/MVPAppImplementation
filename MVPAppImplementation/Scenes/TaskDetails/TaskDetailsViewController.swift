@@ -25,7 +25,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let scrollView = UIScrollView()
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
-    private let hStackView = UIStackView()
+    private let vStackView = UIStackView()
     private var keyboardMove: Keyboard?
     private var datePicker: DatePicker?
     private var fontPicker: FontPicker?
@@ -71,7 +71,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         //                hideKeyboardWhenTappedAround()
         
         fontPickerTextField.textAlignment = .center
-        fontPickerTextField.sizeToFit()
+//        fontPickerTextField.sizeToFit()
         fontPickerTextField.placeholder = "Pick font"
         fontPickerTextField.borderStyle = .roundedRect
         
@@ -79,10 +79,10 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         datePickerTextField.placeholder = "Pick date"
         datePickerTextField.borderStyle = .roundedRect
         
-        hStackView.axis = .horizontal
-        hStackView.alignment = .center
-        hStackView.distribution = .fillProportionally
-        hStackView.spacing = 16
+        vStackView.axis = .vertical
+        vStackView.alignment = .center
+        vStackView.distribution = .fillProportionally
+        vStackView.spacing = 16
         
         scrollView.backgroundColor = .systemBackground
         
@@ -93,13 +93,23 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         descriptionTextView.backgroundColor = .none
         descriptionTextView.layer.borderColor = UIColor.systemGray5.cgColor
         descriptionTextView.layer.borderWidth = CGFloat(0.8)
-        descriptionTextView.layer.cornerRadius = 7
+        descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.font = .systemFont(ofSize: 15, weight: .light)
         
         imageView.image = #imageLiteral(resourceName: "DefaultProfileImage.png")
-        imageButton.layer.borderWidth = CGFloat(1)
+        imageView.layer.cornerRadius = 25
+        imageView.clipsToBounds  = true
+        imageButton.layer.borderColor = UIColor.systemGray5.cgColor
+        imageButton.layer.borderWidth = CGFloat(0.8)
+        imageButton.layer.cornerRadius = 25
+        imageButton.clipsToBounds = true
         
-        colorPickerButton.backgroundColor = .magenta
+        colorPickerButton.layer.cornerRadius = 5
+        colorPickerButton.setTitle("Pick color", for: .normal)
+        colorPickerButton.setTitleColor(.systemGray3, for: .normal)
+        colorPickerButton.layer.borderColor = UIColor.systemGray5.cgColor
+        colorPickerButton.layer.borderWidth = CGFloat(0.8)
+//        colorPickerButton.backgroundColor = .magenta
     }
     
     private func createDatePicker() {
@@ -109,6 +119,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private func createFontPicker() {
         fontPicker = FontPicker(viewController: self, textField: fontPickerTextField, complitionHandler: { [ weak self ] font, size in
             self?.titleTextField.font = UIFont(name: font, size: size)
+            self?.fontPickerTextField.font = UIFont(name: font, size: size)
         })
     }
     
@@ -220,19 +231,19 @@ private extension TaskDetailsViewController {
     
     func configureView() {
         
-        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerTextField, datePickerTextField, hStackView].forEach {
+        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerTextField, datePickerTextField, vStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         view.addSubview(scrollView)
-        scrollView.addSubview(hStackView)
+        scrollView.addSubview(vStackView)
         scrollView.addSubview(titleTextField)
         scrollView.addSubview(imageView)
         scrollView.addSubview(imageButton)
-        scrollView.addSubview(colorPickerButton)
         scrollView.addSubview(descriptionTextView)
-        hStackView.addArrangedSubview(datePickerTextField)
-        hStackView.addArrangedSubview(fontPickerTextField)
+        vStackView.addArrangedSubview(datePickerTextField)
+        vStackView.addArrangedSubview(fontPickerTextField)
+        vStackView.addArrangedSubview(colorPickerButton)
     }
     
     func configureLayout() {
@@ -252,23 +263,27 @@ private extension TaskDetailsViewController {
             descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
-            hStackView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 16),
-            hStackView.heightAnchor.constraint(lessThanOrEqualToConstant: 30),
-            hStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            hStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            vStackView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 16),
+            vStackView.heightAnchor.constraint(lessThanOrEqualToConstant: 150),
+            vStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            vStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
-            datePickerTextField.centerYAnchor.constraint(
-                equalTo: hStackView.centerYAnchor),
-            datePickerTextField.leadingAnchor.constraint(
-                equalTo: hStackView.leadingAnchor),
+            datePickerTextField.widthAnchor.constraint(
+                equalTo: vStackView.widthAnchor),
+            datePickerTextField.heightAnchor.constraint(equalToConstant: 30),
             
-            fontPickerTextField.centerYAnchor.constraint(
-                equalTo: hStackView.centerYAnchor),
-            fontPickerTextField.trailingAnchor.constraint(
-                equalTo: hStackView.trailingAnchor),
+            fontPickerTextField.widthAnchor.constraint(
+                equalTo: vStackView.widthAnchor),
+            fontPickerTextField.heightAnchor.constraint(
+                equalTo: datePickerTextField.heightAnchor),
+            
+            colorPickerButton.widthAnchor.constraint(
+                equalTo: vStackView.widthAnchor),
+            colorPickerButton.heightAnchor.constraint(
+                equalTo: datePickerTextField.heightAnchor),
             
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: hStackView.bottomAnchor, constant: 16),
+            imageView.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
             imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
