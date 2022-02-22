@@ -26,8 +26,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
     private let hStackView = UIStackView()
-    private var scrollViewLayoutConstraint: NSLayoutConstraint?
-    private var keyboardHelper: Keyboard?
+    private var keyboardMove: Keyboard?
     private var datePicker: DatePicker?
     private var fontPicker: FontPicker?
     private var imagePicker: ImagePicker?
@@ -58,7 +57,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         configureView()
         configureLayout()
         configureActions()
-        registerKeyboardNotification()
+        hideOrShowKeyboard()
         createDatePicker()
         createFontPicker()
     }
@@ -215,30 +214,8 @@ extension TaskDetailsViewController: UITextFieldDelegate {
 
 private extension TaskDetailsViewController {
     
-    func registerKeyboardNotification() {
-        keyboardHelper = Keyboard( complitionHandler: { [ weak self ] moveKeyboard, keyboardFrame in
-            switch moveKeyboard {
-            case .keyboardWillHide:
-                self?.keyboardWillHide()
-            case .keyboardWillShow:
-                self?.keyboardWillShow(keyboardFrame: keyboardFrame)
-            }
-        })
-    }
-    
-    func keyboardWillShow(keyboardFrame: CGRect) {
-        if scrollViewLayoutConstraint?.constant == 0 {
-            let keyboardTop = keyboardFrame.height
-            scrollViewLayoutConstraint?.constant = -keyboardTop
-            scrollView.contentOffset = CGPoint(x: 0, y: keyboardTop)
-        }
-    }
-    
-    func keyboardWillHide() {
-        if scrollViewLayoutConstraint?.constant != 0 {
-            scrollViewLayoutConstraint?.constant = 0
-            scrollView.contentOffset = CGPoint.zero
-        }
+    func hideOrShowKeyboard() {
+        keyboardMove = Keyboard(scrollView: scrollView, viewController: self)
     }
     
     func configureView() {
@@ -259,9 +236,6 @@ private extension TaskDetailsViewController {
     }
     
     func configureLayout() {
-        scrollViewLayoutConstraint = scrollView.bottomAnchor.constraint(
-            equalTo: view.bottomAnchor, constant: 0)
-        scrollViewLayoutConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

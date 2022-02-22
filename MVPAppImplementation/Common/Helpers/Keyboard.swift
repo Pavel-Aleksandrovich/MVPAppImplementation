@@ -8,20 +8,17 @@
 import Foundation
 import UIKit
 
-enum MoveKeyboard {
-    case keyboardWillShow
-    case keyboardWillHide
-}
-
 final class Keyboard {
     
-    typealias ComplitionHandler = (_ moveKeyboard: MoveKeyboard, _ keyboardFrame: CGRect) -> Void
+    private var scrollViewLayoutConstraint: NSLayoutConstraint?
+    private let scrollView: UIScrollView
+    private weak var viewController: UIViewController?
     
-    let complitionHandler: ComplitionHandler
-    
-    init(complitionHandler: @escaping ComplitionHandler) {
-        self.complitionHandler = complitionHandler
+    init(scrollView: UIScrollView, viewController: UIViewController) {
+        self.scrollView = scrollView
+        self.viewController = viewController
         registerKeyboardNotification()
+        configureLayout()
     }
     
     deinit {
@@ -35,18 +32,35 @@ final class Keyboard {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func handler(notification: Notification, moveKeyboard: MoveKeyboard) {
+    @objc private func keyboardWillShow(notification: Notification) {
         let userInfo = notification.userInfo
         guard let keyboardFrame = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
-        complitionHandler(moveKeyboard, keyboardFrame)
-    }
-    
-    @objc private func keyboardWillShow(notification: Notification) {
-        handler(notification: notification, moveKeyboard: .keyboardWillShow)
+        showKeyboard(keyboardFrame: keyboardFrame)
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
-        handler(notification: notification, moveKeyboard: .keyboardWillHide)
+        hideKeyboard()
     }
+    
+    func showKeyboard(keyboardFrame: CGRect) {
+        if scrollViewLayoutConstraint?.constant == 0 {
+            let keyboardTop = keyboardFrame.height
+            scrollViewLayoutConstraint?.constant = -keyboardTop
+            scrollView.contentOffset = CGPoint(x: 0, y: keyboardTop)
+        }
+    }
+    
+    func hideKeyboard() {
+        if scrollViewLayoutConstraint?.constant != 0 {
+            scrollViewLayoutConstraint?.constant = 0
+            scrollView.contentOffset = CGPoint.zero
+        }
+    }
+    func configureLayout() {
+        scrollViewLayoutConstraint = scrollView.bottomAnchor.constraint(
+            equalTo: (viewController?.view.bottomAnchor)!, constant: 0)
+        scrollViewLayoutConstraint?.isActive = true
+    }
+        
 }
