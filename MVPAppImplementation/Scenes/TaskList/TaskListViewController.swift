@@ -97,7 +97,7 @@ extension TaskListViewController: TaskListView, Delegate {
         collectionView.deselectItem(at: indexPath, animated: animated)
     }
 
-    func checkMarkTap(bool: Bool, task: TaskEntity, index: Int) {
+    func checkMarkTap(bool: Bool, task: TaskE, index: Int) {
         presenter.onCompleteCheckBoxTapped(bool: bool, index: index, task: task)
         print("delegate")
     }
@@ -116,8 +116,10 @@ extension TaskListViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.identifierCell, for: indexPath) as! TaskCell
         cell.delegate = self
-        let task = presenter.getTaskByIndex(index: indexPath.row)
-        cell.configureCell(task: task, index: indexPath.row)
+        
+//        let task = presenter.getTaskByIndex(index: indexPath.row)
+        let tasks = presenter.getTasks()
+        cell.configureCell(task: tasks[indexPath.row], index: indexPath.row)
         
         return cell
     }

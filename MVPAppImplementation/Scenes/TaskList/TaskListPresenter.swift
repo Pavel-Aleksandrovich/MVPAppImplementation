@@ -9,12 +9,13 @@ import UIKit
 
 protocol TaskListPresenter {
     func numberOfTasks() -> Int
-    func getTaskByIndex(index: Int) -> TaskEntity
+    func getTaskByIndex(index: Int) -> TaskE
     func onViewAttached(view: TaskListView)
     func deselectRow(indexPath: IndexPath)
     func deleteTaskByIndex(index: Int)
     func showTaskDetailBylongTouch(index: Int, viewController: UIViewController)
-    func onCompleteCheckBoxTapped(bool: Bool, index: Int, task: TaskEntity)
+    func onCompleteCheckBoxTapped(bool: Bool, index: Int, task: TaskE)
+    func getTasks() -> [TaskEntity]
     }
 
 protocol TaskListView: AnyObject {
@@ -31,10 +32,12 @@ final class TaskListPresenterImpl: TaskListPresenter {
     private weak var view: TaskListView?
     private let router: TaskListRouter
     private let taskSettings: TaskSettings
+    private let taskService: TaskService
     
-    init(router: TaskListRouter, taskSettings: TaskSettings) {
+    init(router: TaskListRouter, taskSettings: TaskSettings, taskService: TaskService) {
         self.router = router
         self.taskSettings = taskSettings
+        self.taskService = taskService
     }
     
     func onViewAttached(view: TaskListView) {
@@ -43,11 +46,16 @@ final class TaskListPresenterImpl: TaskListPresenter {
     }
     
     func numberOfTasks() -> Int {
-        return taskSettings.numberOfTasks()
+//        return taskSettings.numberOfTasks()
+        return taskService.getNumberOfTasks()
     }
     
-    func getTaskByIndex(index: Int) -> TaskEntity {
+    func getTaskByIndex(index: Int) -> TaskE {
         return taskSettings.getTaskByIndex(index: index)
+    }
+    
+    func getTasks() -> [TaskEntity] {
+        return taskService.getTasks()
     }
     
     private func addTaskButtonTapped() {
@@ -68,7 +76,7 @@ final class TaskListPresenterImpl: TaskListPresenter {
         router.presentTaskDetailBylongTouch(index: index, viewController: viewController)
     }
     
-    func onCompleteCheckBoxTapped(bool: Bool, index: Int, task: TaskEntity) {
+    func onCompleteCheckBoxTapped(bool: Bool, index: Int, task: TaskE) {
         taskSettings.updateTaskByIndex(task: task, index: index)
         print(bool)
         print("onCompleteCheckBoxTapped")

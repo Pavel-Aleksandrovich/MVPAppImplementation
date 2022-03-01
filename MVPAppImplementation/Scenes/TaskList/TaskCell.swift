@@ -8,7 +8,7 @@
 import UIKit
 
 protocol Delegate: AnyObject {
-    func checkMarkTap(bool: Bool, task: TaskEntity, index: Int)
+    func checkMarkTap(bool: Bool, task: TaskE, index: Int)
 }
 
 
@@ -31,7 +31,7 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     private let taskCheckMarkButton = UIButton()
     private let taskDataLabel = UILabel()
     private var completed: Bool!
-    private var task: TaskEntity!
+    private var task: TaskE!
     private var index: Int!
     
     override init(frame: CGRect) {
@@ -46,27 +46,29 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     }
 
     func configureCell(task: TaskEntity, index: Int) {
-        titleLabel.text = task.titleText
-        illustrationImageView.image = task.image
-        bacgroundView.layer.borderColor = task.color.cgColor
-        taskDataLabel.text = task.date
         
-        self.index = index
-        print(task.completed)
-        completed = task.completed
-        self.task = task
-        
-        let symbolName: String
-        
-        if task.completed {
-          symbolName = "square"
-        } else {
-          symbolName = "checkmark.square"
-        }
-
-        let configuration = UIImage.SymbolConfiguration(scale: .large)
-        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
-        taskCheckMarkButton.setImage(image, for: .normal)
+        titleLabel.text = task.title
+//        titleLabel.text = task.titleText
+//        illustrationImageView.image = task.image
+//        bacgroundView.layer.borderColor = task.color.cgColor
+//        taskDataLabel.text = task.date
+//
+//        self.index = index
+//        print(task.completed)
+//        completed = task.completed
+//        self.task = task
+//
+//        let symbolName: String
+//
+//        if task.completed {
+//          symbolName = "square"
+//        } else {
+//          symbolName = "checkmark.square"
+//        }
+//
+//        let configuration = UIImage.SymbolConfiguration(scale: .large)
+//        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
+//        taskCheckMarkButton.setImage(image, for: .normal)
     }
     
     func configureView() {

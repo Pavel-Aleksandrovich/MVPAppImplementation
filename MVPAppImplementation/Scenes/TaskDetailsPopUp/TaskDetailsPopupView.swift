@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskDetailsPopupView: UIView {
-    func configure(task: TaskEntity)
+    func configure(task: TaskE)
     var closeButtonTappedHandler: (() -> ())? { get set }
 }
 
@@ -42,7 +42,7 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
         configureLayout()
     }
     
-    func configure(task: TaskEntity) {
+    func configure(task: TaskE) {
         titleLabel.text = task.titleText
         descriptionLabel.text = task.descriptionText
         taskDateLabel.text = task.date
@@ -132,10 +132,9 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.topAnchor.constraint(greaterThanOrEqualTo: descriptionLabel.bottomAnchor, constant: 300),
+            imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.4),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-//            imageView.bottomAnchor.constraint(equalTo: closeButton.topAnchor, constant: 16),
             
             closeButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             closeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),

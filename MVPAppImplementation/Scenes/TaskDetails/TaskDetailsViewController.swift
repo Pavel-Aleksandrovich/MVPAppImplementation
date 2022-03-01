@@ -31,7 +31,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private var fontPicker: FontPicker?
     private var imagePicker: ImagePicker?
     
-    var saveTaskButtonTappedHandler: ((TaskEntity) -> ())?
+    var saveTaskButtonTappedHandler: ((Task) -> ())?
     var colorPickerButtonTappedHandler: ((UIButton) -> ())?
     
     init(presenter: TaskDetailsPresenter) {
@@ -159,14 +159,14 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     private func saveTask(currentDate: String) {
         
-        let addTask = TaskEntity(title: titleTextField.textOrEmptyString,
-                                 image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage.png"),
-                                 currentDate: currentDate,
-                                 descriptionText: descriptionTextView.textOrEmptyString,
-                                 color: colorPickerButton.textOrEmptyString,
-                                 date: datePickerTextField.text!)
-        
-        saveTaskButtonTappedHandler?(addTask)
+//        let addTask = TaskE(title: titleTextField.textOrEmptyString,
+//                                 image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage.png"),
+//                                 currentDate: currentDate,
+//                                 descriptionText: descriptionTextView.textOrEmptyString,
+//                                 color: colorPickerButton.textOrEmptyString,
+//                                 date: datePickerTextField.text!)
+        let task = Task(color: Data(), currentDate: Date(), descriptionText: descriptionTextView.text, fontText: "", image: Data(), title: titleTextField.text ?? "")
+        saveTaskButtonTappedHandler?(task)
     }
     
     private func createCurrentDate() -> String {
@@ -190,7 +190,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
 
 extension TaskDetailsViewController: TaskDetailsController {
     
-    func configure(task: TaskEntity) {
+    func configure(task: TaskE) {
         titleTextField.text = task.titleText
         descriptionTextView.text = task.descriptionText
         imageView.image = task.image

@@ -15,8 +15,8 @@ protocol TaskDetailsController: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
     func setSaveButtonColor(color: UIColor)
-    func configure(task: TaskEntity)
-    var saveTaskButtonTappedHandler: ((TaskEntity) -> ())? { get set }
+    func configure(task: TaskE)
+    var saveTaskButtonTappedHandler: ((Task) -> ())? { get set }
     var colorPickerButtonTappedHandler: ((UIButton) -> ())? { get set }
 }
 
@@ -26,11 +26,13 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private let router: TaskDetailsRouter
     private let taskSettings: TaskSettings
     private let index: Int?
+    private let taskService: TaskService
     
-    init(router: TaskDetailsRouter, taskSettings: TaskSettings, index: Int?) {
+    init(router: TaskDetailsRouter, taskSettings: TaskSettings, index: Int?, taskService: TaskService) {
         self.router = router
         self.taskSettings = taskSettings
         self.index = index
+        self.taskService = taskService
     }
     
     func onViewAttached(controller: TaskDetailsController,
@@ -54,10 +56,11 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private func addTaskButtonPressed() {
         controller?.saveTaskButtonTappedHandler = { [weak self] task in
             if self?.index == nil {
-                self?.taskSettings.saveTask(task: task)
+//                self?.taskSettings.saveTask(task: task)
+                self?.taskService.createTask(sourceTask: task)
                 self?.router.popViewController(animated: false)
             } else {
-                self?.taskSettings.updateTaskByIndex(task: task, index: (self?.index)!)
+//                self?.taskSettings.updateTaskByIndex(task: task, index: (self?.index)!)
                 self?.router.popViewController(animated: false)
             }
         }

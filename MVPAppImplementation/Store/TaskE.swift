@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskEntity: NSObject, NSCoding {
+class TaskE: NSObject, NSCoding {
     
     let titleText: String
     let descriptionText: String

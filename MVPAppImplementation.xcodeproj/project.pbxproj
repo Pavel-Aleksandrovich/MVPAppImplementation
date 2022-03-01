@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		846BA6C827BB5EFA006D8447 /* MVPAppImplementation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6C627BB5EFA006D8447 /* MVPAppImplementation.xcdatamodeld */; };
-		846BA6CB27BB9A4A006D8447 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CA27BB9A4A006D8447 /* DataStoreManager.swift */; };
-		846BA6CE27BBA8D8006D8447 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CC27BBA8D8006D8447 /* Task+CoreDataClass.swift */; };
-		846BA6CF27BBA8D8006D8447 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CD27BBA8D8006D8447 /* Task+CoreDataProperties.swift */; };
+		846BA6CB27BB9A4A006D8447 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6CA27BB9A4A006D8447 /* CoreDataManager.swift */; };
 		846BA6D227BCB665006D8447 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6D127BCB665006D8447 /* ImagePicker.swift */; };
 		846BA6D427BE7AB0006D8447 /* TaskDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BA6D327BE7AB0006D8447 /* TaskDetailsView.swift */; };
 		8476A1BE278815870062440A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1BD278815870062440A /* AppDelegate.swift */; };
@@ -24,7 +22,7 @@
 		8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DD278949660062440A /* TaskDetailsViewController.swift */; };
 		8476A1E0278949A90062440A /* TaskDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */; };
 		8476A1E2278963C00062440A /* TaskDetailsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */; };
-		8476A1E62789812F0062440A /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E52789812F0062440A /* TaskEntity.swift */; };
+		8476A1E62789812F0062440A /* TaskE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E52789812F0062440A /* TaskE.swift */; };
 		8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E7278BE9F20062440A /* TaskListRouter.swift */; };
 		8476A1EA278BFA510062440A /* TaskDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */; };
 		8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F5278D39AD0062440A /* TaskSettings.swift */; };
@@ -55,13 +53,15 @@
 		847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDC27C37BA1005E8A6C /* DatePicker.swift */; };
 		847BBBDF27C39953005E8A6C /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBDE27C39953005E8A6C /* FontPicker.swift */; };
 		847BBBE127C48FCE005E8A6C /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBBE027C48FCE005E8A6C /* ContextMenu.swift */; };
+		847BBC5D27CDCA26005E8A6C /* TaskEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC5B27CDCA26005E8A6C /* TaskEntity+CoreDataClass.swift */; };
+		847BBC5E27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC5C27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift */; };
+		847BBC6027CDCB1B005E8A6C /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC5F27CDCB1B005E8A6C /* TaskService.swift */; };
+		847BBC6227CDCCA6005E8A6C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC6127CDCCA6005E8A6C /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		846BA6C727BB5EFA006D8447 /* MVPAppImplementation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MVPAppImplementation.xcdatamodel; sourceTree = "<group>"; };
-		846BA6CA27BB9A4A006D8447 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
-		846BA6CC27BBA8D8006D8447 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		846BA6CD27BBA8D8006D8447 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		846BA6CA27BB9A4A006D8447 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		846BA6D127BCB665006D8447 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		846BA6D327BE7AB0006D8447 /* TaskDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsView.swift; sourceTree = "<group>"; };
 		8476A1BA278815870062440A /* MVPAppImplementation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVPAppImplementation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,7 +77,7 @@
 		8476A1DD278949660062440A /* TaskDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsViewController.swift; sourceTree = "<group>"; };
 		8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPresenter.swift; sourceTree = "<group>"; };
 		8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsAssembler.swift; sourceTree = "<group>"; };
-		8476A1E52789812F0062440A /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
+		8476A1E52789812F0062440A /* TaskE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskE.swift; sourceTree = "<group>"; };
 		8476A1E7278BE9F20062440A /* TaskListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRouter.swift; sourceTree = "<group>"; };
 		8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsRouter.swift; sourceTree = "<group>"; };
 		8476A1F5278D39AD0062440A /* TaskSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettings.swift; sourceTree = "<group>"; };
@@ -108,6 +108,10 @@
 		847BBBDC27C37BA1005E8A6C /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		847BBBDE27C39953005E8A6C /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		847BBBE027C48FCE005E8A6C /* ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
+		847BBC5B27CDCA26005E8A6C /* TaskEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847BBC5C27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847BBC5F27CDCB1B005E8A6C /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
+		847BBC6127CDCCA6005E8A6C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				846BA6D027BBA8EF006D8447 /* Models */,
-				846BA6CA27BB9A4A006D8447 /* DataStoreManager.swift */,
+				846BA6CA27BB9A4A006D8447 /* CoreDataManager.swift */,
+				847BBC5F27CDCB1B005E8A6C /* TaskService.swift */,
 			);
 			path = DataStoreManager;
 			sourceTree = "<group>";
@@ -133,8 +138,8 @@
 		846BA6D027BBA8EF006D8447 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				846BA6CC27BBA8D8006D8447 /* Task+CoreDataClass.swift */,
-				846BA6CD27BBA8D8006D8447 /* Task+CoreDataProperties.swift */,
+				847BBC5B27CDCA26005E8A6C /* TaskEntity+CoreDataClass.swift */,
+				847BBC5C27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -234,8 +239,9 @@
 		8476A1F4278D39150062440A /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				8476A1E52789812F0062440A /* TaskEntity.swift */,
+				8476A1E52789812F0062440A /* TaskE.swift */,
 				8476A1F5278D39AD0062440A /* TaskSettings.swift */,
+				847BBC6127CDCCA6005E8A6C /* Task.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -399,7 +405,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8476A23027A3AE360062440A /* MonthMetadata.swift in Sources */,
+				847BBC5E27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift in Sources */,
 				8476A210279EBA560062440A /* TaskDetailsPopupAssembler.swift in Sources */,
+				847BBC6027CDCB1B005E8A6C /* TaskService.swift in Sources */,
 				847BBBE127C48FCE005E8A6C /* ContextMenu.swift in Sources */,
 				8476A21C27A2644C0062440A /* FontPickerPresenter.swift in Sources */,
 				8476A1C2278815870062440A /* TaskListViewController.swift in Sources */,
@@ -413,7 +421,7 @@
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
 				8476A20E279EBA3B0062440A /* TaskDetailsPopupRouter.swift in Sources */,
 				8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */,
-				8476A1E62789812F0062440A /* TaskEntity.swift in Sources */,
+				8476A1E62789812F0062440A /* TaskE.swift in Sources */,
 				846BA6C827BB5EFA006D8447 /* MVPAppImplementation.xcdatamodeld in Sources */,
 				8476A208279AA87F0062440A /* TaskDetailsPopupViewController.swift in Sources */,
 				8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */,
@@ -427,22 +435,22 @@
 				8476A2012799602A0062440A /* FontPickerViewController.swift in Sources */,
 				8476A1DB27883CFB0062440A /* TaskCell.swift in Sources */,
 				8476A1FE279930170062440A /* ColorPickerCell.swift in Sources */,
+				847BBC5D27CDCA26005E8A6C /* TaskEntity+CoreDataClass.swift in Sources */,
 				8476A204279A60A60062440A /* DatePickerPopoverViewController.swift in Sources */,
-				846BA6CB27BB9A4A006D8447 /* DataStoreManager.swift in Sources */,
+				846BA6CB27BB9A4A006D8447 /* CoreDataManager.swift in Sources */,
 				8476A21827A15A780062440A /* ColorPickerPresenter.swift in Sources */,
 				8476A22927A3AE220062440A /* CalendarPickerHeaderView.swift in Sources */,
-				846BA6CE27BBA8D8006D8447 /* Task+CoreDataClass.swift in Sources */,
 				8476A1E0278949A90062440A /* TaskDetailsPresenter.swift in Sources */,
 				8476A20A279E83390062440A /* UITextField Extension.swift in Sources */,
 				8476A1C0278815870062440A /* SceneDelegate.swift in Sources */,
 				8476A22727A3AE220062440A /* CalendarPickerViewController.swift in Sources */,
+				847BBC6227CDCCA6005E8A6C /* Task.swift in Sources */,
 				8476A22627A3AE220062440A /* CalendarPickerFooterView.swift in Sources */,
 				8476A21427A154BE0062440A /* ColorEntity.swift in Sources */,
 				8476A22027A26B060062440A /* FontEntity.swift in Sources */,
 				8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */,
 				8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */,
 				847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */,
-				846BA6CF27BBA8D8006D8447 /* Task+CoreDataProperties.swift in Sources */,
 				8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

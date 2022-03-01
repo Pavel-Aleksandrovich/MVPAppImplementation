@@ -8,11 +8,11 @@
 import Foundation
 
 protocol TaskSettings {
-    func saveTask(task: TaskEntity)
+    func saveTask(task: TaskE)
     func removeTask(index: Int)
     func numberOfTasks() -> Int
-    func getTaskByIndex(index: Int) -> TaskEntity
-    func updateTaskByIndex(task: TaskEntity, index: Int)
+    func getTaskByIndex(index: Int) -> TaskE
+    func updateTaskByIndex(task: TaskE, index: Int)
 }
 
 final class TaskSettingsImpl: TaskSettings {
@@ -21,10 +21,10 @@ final class TaskSettingsImpl: TaskSettings {
         static let taskEntity = "taskEntity"
     }
     
-    private var tasks: [TaskEntity]! {
+    private var tasks: [TaskE]! {
         get {
             guard let data = UserDefaults.standard.object(forKey: SettingsKey.taskEntity) as? Data,
-                  let decodeModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [TaskEntity] else { return [TaskEntity(title: "nil", image: #imageLiteral(resourceName: "DefaultProfileImage"), currentDate: "", descriptionText: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), date: "")] }
+                  let decodeModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [TaskE] else { return [TaskE(title: "nil", image: #imageLiteral(resourceName: "DefaultProfileImage"), currentDate: "", descriptionText: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), date: "")] }
             return decodeModel
         } set {
             if let model = newValue {
@@ -35,7 +35,7 @@ final class TaskSettingsImpl: TaskSettings {
         }
     }
     
-    func saveTask(task: TaskEntity) {
+    func saveTask(task: TaskE) {
         tasks.insert(task, at: 0)
     }
     
@@ -47,11 +47,11 @@ final class TaskSettingsImpl: TaskSettings {
         return tasks.count
     }
     
-    func getTaskByIndex(index: Int) -> TaskEntity {
+    func getTaskByIndex(index: Int) -> TaskE {
         return tasks[index]
     }
     
-    func updateTaskByIndex(task: TaskEntity, index: Int) {
+    func updateTaskByIndex(task: TaskE, index: Int) {
         tasks.remove(at: index)
         tasks.insert(task, at: index)
     }

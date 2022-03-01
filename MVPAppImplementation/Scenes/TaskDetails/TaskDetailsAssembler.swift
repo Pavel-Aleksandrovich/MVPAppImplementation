@@ -13,7 +13,8 @@ final class TaskDetailsAssembler {
         
         let router = TaskDetailsRouterImpl()
         let taskSettings = TaskSettingsImpl()
-        let presenter = TaskDetailsPresenterImpl(router: router, taskSettings: taskSettings, index: index)
+        let taskService = TaskServiceImpl()
+        let presenter = TaskDetailsPresenterImpl(router: router, taskSettings: taskSettings, index: index, taskService: taskService)
         let controller = TaskDetailsViewController(presenter: presenter)
         router.controller = controller
         
