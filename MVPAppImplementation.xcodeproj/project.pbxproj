@@ -22,10 +22,8 @@
 		8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DD278949660062440A /* TaskDetailsViewController.swift */; };
 		8476A1E0278949A90062440A /* TaskDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */; };
 		8476A1E2278963C00062440A /* TaskDetailsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */; };
-		8476A1E62789812F0062440A /* TaskE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E52789812F0062440A /* TaskE.swift */; };
 		8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E7278BE9F20062440A /* TaskListRouter.swift */; };
 		8476A1EA278BFA510062440A /* TaskDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */; };
-		8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F5278D39AD0062440A /* TaskSettings.swift */; };
 		8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1F8278D51E30062440A /* UIViewController Extension.swift */; };
 		8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FB2798065A0062440A /* ColorPickerViewController.swift */; };
 		8476A1FE279930170062440A /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476A1FD279930170062440A /* ColorPickerCell.swift */; };
@@ -77,10 +75,8 @@
 		8476A1DD278949660062440A /* TaskDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsViewController.swift; sourceTree = "<group>"; };
 		8476A1DF278949A90062440A /* TaskDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsPresenter.swift; sourceTree = "<group>"; };
 		8476A1E1278963C00062440A /* TaskDetailsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsAssembler.swift; sourceTree = "<group>"; };
-		8476A1E52789812F0062440A /* TaskE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskE.swift; sourceTree = "<group>"; };
 		8476A1E7278BE9F20062440A /* TaskListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRouter.swift; sourceTree = "<group>"; };
 		8476A1E9278BFA510062440A /* TaskDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsRouter.swift; sourceTree = "<group>"; };
-		8476A1F5278D39AD0062440A /* TaskSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettings.swift; sourceTree = "<group>"; };
 		8476A1F8278D51E30062440A /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
 		8476A1FB2798065A0062440A /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		8476A1FD279930170062440A /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
@@ -140,6 +136,7 @@
 			children = (
 				847BBC5B27CDCA26005E8A6C /* TaskEntity+CoreDataClass.swift */,
 				847BBC5C27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift */,
+				847BBC6127CDCCA6005E8A6C /* Task.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -165,7 +162,6 @@
 			children = (
 				8476A1D627882F770062440A /* Application */,
 				846BA6C927BB9A26006D8447 /* DataStoreManager */,
-				8476A1F4278D39150062440A /* Store */,
 				8476A1E4278981130062440A /* Common */,
 				8476A1D9278831150062440A /* Scenes */,
 				8476A1D727882FCC0062440A /* Resources */,
@@ -234,16 +230,6 @@
 				847BBBDB27C351C6005E8A6C /* Helpers */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		8476A1F4278D39150062440A /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				8476A1E52789812F0062440A /* TaskE.swift */,
-				8476A1F5278D39AD0062440A /* TaskSettings.swift */,
-				847BBC6127CDCCA6005E8A6C /* Task.swift */,
-			);
-			path = Store;
 			sourceTree = "<group>";
 		};
 		8476A1F7278D51B70062440A /* Extensions */ = {
@@ -420,8 +406,6 @@
 				8476A212279FCB3A0062440A /* TaskDetailsPopupView.swift in Sources */,
 				8476A1D3278817870062440A /* TaskListPresenter.swift in Sources */,
 				8476A20E279EBA3B0062440A /* TaskDetailsPopupRouter.swift in Sources */,
-				8476A1F6278D39AD0062440A /* TaskSettings.swift in Sources */,
-				8476A1E62789812F0062440A /* TaskE.swift in Sources */,
 				846BA6C827BB5EFA006D8447 /* MVPAppImplementation.xcdatamodeld in Sources */,
 				8476A208279AA87F0062440A /* TaskDetailsPopupViewController.swift in Sources */,
 				8476A1E8278BE9F20062440A /* TaskListRouter.swift in Sources */,

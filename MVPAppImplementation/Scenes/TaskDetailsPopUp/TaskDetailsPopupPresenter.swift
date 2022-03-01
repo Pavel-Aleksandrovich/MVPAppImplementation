@@ -19,12 +19,10 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     private weak var controller: TaskDetailsPopupController?
     private weak var view: TaskDetailsPopupView?
     private let index: Int
-    private let taskSettings: TaskSettings
     private let router: TaskDetailsPopupRouter
     
-    init(index: Int, taskSettings: TaskSettings, router: TaskDetailsPopupRouter) {
+    init(index: Int, router: TaskDetailsPopupRouter) {
         self.index = index
-        self.taskSettings = taskSettings
         self.router = router
     }
     
@@ -37,8 +35,8 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     }
     
     private func getTaskByIndex() {
-        let task = taskSettings.getTaskByIndex(index: index)
-        view?.configure(task: task)
+//        let task = taskSettings.getTaskByIndex(index: index)
+//        view?.configure(task: task)
     }
     
     private func dismissView() {

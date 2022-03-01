@@ -15,7 +15,7 @@ protocol TaskDetailsController: AnyObject {
     func setViewBackgrounColor(color: UIColor?)
     func setViewTitle(title: String?)
     func setSaveButtonColor(color: UIColor)
-    func configure(task: TaskE)
+    func configure(task: TaskEntity)
     var saveTaskButtonTappedHandler: ((Task) -> ())? { get set }
     var colorPickerButtonTappedHandler: ((UIButton) -> ())? { get set }
 }
@@ -24,13 +24,11 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private weak var controller: TaskDetailsController?
     private weak var view: TaskDetailsView?
     private let router: TaskDetailsRouter
-    private let taskSettings: TaskSettings
     private let index: Int?
     private let taskService: TaskService
     
-    init(router: TaskDetailsRouter, taskSettings: TaskSettings, index: Int?, taskService: TaskService) {
+    init(router: TaskDetailsRouter, index: Int?, taskService: TaskService) {
         self.router = router
-        self.taskSettings = taskSettings
         self.index = index
         self.taskService = taskService
     }
@@ -48,19 +46,18 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     }
     
     private func configureView() {
-        guard let index = index else { return }
-        let task = taskSettings.getTaskByIndex(index: index)
-        controller?.configure(task: task)
+//        guard let index = index else { return }
+//        let task = taskSettings.getTaskByIndex(index: index)
+//        controller?.configure(task: task)
     }
     
     private func addTaskButtonPressed() {
         controller?.saveTaskButtonTappedHandler = { [weak self] task in
             if self?.index == nil {
-//                self?.taskSettings.saveTask(task: task)
                 self?.taskService.createTask(sourceTask: task)
                 self?.router.popViewController(animated: false)
             } else {
-//                self?.taskSettings.updateTaskByIndex(task: task, index: (self?.index)!)
+                // TO DO update
                 self?.router.popViewController(animated: false)
             }
         }

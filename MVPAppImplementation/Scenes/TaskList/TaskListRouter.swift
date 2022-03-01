@@ -9,8 +9,7 @@ import UIKit
 
 protocol TaskListRouter {
     func presentTaskDetails(animated: Bool, index: Int?)
-    
-    func presentTaskDetailBylongTouch(index: Int, viewController: UIViewController)
+    func presentTaskDetailsPopup(index: Int)
 }
 
 final class TaskListRouterImpl: TaskListRouter {
@@ -23,8 +22,8 @@ final class TaskListRouterImpl: TaskListRouter {
         controller?.navigationController?.pushViewController(vc, animated: animated)
     }
     
-    func presentTaskDetailBylongTouch(index: Int, viewController: UIViewController) {
+    func presentTaskDetailsPopup(index: Int) {
         let pop = TaskDetailsPopupAssembler.assembly(taskIndex: index)
-        viewController.present(pop, animated: true)
+        controller?.present(pop, animated: true)
     }
 }

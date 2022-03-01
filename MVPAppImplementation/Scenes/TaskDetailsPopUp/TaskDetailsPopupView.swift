@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskDetailsPopupView: UIView {
-    func configure(task: TaskE)
+    func configure(task: TaskEntity)
     var closeButtonTappedHandler: (() -> ())? { get set }
 }
 
@@ -42,15 +42,15 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
         configureLayout()
     }
     
-    func configure(task: TaskE) {
-        titleLabel.text = task.titleText
-        descriptionLabel.text = task.descriptionText
-        taskDateLabel.text = task.date
-        imageView.image = task.image
-        backgroundView.layer.borderColor = task.color.cgColor
-        
-        closeButton.setTitleColor(task.color, for: .normal)
-        closeButton.layer.borderColor = task.color.cgColor
+    func configure(task: TaskEntity) {
+//        titleLabel.text = task.titleText
+//        descriptionLabel.text = task.descriptionText
+//        taskDateLabel.text = task.date
+//        imageView.image = task.image
+//        backgroundView.layer.borderColor = task.color.cgColor
+//
+//        closeButton.setTitleColor(task.color, for: .normal)
+//        closeButton.layer.borderColor = task.color.cgColor
     }
     
     private func closeButtonAddTarget() {

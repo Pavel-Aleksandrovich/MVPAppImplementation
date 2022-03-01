@@ -91,17 +91,11 @@ class TaskListViewController: UIViewController {
 
 // MARK: - TaskListView
 
-extension TaskListViewController: TaskListView, Delegate {
+extension TaskListViewController: TaskListView {
     
     func deselectRow(indexPath: IndexPath, animated: Bool) {
         collectionView.deselectItem(at: indexPath, animated: animated)
     }
-
-    func checkMarkTap(bool: Bool, task: TaskE, index: Int) {
-        presenter.onCompleteCheckBoxTapped(bool: bool, index: index, task: task)
-        print("delegate")
-    }
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -115,11 +109,9 @@ extension TaskListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.identifierCell, for: indexPath) as! TaskCell
-        cell.delegate = self
         
-//        let task = presenter.getTaskByIndex(index: indexPath.row)
         let tasks = presenter.getTasks()
-        cell.configureCell(task: tasks[indexPath.row], index: indexPath.row)
+        cell.configureCell(task: tasks[indexPath.row])
         
         return cell
     }
@@ -132,7 +124,7 @@ extension TaskListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         presenter.deselectRow(indexPath: indexPath)
-        presenter.showTaskDetailBylongTouch(index: indexPath.row, viewController: self)
+        presenter.showTaskDetailsPopup(index: indexPath.row)
     }
 }
 

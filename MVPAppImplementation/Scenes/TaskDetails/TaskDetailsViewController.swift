@@ -190,11 +190,11 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
 
 extension TaskDetailsViewController: TaskDetailsController {
     
-    func configure(task: TaskE) {
-        titleTextField.text = task.titleText
-        descriptionTextView.text = task.descriptionText
-        imageView.image = task.image
-        colorPickerButton.backgroundColor = task.color
+    func configure(task: TaskEntity) {
+//        titleTextField.text = task.titleText
+//        descriptionTextView.text = task.descriptionText
+//        imageView.image = task.image
+//        colorPickerButton.backgroundColor = task.color
     }
     
     func setSaveButtonColor(color: UIColor) {

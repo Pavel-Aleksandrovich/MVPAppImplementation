@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol Delegate: AnyObject {
-    func checkMarkTap(bool: Bool, task: TaskE, index: Int)
-}
-
-
 final class TaskCell: UICollectionViewCell, TaskListCellView {
     
     private enum Constants {
@@ -23,16 +18,12 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         static let taskCheckMarkButton: CGFloat = 30
     }
     
-    weak var delegate: Delegate?
     private let bacgroundView = UIView()
     private let titleLabel = UILabel()
     private let illustrationImageView = UIImageView()
     private let taskCurrentDataLabel = UILabel()
     private let taskCheckMarkButton = UIButton()
     private let taskDataLabel = UILabel()
-    private var completed: Bool!
-    private var task: TaskE!
-    private var index: Int!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,7 +36,7 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureCell(task: TaskEntity, index: Int) {
+    func configureCell(task: TaskEntity) {
         
         titleLabel.text = task.title
 //        titleLabel.text = task.titleText
@@ -108,25 +99,25 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     }
     
     @objc func pres() {
-        print("press")
-        
-        guard let task = task, var completed = completed else {return}
-        completed.toggle()
-        delegate?.checkMarkTap(bool: completed, task: task, index: index)
-        print(completed)
-        task.completed = completed
-        print(task.completed)
-        let symbolName: String
-        
-        if completed {
-          symbolName = "square"
-        } else {
-          symbolName = "checkmark.square"
-        }
-
-        let configuration = UIImage.SymbolConfiguration(scale: .large)
-        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
-        taskCheckMarkButton.setImage(image, for: .normal)
+//        print("press")
+//        
+//        guard let task = task, var completed = completed else {return}
+//        completed.toggle()
+//        
+//        print(completed)
+//        task.completed = completed
+//        print(task.completed)
+//        let symbolName: String
+//        
+//        if completed {
+//          symbolName = "square"
+//        } else {
+//          symbolName = "checkmark.square"
+//        }
+//
+//        let configuration = UIImage.SymbolConfiguration(scale: .large)
+//        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
+//        taskCheckMarkButton.setImage(image, for: .normal)
         
     }
     
