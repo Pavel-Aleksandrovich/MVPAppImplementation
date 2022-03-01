@@ -159,13 +159,8 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     private func saveTask(currentDate: String) {
         
-//        let addTask = TaskE(title: titleTextField.textOrEmptyString,
-//                                 image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage.png"),
-//                                 currentDate: currentDate,
-//                                 descriptionText: descriptionTextView.textOrEmptyString,
-//                                 color: colorPickerButton.textOrEmptyString,
-//                                 date: datePickerTextField.text!)
         let task = Task(color: Data(), currentDate: Date(), descriptionText: descriptionTextView.text, fontText: "", image: Data(), title: titleTextField.text ?? "")
+        
         saveTaskButtonTappedHandler?(task)
     }
     
@@ -191,10 +186,8 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
 extension TaskDetailsViewController: TaskDetailsController {
     
     func configure(task: TaskEntity) {
-//        titleTextField.text = task.titleText
-//        descriptionTextView.text = task.descriptionText
-//        imageView.image = task.image
-//        colorPickerButton.backgroundColor = task.color
+        titleTextField.text = task.title
+        descriptionTextView.text = task.descriptionText
     }
     
     func setSaveButtonColor(color: UIColor) {

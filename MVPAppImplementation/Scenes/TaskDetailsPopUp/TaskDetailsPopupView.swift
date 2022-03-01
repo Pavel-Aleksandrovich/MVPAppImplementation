@@ -43,8 +43,8 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     }
     
     func configure(task: TaskEntity) {
-//        titleLabel.text = task.titleText
-//        descriptionLabel.text = task.descriptionText
+        titleLabel.text = task.title
+        descriptionLabel.text = task.descriptionText
 //        taskDateLabel.text = task.date
 //        imageView.image = task.image
 //        backgroundView.layer.borderColor = task.color.cgColor

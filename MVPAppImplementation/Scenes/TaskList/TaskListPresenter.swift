@@ -17,7 +17,7 @@ protocol TaskListPresenter {
     }
 
 protocol TaskListView: AnyObject {
-    var addTaskButtonTappedHandler: ((Int?) -> ())? { get set }
+    var showTaskDetailsHandler: ((Int?) -> ())? { get set }
     func deselectRow(indexPath: IndexPath, animated: Bool)
 }
 
@@ -30,6 +30,7 @@ final class TaskListPresenterImpl: TaskListPresenter {
     private weak var view: TaskListView?
     private let router: TaskListRouter
     private let taskService: TaskService
+    private var tasks = [TaskEntity]()
     
     init(router: TaskListRouter, taskService: TaskService) {
         self.router = router
@@ -46,11 +47,12 @@ final class TaskListPresenterImpl: TaskListPresenter {
     }
     
     func getTasks() -> [TaskEntity] {
-        return taskService.getTasks()
+        tasks = taskService.getTasks()
+        return tasks
     }
     
     private func addTaskButtonTapped() {
-        view?.addTaskButtonTappedHandler = { [weak self] index in
+        view?.showTaskDetailsHandler = { [weak self] index in
             self?.router.presentTaskDetails(animated: false, index: index)
         }
     }
@@ -60,6 +62,7 @@ final class TaskListPresenterImpl: TaskListPresenter {
     }
     
     func deleteTaskByIndex(index: Int) {
+        taskService.deleteTaskBy(id: tasks[index].objectID)
     }
     
     func showTaskDetailsPopup(index: Int) {

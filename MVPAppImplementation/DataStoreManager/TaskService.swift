@@ -34,9 +34,8 @@ final class TaskServiceImpl: TaskService {
     }
     
     func updateTask(sourceTask: Task, task: TaskEntity) {
-//        task.title = sourceTask.title
-//        task.descriptionText = sourceTask.descriptionText
-//        task.note = sourceTask.animalName
+        task.title = sourceTask.title
+        task.descriptionText = sourceTask.descriptionText
         
         coreDataManager.saveContext()
     }

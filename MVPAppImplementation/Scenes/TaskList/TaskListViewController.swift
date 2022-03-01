@@ -26,7 +26,7 @@ class TaskListViewController: UIViewController {
     private let addTaskButton = UIButton()
     private var contextMenu = ContextMenu()
     
-    var addTaskButtonTappedHandler: ((Int?) -> ())?
+    var showTaskDetailsHandler: ((Int?) -> ())?
     
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
@@ -67,7 +67,7 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func addTaskButtonTapped() {
-        addTaskButtonTappedHandler?(nil)
+        showTaskDetailsHandler?(nil)
     }
     
     func updateTask(closure: @escaping (Bool, Int) -> ()) {
@@ -151,7 +151,7 @@ extension TaskListViewController {
                     collectionView.reloadData()
                 }
             case .edit:
-                self?.addTaskButtonTappedHandler?(indexPath.row)
+                self?.showTaskDetailsHandler?(indexPath.row)
             case .showDetails:
                 print("showDetails")
             }

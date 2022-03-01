@@ -20,10 +20,13 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     private weak var view: TaskDetailsPopupView?
     private let index: Int
     private let router: TaskDetailsPopupRouter
+    private let taskService: TaskService
+    private var tasks = [TaskEntity]()
     
-    init(index: Int, router: TaskDetailsPopupRouter) {
+    init(index: Int, router: TaskDetailsPopupRouter, taskService: TaskService) {
         self.index = index
         self.router = router
+        self.taskService = taskService
     }
     
     func onViewAttached(controller: TaskDetailsPopupController,
@@ -35,6 +38,9 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     }
     
     private func getTaskByIndex() {
+        tasks = taskService.getTasks()
+        guard let task = taskService.getTaskBy(id: tasks[index].objectID) else { return }
+        view?.configure(task: task)
 //        let task = taskSettings.getTaskByIndex(index: index)
 //        view?.configure(task: task)
     }

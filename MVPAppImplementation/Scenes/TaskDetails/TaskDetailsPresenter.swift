@@ -26,6 +26,7 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     private let router: TaskDetailsRouter
     private let index: Int?
     private let taskService: TaskService
+    private var task: TaskEntity?
     
     init(router: TaskDetailsRouter, index: Int?, taskService: TaskService) {
         self.router = router
@@ -35,6 +36,7 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     
     func onViewAttached(controller: TaskDetailsController,
                         view: TaskDetailsView) {
+        
         controller.setViewTitle(title: "Add Task")
         controller.setViewBackgrounColor(color: .white.withAlphaComponent(0.9))
         controller.setSaveButtonColor(color: .gray.withAlphaComponent(0.6))
@@ -46,18 +48,22 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     }
     
     private func configureView() {
-//        guard let index = index else { return }
-//        let task = taskSettings.getTaskByIndex(index: index)
-//        controller?.configure(task: task)
+        guard let index = index else { return }
+        let tasks = taskService.getTasks()
+        task = taskService.getTaskBy(id: tasks[index].objectID)
+        
+        guard let task = task else { return }
+        controller?.configure(task: task)
+        
     }
     
     private func addTaskButtonPressed() {
-        controller?.saveTaskButtonTappedHandler = { [weak self] task in
+        controller?.saveTaskButtonTappedHandler = { [weak self] sourceTask in
             if self?.index == nil {
-                self?.taskService.createTask(sourceTask: task)
+                self?.taskService.createTask(sourceTask: sourceTask)
                 self?.router.popViewController(animated: false)
             } else {
-                // TO DO update
+                self?.taskService.updateTask(sourceTask: sourceTask, task: (self?.task)!)
                 self?.router.popViewController(animated: false)
             }
         }
