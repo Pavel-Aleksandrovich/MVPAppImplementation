@@ -23,7 +23,12 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     private let illustrationImageView = UIImageView()
     private let taskCurrentDataLabel = UILabel()
     private let taskCheckMarkButton = UIButton()
-    private let taskDataLabel = UILabel()
+    private let dateLabel = UILabel()
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy, h:mm a"
+        return dateFormatter
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,27 +44,11 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     func configureCell(task: TaskEntity) {
         
         titleLabel.text = task.title
-//        titleLabel.text = task.titleText
-//        illustrationImageView.image = task.image
-//        bacgroundView.layer.borderColor = task.color.cgColor
-//        taskDataLabel.text = task.date
-//
-//        self.index = index
-//        print(task.completed)
-//        completed = task.completed
-//        self.task = task
-//
-//        let symbolName: String
-//
-//        if task.completed {
-//          symbolName = "square"
-//        } else {
-//          symbolName = "checkmark.square"
-//        }
-//
-//        let configuration = UIImage.SymbolConfiguration(scale: .large)
-//        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
-//        taskCheckMarkButton.setImage(image, for: .normal)
+        let dateString = dateFormatter.string(from: task.currentDate ?? Date())
+        dateLabel.text = dateString
+
+        guard let imageData = task.image else {return}
+        illustrationImageView.image = UIImage(data: imageData)
     }
     
     func configureView() {
@@ -68,7 +57,7 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         bacgroundView.addSubview(illustrationImageView)
         bacgroundView.addSubview(titleLabel)
         bacgroundView.addSubview(taskCheckMarkButton)
-        bacgroundView.addSubview(taskDataLabel)
+        bacgroundView.addSubview(dateLabel)
         
         bacgroundView.backgroundColor = .white
         bacgroundView.layer.cornerRadius = Constants.cellCornerRadius
@@ -79,7 +68,7 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         
         taskCheckMarkButton.backgroundColor = .none
         taskCheckMarkButton.setImage(UIImage(systemName: "square", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
-        taskCheckMarkButton.addTarget(self, action: #selector(pres), for: .touchUpInside)
+//        taskCheckMarkButton.addTarget(self, action: #selector(pres), for: .touchUpInside)
         
         taskCheckMarkButton.contentMode = .scaleAspectFit
         taskCheckMarkButton.isUserInteractionEnabled = true
@@ -93,31 +82,8 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         illustrationImageView.layer.cornerRadius = (self.bounds.height)/4
         illustrationImageView.clipsToBounds = true
         
-        taskDataLabel.font = .systemFont(ofSize: 15, weight: .light)
-        taskDataLabel.textAlignment = .left
-        
-    }
-    
-    @objc func pres() {
-//        print("press")
-//        
-//        guard let task = task, var completed = completed else {return}
-//        completed.toggle()
-//        
-//        print(completed)
-//        task.completed = completed
-//        print(task.completed)
-//        let symbolName: String
-//        
-//        if completed {
-//          symbolName = "square"
-//        } else {
-//          symbolName = "checkmark.square"
-//        }
-//
-//        let configuration = UIImage.SymbolConfiguration(scale: .large)
-//        let image = UIImage(systemName: symbolName, withConfiguration: configuration)
-//        taskCheckMarkButton.setImage(image, for: .normal)
+        dateLabel.font = .systemFont(ofSize: 15, weight: .light)
+        dateLabel.textAlignment = .left
         
     }
     
@@ -125,7 +91,7 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     
     func configureLayoutConstraints() {
         
-        [bacgroundView, titleLabel, illustrationImageView, taskCurrentDataLabel, taskCheckMarkButton, taskDataLabel].forEach {
+        [bacgroundView, titleLabel, illustrationImageView, taskCurrentDataLabel, taskCheckMarkButton, dateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -150,10 +116,10 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
             taskCheckMarkButton.heightAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
             taskCheckMarkButton.widthAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
             
-            taskDataLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.taskDataLabelConstant),
-            taskDataLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskDataLabelConstant),
-            taskDataLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -2*Constants.taskDataLabelConstant),
-            taskDataLabel.heightAnchor.constraint(equalToConstant: 2*Constants.taskDataLabelConstant),
+            dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.taskDataLabelConstant),
+            dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskDataLabelConstant),
+            dateLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -2*Constants.taskDataLabelConstant),
+            dateLabel.heightAnchor.constraint(equalToConstant: 2*Constants.taskDataLabelConstant),
         ])
     }
 }

@@ -45,6 +45,8 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
     func configure(task: TaskEntity) {
         titleLabel.text = task.title
         descriptionLabel.text = task.descriptionText
+        guard let imageData = task.image else {return}
+        imageView.image = UIImage(data: imageData)
 //        taskDateLabel.text = task.date
 //        imageView.image = task.image
 //        backgroundView.layer.borderColor = task.color.cgColor
@@ -130,6 +132,7 @@ final class TaskDetailsPopupViewImpl: UIView, TaskDetailsPopupView {
             descriptionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             descriptionLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+//            descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 200),
             
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),

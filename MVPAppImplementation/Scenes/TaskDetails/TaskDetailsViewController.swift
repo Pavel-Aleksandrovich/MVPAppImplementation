@@ -30,6 +30,11 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private var datePicker: DatePicker?
     private var fontPicker: FontPicker?
     private var imagePicker: ImagePicker?
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy, h:mm a"
+        return dateFormatter
+    }()
     
     var saveTaskButtonTappedHandler: ((Task) -> ())?
     var colorPickerButtonTappedHandler: ((UIButton) -> ())?
@@ -51,8 +56,8 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.onViewAttached(controller: self, view: mainView)
         configureAppearance()
+        presenter.onViewAttached(controller: self, view: mainView)
         configureView()
         configureLayout()
         configureActions()
@@ -152,25 +157,11 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     }
     
     @objc private func saveButtonTapped() {
-        let currentDate = createCurrentDate()
+        let currentDate = dateFormatter.date(from: datePickerTextField.text ?? "")
         
-        saveTask(currentDate: currentDate)
-    }
-    
-    private func saveTask(currentDate: String) {
-        
-        let task = Task(color: Data(), currentDate: Date(), descriptionText: descriptionTextView.text, fontText: "", image: Data(), title: titleTextField.text ?? "")
+        let task = Task(color: "", currentDate: currentDate ?? Date(), descriptionText: descriptionTextView.text, fontText: "", image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage"), title: titleTextField.text ?? "")
         
         saveTaskButtonTappedHandler?(task)
-    }
-    
-    private func createCurrentDate() -> String {
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let dateTimeString = formatter.string(from: currentDate)
-        
-        return dateTimeString
     }
     
     func pickColor(color: UIColor?) {
@@ -188,6 +179,12 @@ extension TaskDetailsViewController: TaskDetailsController {
     func configure(task: TaskEntity) {
         titleTextField.text = task.title
         descriptionTextView.text = task.descriptionText
+        
+        let dateString = dateFormatter.string(from: task.currentDate!)
+        datePickerTextField.text = dateString
+        
+        guard let imageData = task.image else {return}
+        imageView.image = UIImage(data: imageData)
     }
     
     func setSaveButtonColor(color: UIColor) {

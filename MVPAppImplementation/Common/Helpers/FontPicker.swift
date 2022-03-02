@@ -37,6 +37,9 @@ final class FontPicker: NSObject {
         
         textField.inputAccessoryView = toolbar
         textField.inputView = pickerView
+        
+        font = fonts[0]
+        size = sizes[0]
     }
     
     private func configureToolbar() {
@@ -49,9 +52,9 @@ final class FontPicker: NSObject {
     }
     
     @objc private func doneButtonTapped() {
-        guard let font = font, let size = size else { return }
-        complitionHandler(font, size)
-        viewController?.view.endEditing(true)
+        guard let font = font, let size = size else {return}
+            complitionHandler(font, size)
+            viewController?.view.endEditing(true)
     }
     
     @objc private func cancelButtonTapped() {

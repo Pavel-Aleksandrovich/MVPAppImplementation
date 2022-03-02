@@ -29,6 +29,9 @@ final class TaskServiceImpl: TaskService {
         let task = TaskEntity(context: coreDataManager.context)
         task.title = sourceTask.title
         task.descriptionText = sourceTask.descriptionText
+        task.currentDate = sourceTask.currentDate
+        let imageData = sourceTask.image.pngData()
+        task.image = imageData
         
         coreDataManager.saveContext()
     }
@@ -36,6 +39,9 @@ final class TaskServiceImpl: TaskService {
     func updateTask(sourceTask: Task, task: TaskEntity) {
         task.title = sourceTask.title
         task.descriptionText = sourceTask.descriptionText
+        task.currentDate = sourceTask.currentDate
+        let imageData = sourceTask.image.pngData()
+        task.image = imageData
         
         coreDataManager.saveContext()
     }

@@ -5,13 +5,13 @@
 //  Created by pavel mishanin on 01.03.2022.
 //
 
-import Foundation
+import UIKit
 
 struct Task {
-    var color: Data
+    var color: String
     var currentDate: Date
     var descriptionText: String
     var fontText: String
-    var image: Data
+    var image: UIImage
     var title: String
 }

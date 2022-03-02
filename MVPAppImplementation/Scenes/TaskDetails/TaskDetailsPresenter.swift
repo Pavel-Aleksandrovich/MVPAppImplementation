@@ -54,7 +54,6 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
         
         guard let task = task else { return }
         controller?.configure(task: task)
-        
     }
     
     private func addTaskButtonPressed() {
