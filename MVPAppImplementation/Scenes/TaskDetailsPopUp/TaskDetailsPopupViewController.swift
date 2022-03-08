@@ -9,16 +9,18 @@ import UIKit
 
 final class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupController {
     
-    private let mainView: TaskDetailsPopupView
+    private let mainView = TaskDetailsPopupViewImpl()
     private let presenter: TaskDetailsPopupPresenter
     
     init(presenter: TaskDetailsPopupPresenter) {
+        
         self.presenter = presenter
-        mainView = TaskDetailsPopupViewImpl()
+//        mainView = TaskDetailsPopupViewImpl()
         super.init(nibName: nil, bundle: nil)
-        modalTransitionStyle = .crossDissolve
-        modalPresentationStyle = .overCurrentContext
-        definesPresentationContext = true
+//        modalTransitionStyle = .crossDissolve
+//        modalPresentationStyle = .overCurrentContext
+//        definesPresentationContext = true
+        
     }
     
     required init?(coder: NSCoder) {
@@ -34,6 +36,5 @@ final class TaskDetailsPopupViewController: UIViewController, TaskDetailsPopupCo
         presenter.onViewAttached(controller: self, view: mainView)
     }
 }
-
 
 

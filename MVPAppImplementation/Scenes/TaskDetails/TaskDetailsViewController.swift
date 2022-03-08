@@ -22,6 +22,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let imageButton = UIButton()
     private let colorPickerButton = UIButton()
     private let saveButton = UIButton()
+    private var behavior: ButtonEnablingBehavior!
     private let scrollView = UIScrollView()
     private let fontPickerTextField = UITextField()
     private let datePickerTextField = UITextField()
@@ -64,6 +65,17 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         hideOrShowKeyboard()
         createDatePicker()
         createFontPicker()
+        configureBehaviorSaveButton()
+    }
+    
+    private func configureBehaviorSaveButton() {
+        behavior = ButtonEnablingBehavior(textFields: [titleTextField], onChange: { enable in
+            if enable {
+                self.configureSaveButtonAction()
+            } else {
+                self.configureSaveButtonAnimation()
+            }
+        })
     }
     
     private func configureAppearance() {
@@ -131,11 +143,16 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private func configureActions() {
         configureColorPickerButtonAction()
         configureImageButtonAction()
-        configureSaveButtonAction()
     }
     
     private func configureSaveButtonAction() {
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        saveButton.alpha = 1
+    }
+    
+    private func configureSaveButtonAnimation() {
+        saveButton.addTarget(self, action: #selector(showShakeAnimation), for: .touchUpInside)
+        saveButton.alpha = 0.2
     }
     
     private func configureColorPickerButtonAction() {
@@ -156,12 +173,19 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         })
     }
     
+    @objc private func showShakeAnimation() {
+        createShakeAnimation(textField: titleTextField)
+    }
+    
     @objc private func saveButtonTapped() {
-        let currentDate = dateFormatter.date(from: datePickerTextField.text ?? "")
-        
-        let task = Task(color: "", currentDate: currentDate ?? Date(), descriptionText: descriptionTextView.text, fontText: "", image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage"), title: titleTextField.text ?? "")
-        
-        saveTaskButtonTappedHandler?(task)
+        guard let text = titleTextField.text else { return }
+        if !text.isEmpty {
+            let currentDate = dateFormatter.date(from: datePickerTextField.text ?? "")
+            
+            let task = Task(color: "", currentDate: currentDate ?? Date(), descriptionText: descriptionTextView.text, fontText: "", image: imageView.image ?? #imageLiteral(resourceName: "DefaultProfileImage"), title: titleTextField.text!)
+            
+            saveTaskButtonTappedHandler?(task)
+        }
     }
     
     func pickColor(color: UIColor?) {
@@ -180,7 +204,7 @@ extension TaskDetailsViewController: TaskDetailsController {
         titleTextField.text = task.title
         descriptionTextView.text = task.descriptionText
         
-        let dateString = dateFormatter.string(from: task.currentDate!)
+        let dateString = dateFormatter.string(from: task.currentDate ?? Date())
         datePickerTextField.text = dateString
         
         guard let imageData = task.image else {return}

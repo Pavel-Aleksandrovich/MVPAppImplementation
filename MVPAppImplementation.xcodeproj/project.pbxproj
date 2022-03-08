@@ -55,6 +55,7 @@
 		847BBC5E27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC5C27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift */; };
 		847BBC6027CDCB1B005E8A6C /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC5F27CDCB1B005E8A6C /* TaskService.swift */; };
 		847BBC6227CDCCA6005E8A6C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC6127CDCCA6005E8A6C /* Task.swift */; };
+		847BBCA227D748FE005E8A6C /* ButtonEnablingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBCA127D748FE005E8A6C /* ButtonEnablingBehavior.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		847BBC5C27CDCA26005E8A6C /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		847BBC5F27CDCB1B005E8A6C /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
 		847BBC6127CDCCA6005E8A6C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		847BBCA127D748FE005E8A6C /* ButtonEnablingBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEnablingBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +319,7 @@
 				8476A20227997E890062440A /* FontPicker */,
 				8476A22127A3AE220062440A /* CalendarPicker */,
 				8476A205279AA7CF0062440A /* DatePickerPopoverViewController */,
+				847BBCA127D748FE005E8A6C /* ButtonEnablingBehavior.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				847BBBDA27C33BC7005E8A6C /* Keyboard.swift in Sources */,
 				8476A22827A3AE220062440A /* CalendarDateCollectionViewCell.swift in Sources */,
 				846BA6D227BCB665006D8447 /* ImagePicker.swift in Sources */,
+				847BBCA227D748FE005E8A6C /* ButtonEnablingBehavior.swift in Sources */,
 				8476A20C279EBA1D0062440A /* TaskDetailsPopupPresenter.swift in Sources */,
 				8476A21E27A2656F0062440A /* FontPickerAssembler.swift in Sources */,
 				8476A1BE278815870062440A /* AppDelegate.swift in Sources */,

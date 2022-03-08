@@ -23,7 +23,7 @@ extension UIViewController {
     
     // MARK: - Shake animation for title text field
     
-    func showShakeAnimation(textField: UITextField) {
+    func createShakeAnimation(textField: UITextField) {
         let shakeAnimation = CAKeyframeAnimation(keyPath: "position.x")
         shakeAnimation.values = [0, -15, 15, -15, 15, 0]
         shakeAnimation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]

@@ -21,7 +21,6 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
     private let index: Int
     private let router: TaskDetailsPopupRouter
     private let taskService: TaskService
-    private var tasks = [TaskEntity]()
     
     init(index: Int, router: TaskDetailsPopupRouter, taskService: TaskService) {
         self.index = index
@@ -34,18 +33,16 @@ final class TaskDetailsPopupPresenterImpl: TaskDetailsPopupPresenter {
         self.controller = controller
         self.view = view
         getTaskByIndex()
-        dismissView()
+        setCloseButtonTappedHandler()
     }
     
     private func getTaskByIndex() {
-        tasks = taskService.getTasks()
+        let tasks = taskService.getTasks()
         guard let task = taskService.getTaskBy(id: tasks[index].objectID) else { return }
         view?.configure(task: task)
-//        let task = taskSettings.getTaskByIndex(index: index)
-//        view?.configure(task: task)
     }
     
-    private func dismissView() {
+    private func setCloseButtonTappedHandler() {
         view?.closeButtonTappedHandler = { [ weak self ] in
             self?.router.dismissView()
         }

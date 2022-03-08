@@ -19,7 +19,7 @@ class TaskListViewController: UIViewController {
         static let spacingBetweenCell = CGFloat(10)
         static let smallDevice = CGFloat(320)
     }
-    
+    var refreshControl:UIRefreshControl!
     private let layout = UICollectionViewFlowLayout()
     private var collectionView: UICollectionView!
     private let presenter: TaskListPresenter!
