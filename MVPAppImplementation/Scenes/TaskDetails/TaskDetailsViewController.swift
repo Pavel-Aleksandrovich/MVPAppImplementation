@@ -19,7 +19,6 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     private let titleTextField = UITextField()
     private let descriptionTextView = UITextView()
     private let imageView = UIImageView()
-    private let imageButton = UIButton()
     private let colorPickerButton = UIButton()
     private let saveButton = UIButton()
     private var behavior: ButtonEnablingBehavior!
@@ -111,10 +110,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         imageView.image = #imageLiteral(resourceName: "DefaultProfileImage.png")
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds  = true
-        
-        imageButton.layer.borderColor = UIColor.systemGray5.cgColor
-        imageButton.layer.borderWidth = CGFloat(0.8)
-        imageButton.layer.cornerRadius = 25
+        imageView.isUserInteractionEnabled = true
         
         saveButton.layer.borderColor = UIColor.systemBlue.cgColor
         saveButton.layer.borderWidth = CGFloat(3)
@@ -142,7 +138,13 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     
     private func configureActions() {
         configureColorPickerButtonAction()
-        configureImageButtonAction()
+        configureImageViewAction()
+    }
+    
+    private func configureImageViewAction() {
+        
+        let favorite = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        imageView.addGestureRecognizer(favorite)
     }
     
     private func configureSaveButtonAction() {
@@ -159,18 +161,14 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         colorPickerButton.addTarget(self, action: #selector(showColorPickerPopover), for: .touchUpInside)
     }
     
-    private func configureImageButtonAction() {
-        imageButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
+    @objc func addToFavorite(_ sender: UITapGestureRecognizer) {
+        imagePicker = ImagePicker(viewController: self, complitionHandler: { [ weak self ] image in
+            self?.imageView.image = image
+        })
     }
     
     @objc func showColorPickerPopover() {
         colorPickerButtonTappedHandler?(colorPickerButton)
-    }
-    
-    @objc private func showImagePicker() {
-        imagePicker = ImagePicker(viewController: self, complitionHandler: { [ weak self ] image in
-            self?.imageView.image = image
-        })
     }
     
     @objc private func showShakeAnimation() {
@@ -241,7 +239,7 @@ private extension TaskDetailsViewController {
     
     func configureView() {
         
-        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, imageButton, fontPickerTextField, datePickerTextField, vStackView, saveButton].forEach {
+        [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, fontPickerTextField, datePickerTextField, vStackView, saveButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -250,7 +248,6 @@ private extension TaskDetailsViewController {
         scrollView.addSubview(saveButton)
         scrollView.addSubview(titleTextField)
         scrollView.addSubview(imageView)
-        scrollView.addSubview(imageButton)
         scrollView.addSubview(descriptionTextView)
         vStackView.addArrangedSubview(datePickerTextField)
         vStackView.addArrangedSubview(fontPickerTextField)
@@ -297,12 +294,7 @@ private extension TaskDetailsViewController {
             imageView.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            
-            imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            imageButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            imageButton.topAnchor.constraint(equalTo: imageView.topAnchor),
-            imageButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-            
+
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             saveButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             saveButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),

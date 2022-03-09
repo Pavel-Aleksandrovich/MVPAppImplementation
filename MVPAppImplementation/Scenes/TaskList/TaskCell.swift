@@ -18,11 +18,11 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         static let taskCheckMarkButton: CGFloat = 30
     }
     
-    private let bacgroundView = UIView()
+    private let backView = UIView()
     private let titleLabel = UILabel()
-    private let illustrationImageView = UIImageView()
-    private let taskCurrentDataLabel = UILabel()
-    private let taskCheckMarkButton = UIButton()
+    private let imageView = UIImageView()
+    private let currentDataLabel = UILabel()
+    private let checkMarkButton = UIButton()
     private let dateLabel = UILabel()
     private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -48,39 +48,39 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
         dateLabel.text = dateString
 
         guard let imageData = task.image else {return}
-        illustrationImageView.image = UIImage(data: imageData)
+        imageView.image = UIImage(data: imageData)
     }
     
     func configureView() {
         
-        self.addSubview(bacgroundView)
-        bacgroundView.addSubview(illustrationImageView)
-        bacgroundView.addSubview(titleLabel)
-        bacgroundView.addSubview(taskCheckMarkButton)
-        bacgroundView.addSubview(dateLabel)
+        self.addSubview(backView)
+        backView.addSubview(imageView)
+        backView.addSubview(titleLabel)
+        backView.addSubview(checkMarkButton)
+        backView.addSubview(dateLabel)
         
-        bacgroundView.backgroundColor = .white
-        bacgroundView.layer.cornerRadius = Constants.cellCornerRadius
-        bacgroundView.layer.borderWidth = CGFloat(3)
+        backView.backgroundColor = .white
+        backView.layer.cornerRadius = Constants.cellCornerRadius
+        backView.layer.borderWidth = CGFloat(3)
 //        bacgroundView.layer.borderColor = UIColor.black.cgColor
-        bacgroundView.clipsToBounds = true
+        backView.clipsToBounds = true
         
         
-        taskCheckMarkButton.backgroundColor = .none
-        taskCheckMarkButton.setImage(UIImage(systemName: "square", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
+        checkMarkButton.backgroundColor = .none
+        checkMarkButton.setImage(UIImage(systemName: "square", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
 //        taskCheckMarkButton.addTarget(self, action: #selector(pres), for: .touchUpInside)
         
-        taskCheckMarkButton.contentMode = .scaleAspectFit
-        taskCheckMarkButton.isUserInteractionEnabled = true
-        taskCheckMarkButton.isAccessibilityElement = true
-        taskCheckMarkButton.accessibilityTraits = .button
-        taskCheckMarkButton.accessibilityLabel = "Mark as Complete"
+        checkMarkButton.contentMode = .scaleAspectFit
+        checkMarkButton.isUserInteractionEnabled = true
+        checkMarkButton.isAccessibilityElement = true
+        checkMarkButton.accessibilityTraits = .button
+        checkMarkButton.accessibilityLabel = "Mark as Complete"
         
         titleLabel.font = .systemFont(ofSize: 25, weight: .bold)
         titleLabel.textColor = .black
         
-        illustrationImageView.layer.cornerRadius = (self.bounds.height)/4
-        illustrationImageView.clipsToBounds = true
+        imageView.layer.cornerRadius = (self.bounds.height)/4
+        imageView.clipsToBounds = true
         
         dateLabel.font = .systemFont(ofSize: 15, weight: .light)
         dateLabel.textAlignment = .left
@@ -91,30 +91,30 @@ final class TaskCell: UICollectionViewCell, TaskListCellView {
     
     func configureLayoutConstraints() {
         
-        [bacgroundView, titleLabel, illustrationImageView, taskCurrentDataLabel, taskCheckMarkButton, dateLabel].forEach {
+        [backView, titleLabel, imageView, currentDataLabel, checkMarkButton, dateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            bacgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            bacgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            bacgroundView.topAnchor.constraint(equalTo: self.topAnchor),
-            bacgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            backView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backView.topAnchor.constraint(equalTo: self.topAnchor),
+            backView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            illustrationImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.imageConstant),
-            illustrationImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constants.imageConstant),
-            illustrationImageView.heightAnchor.constraint(equalToConstant: self.bounds.height/2),
-            illustrationImageView.widthAnchor.constraint(equalToConstant: self.bounds.height/2),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.imageConstant),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constants.imageConstant),
+            imageView.heightAnchor.constraint(equalToConstant: self.bounds.height/2),
+            imageView.widthAnchor.constraint(equalToConstant: self.bounds.height/2),
             
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.titleLabelConstant),
             titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.titleLabelConstant),
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.titleLabelConstant),
             titleLabel.heightAnchor.constraint(equalToConstant: 3*Constants.titleLabelConstant),
             
-            taskCheckMarkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskCheckMarkButtonConstant),
-            taskCheckMarkButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 2*Constants.taskCheckMarkButtonConstant),
-            taskCheckMarkButton.heightAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
-            taskCheckMarkButton.widthAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
+            checkMarkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskCheckMarkButtonConstant),
+            checkMarkButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 2*Constants.taskCheckMarkButtonConstant),
+            checkMarkButton.heightAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
+            checkMarkButton.widthAnchor.constraint(equalToConstant: Constants.taskCheckMarkButton),
             
             dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.taskDataLabelConstant),
             dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.taskDataLabelConstant),
