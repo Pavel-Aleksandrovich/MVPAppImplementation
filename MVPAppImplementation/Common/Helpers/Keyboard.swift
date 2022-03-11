@@ -43,7 +43,7 @@ final class Keyboard {
         hideKeyboard()
     }
     
-    func showKeyboard(keyboardFrame: CGRect) {
+    private func showKeyboard(keyboardFrame: CGRect) {
         if scrollViewLayoutConstraint?.constant == 0 {
             let keyboardTop = keyboardFrame.height
             scrollViewLayoutConstraint?.constant = -keyboardTop
@@ -51,13 +51,14 @@ final class Keyboard {
         }
     }
     
-    func hideKeyboard() {
+    private func hideKeyboard() {
         if scrollViewLayoutConstraint?.constant != 0 {
             scrollViewLayoutConstraint?.constant = 0
             scrollView.contentOffset = CGPoint.zero
         }
     }
-    func configureLayout() {
+    
+    private func configureLayout() {
         scrollViewLayoutConstraint = scrollView.bottomAnchor.constraint(
             equalTo: (viewController?.view.bottomAnchor)!, constant: 0)
         scrollViewLayoutConstraint?.isActive = true

@@ -9,11 +9,11 @@ import UIKit
 
 final class TaskDetailsAssembler {
     
-    class func assembly(index: Int?) -> UIViewController {
+    class func assembly(state: TaskState) -> UIViewController {
         
         let router = TaskDetailsRouterImpl()
         let taskService = TaskServiceImpl()
-        let presenter = TaskDetailsPresenterImpl(router: router, index: index, taskService: taskService)
+        let presenter = TaskDetailsPresenterImpl(router: router, state: state, taskService: taskService)
         let controller = TaskDetailsViewController(presenter: presenter)
         router.controller = controller
         

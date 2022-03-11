@@ -142,9 +142,8 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
     }
     
     private func configureImageViewAction() {
-        
-        let favorite = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
-        imageView.addGestureRecognizer(favorite)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(pickImage))
+        imageView.addGestureRecognizer(gesture)
     }
     
     private func configureSaveButtonAction() {
@@ -161,7 +160,7 @@ class TaskDetailsViewController: UIViewController, ColorPickerDelegate, UITextVi
         colorPickerButton.addTarget(self, action: #selector(showColorPickerPopover), for: .touchUpInside)
     }
     
-    @objc func addToFavorite(_ sender: UITapGestureRecognizer) {
+    @objc func pickImage(_ sender: UITapGestureRecognizer) {
         imagePicker = ImagePicker(viewController: self, complitionHandler: { [ weak self ] image in
             self?.imageView.image = image
         })
@@ -238,7 +237,6 @@ private extension TaskDetailsViewController {
     }
     
     func configureView() {
-        
         [scrollView, titleTextField, descriptionTextView, imageView, colorPickerButton, fontPickerTextField, datePickerTextField, vStackView, saveButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }

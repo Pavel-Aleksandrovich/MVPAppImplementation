@@ -19,14 +19,14 @@ class TaskListViewController: UIViewController {
         static let spacingBetweenCell = CGFloat(10)
         static let smallDevice = CGFloat(320)
     }
-    var refreshControl:UIRefreshControl!
+    
     private let layout = UICollectionViewFlowLayout()
     private var collectionView: UICollectionView!
     private let presenter: TaskListPresenter!
     private let addTaskButton = UIButton()
     private var contextMenu = ContextMenu()
     
-    var showTaskDetailsHandler: ((Int?) -> ())?
+    var showTaskDetailsHandler: ((TaskState) -> ())?
     
     init(presenter: TaskListPresenter) {
         self.presenter = presenter
@@ -39,7 +39,6 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter.onViewAttached(view: self)
         configureView()
     }
@@ -67,7 +66,7 @@ class TaskListViewController: UIViewController {
     }
     
     @objc private func addTaskButtonTapped() {
-        showTaskDetailsHandler?(nil)
+        showTaskDetailsHandler?(.newTask)
     }
     
     func updateTask(closure: @escaping (Bool, Int) -> ()) {
@@ -86,7 +85,6 @@ class TaskListViewController: UIViewController {
         
         return widthAddTaskButton
     }
-    
 }
 
 // MARK: - TaskListView
@@ -151,7 +149,7 @@ extension TaskListViewController {
                     collectionView.reloadData()
                 }
             case .edit:
-                self?.showTaskDetailsHandler?(indexPath.row)
+                self?.showTaskDetailsHandler?(.taskDetails(indexPath.row))
             case .showDetails:
                 print("showDetails")
             }

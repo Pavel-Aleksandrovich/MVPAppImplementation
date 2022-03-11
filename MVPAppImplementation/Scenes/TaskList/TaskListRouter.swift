@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskListRouter {
-    func presentTaskDetails(animated: Bool, index: Int?)
+    func presentTaskDetails(animated: Bool, state: TaskState)
     func presentTaskDetailsPopup(index: Int)
 }
 
@@ -16,9 +16,9 @@ final class TaskListRouterImpl: TaskListRouter {
     
     weak var controller: UIViewController?
     
-    func presentTaskDetails(animated: Bool, index: Int?) {
+    func presentTaskDetails(animated: Bool, state: TaskState) {
         
-        let vc = TaskDetailsAssembler.assembly(index: index)
+        let vc = TaskDetailsAssembler.assembly(state: state)
         controller?.navigationController?.pushViewController(vc, animated: animated)
     }
     

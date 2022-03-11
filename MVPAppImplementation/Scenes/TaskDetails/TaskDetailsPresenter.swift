@@ -21,16 +21,17 @@ protocol TaskDetailsController: AnyObject {
 }
 
 final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
+    
     private weak var controller: TaskDetailsController?
     private weak var view: TaskDetailsView?
     private let router: TaskDetailsRouter
-    private let index: Int?
+    private let state: TaskState
     private let taskService: TaskService
     private var task: TaskEntity?
     
-    init(router: TaskDetailsRouter, index: Int?, taskService: TaskService) {
+    init(router: TaskDetailsRouter, state: TaskState, taskService: TaskService) {
         self.router = router
-        self.index = index
+        self.state = state
         self.taskService = taskService
     }
     
@@ -48,22 +49,28 @@ final class TaskDetailsPresenterImpl: TaskDetailsPresenter {
     }
     
     private func configureView() {
-        guard let index = index else { return }
-        let tasks = taskService.getTasks()
-        task = taskService.getTaskBy(id: tasks[index].objectID)
-        
-        guard let task = task else { return }
-        controller?.configure(task: task)
+        switch state {
+        case .newTask:
+            print("newTask")
+        case .taskDetails(let index):
+            let tasks = taskService.getTasks()
+            task = taskService.getTaskBy(id: tasks[index].objectID)
+            guard let task = task else { return }
+            controller?.configure(task: task)
+        }
     }
     
     private func addTaskButtonPressed() {
         controller?.saveTaskButtonTappedHandler = { [weak self] sourceTask in
-            if self?.index == nil {
+            
+            switch self?.state {
+            case .newTask:
                 self?.taskService.createTask(sourceTask: sourceTask)
                 self?.router.popViewController(animated: false)
-            } else {
+            case .taskDetails(_):
                 self?.taskService.updateTask(sourceTask: sourceTask, task: (self?.task)!)
                 self?.router.popViewController(animated: false)
+            case .none: break
             }
         }
     }

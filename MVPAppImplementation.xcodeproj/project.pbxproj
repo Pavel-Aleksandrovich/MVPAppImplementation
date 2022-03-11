@@ -56,6 +56,7 @@
 		847BBC6027CDCB1B005E8A6C /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC5F27CDCB1B005E8A6C /* TaskService.swift */; };
 		847BBC6227CDCCA6005E8A6C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBC6127CDCCA6005E8A6C /* Task.swift */; };
 		847BBCA227D748FE005E8A6C /* ButtonEnablingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBCA127D748FE005E8A6C /* ButtonEnablingBehavior.swift */; };
+		847BBCAD27DB3FD8005E8A6C /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BBCAC27DB3FD8005E8A6C /* TaskState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		847BBC5F27CDCB1B005E8A6C /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
 		847BBC6127CDCCA6005E8A6C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		847BBCA127D748FE005E8A6C /* ButtonEnablingBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEnablingBehavior.swift; sourceTree = "<group>"; };
+		847BBCAC27DB3FD8005E8A6C /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				8476A1D427881D680062440A /* TaskListAssembler.swift */,
 				8476A1DA27883CFB0062440A /* TaskCell.swift */,
 				8476A1E7278BE9F20062440A /* TaskListRouter.swift */,
+				847BBCAC27DB3FD8005E8A6C /* TaskState.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				8476A1FC2798065B0062440A /* ColorPickerViewController.swift in Sources */,
 				8476A1F9278D51E30062440A /* UIViewController Extension.swift in Sources */,
 				847BBBDD27C37BA1005E8A6C /* DatePicker.swift in Sources */,
+				847BBCAD27DB3FD8005E8A6C /* TaskState.swift in Sources */,
 				8476A1DE278949660062440A /* TaskDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

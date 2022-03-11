@@ -17,7 +17,7 @@ protocol TaskListPresenter {
     }
 
 protocol TaskListView: AnyObject {
-    var showTaskDetailsHandler: ((Int?) -> ())? { get set }
+    var showTaskDetailsHandler: ((TaskState) -> ())? { get set }
     func deselectRow(indexPath: IndexPath, animated: Bool)
 }
 
@@ -52,8 +52,8 @@ final class TaskListPresenterImpl: TaskListPresenter {
     }
     
     private func addTaskButtonTapped() {
-        view?.showTaskDetailsHandler = { [weak self] index in
-            self?.router.presentTaskDetails(animated: false, index: index)
+        view?.showTaskDetailsHandler = { [weak self] taskState in
+            self?.router.presentTaskDetails(animated: false, state: taskState)
         }
     }
     
